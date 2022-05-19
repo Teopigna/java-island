@@ -1,8 +1,11 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+<<<<<<< HEAD
 import { MenuComponent } from './menu/menu.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccountCardComponent } from './dashboard/account-card/account-card.component';
@@ -10,6 +13,10 @@ import { GraphicAreaComponent } from './dashboard/graphic-area/graphic-area.comp
 import { ActionsComponent } from './dashboard/actions/actions.component';
 import { TransactionsComponent } from './dashboard/transactions/transactions.component';
 import { PopUpComponent } from './dashboard/actions/pop-up/pop-up.component';
+=======
+import { HomepageComponent } from './homepage/homepage.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+>>>>>>> d01e34ec4043aef0dd026ec6c7c24b5f4cbdf1c0
 
 import { FusionChartsModule } from 'angular-fusioncharts';
 
@@ -24,6 +31,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
   declarations: [
     AppComponent,
+<<<<<<< HEAD
     MenuComponent,
     DashboardComponent,
     AccountCardComponent,
@@ -38,6 +46,15 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     FusionChartsModule,
     NgbProgressbarModule,
     NgbTooltipModule,
+=======
+    HomepageComponent,
+    UserProfileComponent
+  ],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    HttpClientModule
+>>>>>>> d01e34ec4043aef0dd026ec6c7c24b5f4cbdf1c0
   ],
   providers: [],
   bootstrap: [AppComponent],
