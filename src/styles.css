@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --menu-bg-color: #3688ec;
+  --menu-font-color: #cefffc;
+  --menu-font-color-hover: #70fdea;
+}

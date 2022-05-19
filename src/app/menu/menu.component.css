@@ -1,0 +1,55 @@
+a,
+button {
+  color: var(--menu-font-color);
+}
+
+a:hover,
+button:hover {
+  color: var(--menu-font-color-hover);
+}
+
+.menu-container {
+  width: 150px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--menu-bg-color);
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.nav-links {
+  list-style-type: none;
+  padding: 10px 10px 0 10px;
+}
+
+.nav-links li {
+  margin-top: 20px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+}
+
+.logout-btn {
+  align-self: center;
+  margin: 20px;
+}
+
+button {
+  background: transparent;
+  border: none;
+}
+
+.open-menu {
+  cursor: pointer;
+  color: var(--menu-bg-color);
+}
