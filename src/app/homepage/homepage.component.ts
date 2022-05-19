@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -24,16 +25,51 @@ export class HomepageComponent implements OnInit {
     password: new FormControl('', Validators.required)
   })
 
-  constructor() { }
+  
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
   onSubmitLogin(){
+    if(!this.loginForm.valid){
+      return;
+    }
 
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+
+    this.authService.login(email, password).subscribe(
+      resData => {
+        console.log(resData);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+    this.signUpForm.reset();
   }
 
   onSubmitSignUp(){
+    if(!this.signUpForm.valid){
+      return;
+    }
+
+    const email = this.signUpForm.value.email;
+    const password = this.signUpForm.value.password;
+
+    this.authService.signUp(email, password).subscribe(
+      resData => {
+        console.log(resData);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+    this.signUpForm.reset();
 
   }
 
