@@ -1,1 +1,26 @@
-<button class="panel">transactions works!</button>
+<div class="panel">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Importo</th>
+        <th>Da</th>
+        <th>A</th>
+        <th>Tipo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>
+          <i>{{ transaction.date }}</i>
+        </td>
+        <td>
+          <b>€ {{ transaction.amount }}</b>
+        </td>
+        <td>{{ transaction.from }}</td>
+        <td>{{ transaction.to }}</td>
+        <td>{{ transaction.type }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
