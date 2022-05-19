@@ -5,3 +5,8 @@
   --menu-font-color: #cefffc;
   --menu-font-color-hover: #70fdea;
 }
+
+.panel {
+  border: 3px solid var(--menu-font-color-hover);
+  border-radius: 15px;
+}

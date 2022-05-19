@@ -43,7 +43,6 @@ export class MenuComponent implements OnInit {
   }
 
   onSlideMenu() {
-    // this.menuState = this.menuState === 'closed' ? 'open' : 'closed';
     if (this.menuState === 'open') {
       this.menuState = 'closed';
       setTimeout(() => {
@@ -52,9 +51,12 @@ export class MenuComponent implements OnInit {
       }, 500);
     } else {
       this.menu = 'open';
+      // il setTimeout qui è necessario perché altrimenti si sovrappongono la
+      // creazione del div interessato e la partenza dell'animazione (l'animazione
+      // non può partire se il div non è stato creato)
       setTimeout(() => {
         this.menuState = 'open';
-      }, 50);
+      }, 10);
       console.log(this.menu);
     }
   }
