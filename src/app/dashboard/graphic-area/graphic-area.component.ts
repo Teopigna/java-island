@@ -77,8 +77,8 @@ export class GraphicAreaComponent implements OnInit {
   // per il momento, o se non si riesce a fare, mettiamo una grandezza che va bene
   // per ogni tipo di device
 
-  width = '600';
-  height = '400';
+  width = '400';
+  height = '200';
   type = 'spline';
   dataFormat = 'json';
   dataSource = data;
