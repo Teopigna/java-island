@@ -1,6 +1,6 @@
 import { AuthService } from './../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule  } from '@angular/forms';
 
 @Component({
   selector: 'app-homepage',
@@ -22,6 +22,7 @@ export class HomepageComponent implements OnInit {
     name: new FormControl('', Validators.required),
     surname: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
+    birthDate: new FormControl('', [Validators.required]),
     password: new FormControl('', Validators.required)
   })
   
@@ -57,8 +58,11 @@ export class HomepageComponent implements OnInit {
 
     const email = this.signUpForm.value.email;
     const password = this.signUpForm.value.password;
+    const name = this.signUpForm.value.name;
+    const surname = this.signUpForm.value.surname;
+    const birthDate = this.signUpForm.value.birthDate;
 
-    this.authService.signUp(email, password).subscribe(
+    this.authService.signUpReal(name, surname, birthDate, email, password).subscribe(
       resData => {
         console.log(resData);
       },
