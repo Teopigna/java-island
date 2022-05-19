@@ -35,6 +35,8 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     ActionsComponent,
     TransactionsComponent,
     PopUpComponent,
+    HomepageComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,8 +44,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     FusionChartsModule,
     NgbProgressbarModule,
     NgbTooltipModule,
-    HomepageComponent,
-    UserProfileComponent,
+
     ReactiveFormsModule,
     HttpClientModule,
   ],
