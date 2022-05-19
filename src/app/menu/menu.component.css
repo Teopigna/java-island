@@ -8,6 +8,7 @@ button:hover {
   color: var(--menu-font-color-hover);
 }
 
+/* da modificare la width del pannello del menu in modo che non sia brutto negli schermi grandi */
 .menu-container {
   width: 150px;
   height: 100%;
@@ -54,4 +55,5 @@ button {
 .open-menu {
   cursor: pointer;
   color: var(--menu-bg-color);
+  font-size: 30px;
 }

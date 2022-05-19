@@ -13,7 +13,7 @@ a:hover {
 }
 
 .title {
-  color: rgb(201, 201, 201);
+  color: var(--grey-titles);
   width: 190px;
   text-indent: 50%;
 }

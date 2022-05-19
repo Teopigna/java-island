@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 
 // data.data è un esempio: andranno sostituiti con i dati che arrivano dal be con le transazioni
 const data = {
@@ -71,19 +72,41 @@ const data = {
   templateUrl: './graphic-area.component.html',
   styleUrls: ['./graphic-area.component.css'],
 })
-export class GraphicAreaComponent implements OnInit {
+export class GraphicAreaComponent implements OnInit, OnDestroy {
   // da aggiunstare width e height a seconda della grandezza che ci serve... magari cambiarla in relazione
   // alla grandezza del viewport, ma bisogna mettere in ascolto il file ts (@hostlistener)
   // per il momento, o se non si riesce a fare, mettiamo una grandezza che va bene
   // per ogni tipo di device
 
   width = '400';
-  height = '200';
+  height = '170';
   type = 'spline';
   dataFormat = 'json';
   dataSource = data;
 
+  // per la progress bar:
+  progressAnimation = '0';
+  maxprogress = '60';
+  subscription?: Subscription;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // per la progress bar
+    this.subscription = interval(100).subscribe(() => {
+      this.changeWidth();
+      console.log(this.progressAnimation);
+      if (+this.progressAnimation >= +this.maxprogress) {
+        this.subscription?.unsubscribe();
+      }
+    });
+  }
+
+  private changeWidth() {
+    this.progressAnimation = (+this.progressAnimation + 4).toString();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
 }

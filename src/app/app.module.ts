@@ -9,12 +9,16 @@ import { AccountCardComponent } from './dashboard/account-card/account-card.comp
 import { GraphicAreaComponent } from './dashboard/graphic-area/graphic-area.component';
 import { ActionsComponent } from './dashboard/actions/actions.component';
 import { TransactionsComponent } from './dashboard/transactions/transactions.component';
+import { PopUpComponent } from './dashboard/actions/pop-up/pop-up.component';
 
 import { FusionChartsModule } from 'angular-fusioncharts';
 
 import * as FusionCharts from 'fusioncharts';
 import * as charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
@@ -26,8 +30,15 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     GraphicAreaComponent,
     ActionsComponent,
     TransactionsComponent,
+    PopUpComponent,
   ],
-  imports: [BrowserModule, BrowserAnimationsModule, FusionChartsModule],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FusionChartsModule,
+    NgbProgressbarModule,
+    NgbTooltipModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

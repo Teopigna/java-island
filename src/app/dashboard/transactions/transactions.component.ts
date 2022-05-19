@@ -14,6 +14,7 @@ export class TransactionsComponent implements OnInit {
       date: '27-09-2021',
       from: 'contoxxx',
       to: 'contoyyy',
+      description: 'descrizione della transazione',
     },
     {
       id: 1,
@@ -22,6 +23,7 @@ export class TransactionsComponent implements OnInit {
       date: '27-09-2021',
       from: 'contoxxx',
       to: 'contoyyy',
+      description: 'descrizione della transazione',
     },
     {
       id: 1,
@@ -30,6 +32,7 @@ export class TransactionsComponent implements OnInit {
       date: '27-09-2021',
       from: 'contoxxx',
       to: 'contoyyy',
+      description: 'descrizione della transazione',
     },
     {
       id: 1,
@@ -38,6 +41,7 @@ export class TransactionsComponent implements OnInit {
       date: '27-09-2021',
       from: 'contoxxx',
       to: 'contoyyy',
+      description: 'descrizione della transazione',
     },
     {
       id: 1,
@@ -46,6 +50,7 @@ export class TransactionsComponent implements OnInit {
       date: '27-09-2021',
       from: 'contoxxx',
       to: 'contoyyy',
+      description: 'descrizione della transazione',
     },
     {
       id: 1,
@@ -54,6 +59,7 @@ export class TransactionsComponent implements OnInit {
       date: '27-09-2021',
       from: 'contoxxx',
       to: 'contoyyy',
+      description: 'descrizione della transazione',
     },
     {
       id: 1,
@@ -62,6 +68,7 @@ export class TransactionsComponent implements OnInit {
       date: '27-09-2021',
       from: 'contoxxx',
       to: 'contoyyy',
+      description: 'descrizione della transazione',
     },
     {
       id: 1,
@@ -70,6 +77,7 @@ export class TransactionsComponent implements OnInit {
       date: '27-09-2021',
       from: 'contoxxx',
       to: 'contoyyy',
+      description: 'descrizione della transazione',
     },
     {
       id: 1,
@@ -78,6 +86,7 @@ export class TransactionsComponent implements OnInit {
       date: '27-09-2021',
       from: 'contoxxx',
       to: 'contoyyy',
+      description: 'descrizione della transazione',
     },
     {
       id: 1,
@@ -86,6 +95,7 @@ export class TransactionsComponent implements OnInit {
       date: '27-09-2021',
       from: 'contoxxx',
       to: 'contoyyy',
+      description: 'descrizione della transazione',
     },
   ];
 
