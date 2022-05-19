@@ -16,6 +16,7 @@ export class AuthService {
 
     constructor(private http: HttpClient) {}
 
+    //SignUp temporaneo su FireBase
     signUp(email: string, password: string){
         return this.http.post<AuthResponseData>(
             'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAXV4EliA62QyHDYEvyUbpvtEvKpzG3mAI',
@@ -23,6 +24,20 @@ export class AuthService {
                 email: email, 
                 password: password,
                 returnSecureToken: true
+            }
+        )
+    }
+    
+    //SignUp con EndPoint reale
+    signUpReal(name: string, surname: string, email:string, birthDate: string, password:string){
+        return this.http.post<AuthResponseData>(
+            'https://localhost:8756/api/auth/signup',
+            {   
+                firstName: name,
+                lastName: surname,
+                email: email, 
+                birthDate: birthDate,
+                password: password,
             }
         )
     }
