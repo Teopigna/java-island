@@ -1,0 +1,19 @@
+a {
+  text-decoration: none;
+  color: var(--menu-bg-color);
+}
+
+a:hover {
+  color: var(--menu-font-color-hover);
+}
+
+.container-actions {
+  width: fit-content;
+  margin: 0;
+}
+
+.title {
+  color: var(--grey-titles);
+  width: 190px;
+  text-indent: 50%;
+}

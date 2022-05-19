@@ -1,0 +1,26 @@
+<div *ngIf="menu === 'closed'" (click)="onSlideMenu()" class="open-menu">
+  <i class="fa-solid fa-bars"></i>
+</div>
+<div [@menu]="menuState" class="menu-container" *ngIf="menu === 'open'">
+  <div>
+    <div class="nav-menu">
+      <button><i class="fa-solid fa-house"></i></button>
+      <button (click)="onSlideMenu()"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#"><i class="fa-solid fa-user"></i> Profilo</a>
+      </li>
+      <li>
+        <a href="#"
+          ><i class="fa-solid fa-money-check-dollar"></i> Gestione Conti</a
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="logout-btn">
+    <button type="button" (click)="onLogout()">
+      Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    </button>
+  </div>
+</div>
