@@ -1,0 +1,30 @@
+<p>employee works!</p>
+<table class="table table-striped" style="width: 90%">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Richiedente</th>
+      <th scope="col">Età</th>
+      <th scope="col">città</th>
+      <th scope="col">selezione</th>
+      <!--<th scope="col">stato</th>-->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let listElement of shownList; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        {{ listElement.nome }}
+      </td>
+      <td>{{ listElement.eta }}</td>
+      <td>{{ listElement.citta }}</td>
+
+      <td>
+        <button class="btn btn-warning">accetta</button>
+        <button class="btn btn-danger" style="margin-left: 10px">
+          rifiuta
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

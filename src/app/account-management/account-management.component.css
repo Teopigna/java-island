@@ -1,0 +1,12 @@
+.table {
+  border-radius: 15px;
+  box-shadow: 1.5px 1.5px 3px 3px rgba(54, 136, 236, 0.5);
+  margin: 20px;
+
+  padding: 5px;
+  width: fit-content;
+}
+
+.button {
+  padding: 20px;
+}
