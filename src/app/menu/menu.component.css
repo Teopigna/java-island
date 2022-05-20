@@ -10,7 +10,7 @@ button:hover {
 
 /* da modificare la width del pannello del menu in modo che non sia brutto negli schermi grandi */
 .menu-container {
-  width: 150px;
+  width: 200px;
   height: 100%;
   position: absolute;
   left: 0;

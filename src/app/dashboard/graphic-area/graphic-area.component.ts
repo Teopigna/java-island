@@ -95,7 +95,6 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
     // per la progress bar
     this.subscription = interval(100).subscribe(() => {
       this.changeWidth();
-      console.log(this.progressAnimation);
       if (+this.progressAnimation >= +this.maxprogress) {
         this.subscription?.unsubscribe();
       }
