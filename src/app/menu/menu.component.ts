@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import {
   animate,
   state,
@@ -34,12 +35,12 @@ export class MenuComponent implements OnInit {
   menuState = 'closed';
   menu = 'closed';
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
   onLogout() {
-    // si chiama qui la funzione logout dal service auth
+    this.authService.logout();
   }
 
   onSlideMenu() {

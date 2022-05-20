@@ -35,7 +35,7 @@
     <hr />
     <!-- Pannello errore login -->
     <div class="alert alert-danger" *ngIf="loginErrorMessage">
-      <p style="text-align: center;">{{loginErrorMessage}}</p>
+      <p style="text-align: center">{{ loginErrorMessage }}</p>
     </div>
     <!-- Fine Pannello errore -->
     <div class="panel-body text-center">
@@ -50,9 +50,13 @@
               class="form-control"
             />
             <!-- Messaggio errore in caso email non valida -->
-            <span 
-              *ngIf="!loginForm.get('email')?.valid && loginForm.get('email')?.touched"
-              class="help-block">Please enter a valid email
+            <span
+              *ngIf="
+                !loginForm.get('email')?.valid &&
+                loginForm.get('email')?.touched
+              "
+              class="help-block"
+              >Please enter a valid email
             </span>
             <!-- Fine messaggio errore -->
           </div>
@@ -66,9 +70,13 @@
               password
             />
             <!-- Messaggio errore in caso password non valida -->
-            <span 
-              *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched"
-              class="help-block">Please enter password
+            <span
+              *ngIf="
+                !loginForm.get('password')?.valid &&
+                loginForm.get('password')?.touched
+              "
+              class="help-block"
+              >Please enter password
             </span>
             <!-- Fine messaggio errore -->
           </div>
@@ -89,7 +97,6 @@
 <!-- SIGNUP PANEL -->
 
 <div class="container" *ngIf="signUp">
-<<<<<<< HEAD
   <div class="panel panel-default col-md-2">
     <div class="panel-title text-center"><h3>JavaIsland</h3></div>
     <hr />
@@ -104,6 +111,16 @@
               formControlName="name"
               class="form-control"
             />
+            <!-- Messaggio errore in caso nome non valido -->
+            <span
+              *ngIf="
+                !signUpForm.get('name')?.valid &&
+                signUpForm.get('name')?.touched
+              "
+              class="help-block"
+              >Please enter your name
+            </span>
+            <!-- Fine messaggio errore -->
           </div>
           <div class="form-group">
             <label for="surname">Surname</label>
@@ -113,6 +130,16 @@
               formControlName="surname"
               class="form-control"
             />
+            <!-- Messaggio errore in caso cognome non valid0 -->
+            <span
+              *ngIf="
+                !signUpForm.get('surname')?.valid &&
+                signUpForm.get('surname')?.touched
+              "
+              class="help-block"
+              >Please enter your surname
+            </span>
+            <!-- Fine messaggio errore -->
           </div>
           <div class="form-group">
             <label for="birthDate">Date of birth</label>
@@ -122,6 +149,16 @@
               formControlName="birthDate"
               class="form-control"
             />
+            <!-- Messaggio errore in caso data di nascita non valida -->
+            <span
+              *ngIf="
+                !signUpForm.get('birthDate')?.valid &&
+                signUpForm.get('birthDate')?.touched
+              "
+              class="help-block"
+              >Please enter your birth date
+            </span>
+            <!-- Fine messaggio errore -->
           </div>
           <div class="form-group">
             <label for="email">Email</label>
@@ -131,6 +168,16 @@
               formControlName="email"
               class="form-control"
             />
+            <!-- Messaggio errore in caso email non valida -->
+            <span
+              *ngIf="
+                !signUpForm.get('email')?.valid &&
+                signUpForm.get('email')?.touched
+              "
+              class="help-block"
+              >Please enter a valid email
+            </span>
+            <!-- Fine messaggio errore -->
           </div>
           <div class="form-group">
             <label for="password">Password</label>
@@ -141,6 +188,16 @@
               class="form-control"
               password
             />
+            <!-- Messaggio errore in caso password non valida -->
+            <span
+              *ngIf="
+                !signUpForm.get('password')?.valid &&
+                signUpForm.get('password')?.touched
+              "
+              class="help-block"
+              >Please enter password
+            </span>
+            <!-- Fine messaggio errore -->
           </div>
           <button
             type="submit"
@@ -150,105 +207,11 @@
           >
             SignUp
           </button>
-=======
-
-    <div class="panel panel-default col-md-2">
-        <div class="panel-title text-center"><h3>JavaIsland</h3></div>
-        <hr>
-        <div class="panel-body text-center">
-            <form [formGroup]="signUpForm" (ngSubmit)="onSubmitSignUp()">
-                <div class="col-xs-12 justify-content-center">
-                    <div class="form-group ">
-                      <label for="name">Name</label>
-                      <input
-                          type="text"
-                          id="name"
-                          formControlName="name"
-                          class="form-control"
-                      />
-                      <!-- Messaggio errore in caso nome non valido -->
-                      <span 
-                        *ngIf="!signUpForm.get('name')?.valid && signUpForm.get('name')?.touched"
-                        class="help-block">Please enter your name
-                      </span>
-                      <!-- Fine messaggio errore -->
-                    </div>
-                    <div class="form-group ">
-                      <label for="surname">Surname</label>
-                      <input
-                          type="text"
-                          id="surname"
-                          formControlName="surname"
-                          class="form-control"
-                      />
-                      <!-- Messaggio errore in caso cognome non valid0 -->
-                      <span 
-                        *ngIf="!signUpForm.get('surname')?.valid && signUpForm.get('surname')?.touched"
-                        class="help-block">Please enter your surname
-                      </span>
-                      <!-- Fine messaggio errore -->
-                    </div>
-                    <div class="form-group ">
-                      <label for="birthDate">Date of birth</label>
-                      <input
-                          type="text"
-                          id="birthDate"
-                          formControlName="birthDate"
-                          class="form-control"
-                      />
-                      <!-- Messaggio errore in caso data di nascita non valida -->
-                      <span 
-                        *ngIf="!signUpForm.get('birthDate')?.valid && signUpForm.get('birthDate')?.touched"
-                        class="help-block">Please enter your birth date
-                      </span>
-                      <!-- Fine messaggio errore -->
-                    </div>
-                    <div class="form-group ">
-                      <label for="email">Email</label>
-                      <input
-                          type="text"
-                          id="email"
-                          formControlName="email"
-                          class="form-control"
-                      />
-                      <!-- Messaggio errore in caso email non valida -->
-                      <span 
-                        *ngIf="!signUpForm.get('email')?.valid && signUpForm.get('email')?.touched"
-                        class="help-block">Please enter a valid email
-                      </span>
-                      <!-- Fine messaggio errore -->
-                    </div>
-                    <div class="form-group">
-                      <label for="password">Password</label>
-                      <input
-                          type="password"
-                          id="password"
-                          formControlName="password"
-                          class="form-control"
-                          password
-                      />
-                      <!-- Messaggio errore in caso password non valida -->
-                      <span 
-                        *ngIf="!signUpForm.get('password')?.valid && signUpForm.get('password')?.touched"
-                        class="help-block">Please enter password
-                      </span>
-                      <!-- Fine messaggio errore -->
-                    </div>
-                    <button
-                        type="submit"
-                        class="btn btn-outline-danger"
-                        [disabled]="!signUpForm.valid"
-                        (click)="onSubmitSignUp()">
-                        SignUp
-                    </button>
-                </div>
-            </form>
-
->>>>>>> 1d7994c9bc3d1ce2a3a1081ac2ffea4aae3cad63
         </div>
-      
+      </form>
     </div>
   </div>
+</div>
 
 <!-- ANIMAZIONE -->
 <div class="waveWrapper waveAnimation">
