@@ -4,12 +4,12 @@
 <div [@menu]="menuState" class="menu-container" *ngIf="menu === 'open'">
   <div>
     <div class="nav-menu">
-      <button><i class="fa-solid fa-house"></i></button>
+      <button routerLink="/dashboard"><i class="fa-solid fa-house"></i></button>
       <button (click)="onSlideMenu()"><i class="fa-solid fa-bars"></i></button>
     </div>
     <ul class="nav-links">
       <li>
-        <a href="#"><i class="fa-solid fa-user"></i> Profilo</a>
+        <a routerLink="/profilo"><i class="fa-solid fa-user"></i> Profilo</a>
       </li>
       <li>
         <a href="#"

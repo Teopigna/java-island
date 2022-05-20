@@ -23,6 +23,7 @@ import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from './app-routing.module';
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
@@ -47,6 +48,8 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 
     ReactiveFormsModule,
     HttpClientModule,
+
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
