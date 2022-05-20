@@ -1,0 +1,6 @@
+@media screen and (min-width: 900px) {
+  .dashboard-area {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

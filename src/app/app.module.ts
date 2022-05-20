@@ -1,21 +1,60 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AccountManagementComponent } from './account-management/account-management.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { MenuComponent } from './menu/menu.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AccountCardComponent } from './dashboard/account-card/account-card.component';
+import { GraphicAreaComponent } from './dashboard/graphic-area/graphic-area.component';
+import { ActionsComponent } from './dashboard/actions/actions.component';
+import { TransactionsComponent } from './dashboard/transactions/transactions.component';
+import { PopUpComponent } from './dashboard/actions/pop-up/pop-up.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
+import { FusionChartsModule } from 'angular-fusioncharts';
 
+import * as FusionCharts from 'fusioncharts';
+import * as charts from 'fusioncharts/fusioncharts.charts';
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from './app-routing.module';
+
+FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
   declarations: [
     AppComponent,
     AccountManagementComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    MenuComponent,
+    DashboardComponent,
+    AccountCardComponent,
+    GraphicAreaComponent,
+    ActionsComponent,
+    TransactionsComponent,
+    PopUpComponent,
+    HomepageComponent,
+    UserProfileComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    FusionChartsModule,
+    NgbProgressbarModule,
+    NgbTooltipModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+
+    AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
