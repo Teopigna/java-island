@@ -6,13 +6,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employee.component.css'],
 })
 export class EmployeeComponent implements OnInit {
-  shownList: { nome: string; eta: number; citta: string }[] = [
-    { nome: 'andrea', eta: 23, citta: 'milano' },
-    { nome: 'matteo', eta: 24, citta: 'torino' },
-    { nome: 'chiara', eta: 22, citta: 'roma' },
+  shownList: {
+    richiedente: string;
+    conto: number;
+    saldo: number;
+    stato: string;
+  }[] = [
+    { richiedente: 'andrea', conto: 23, saldo: 0, stato: 'inattivo' },
+    { richiedente: 'matteo', conto: 24, saldo: 0, stato: 'inattivo' },
+    { richiedente: 'chiara', conto: 22, saldo: 0, stato: 'inattivo' },
   ];
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  onOpenAccount() {
+    // shownList= get list from server
+  }
+  onCloseAccount() {
+    // shownList= get list from server
+  }
+  onRegistration() {
+    // shownList= get list from server
+  }
 }

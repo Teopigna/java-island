@@ -3,13 +3,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { AccountManagementComponent } from './account-management/account-management.component';
+import { EmployeeComponent } from './employee/employee.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'profilo', component: UserProfileComponent },
-  // {path: 'gestione-conti', component: HomepageComponent},
-  // {path: 'dipendente', component: HomepageComponent},
+  { path: 'gestione-conti', component: AccountManagementComponent },
+  { path: 'dipendente', component: EmployeeComponent },
   // {path: 'error', component: HomepageComponent},
   // {path: '**', redirectTo: 'error'}, pagina di errore da fare dopo
   { path: '**', redirectTo: '' },

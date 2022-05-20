@@ -76,69 +76,66 @@
 <!-- SIGNUP PANEL -->
 
 <div class="container" *ngIf="signUp">
-
-    <div class="panel panel-default col-md-2">
-        <div class="panel-title text-center"><h3>JavaIsland</h3></div>
-        <hr>
-        <div class="panel-body text-center">
-            <form [formGroup]="signUpForm" (ngSubmit)="onSubmitSignUp()">
-                <div class="col-xs-12 justify-content-center">
-                    <div class="form-group ">
-                        <label for="name">Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            formControlName="name"
-                            class="form-control"
-                        />
-                    </div>
-                    <div class="form-group ">
-                        <label for="surname">Surname</label>
-                        <input
-                            type="text"
-                            id="surname"
-                            formControlName="surname"
-                            class="form-control"
-                        />
-                    </div>
-                    <div class="form-group ">
-                        <label for="birthDate">Date of birth</label>
-                        <input
-                            type="text"
-                            id="birthDate"
-                            formControlName="birthDate"
-                            class="form-control"
-                        />
-                    </div>
-                    <div class="form-group ">
-                        <label for="email">Email</label>
-                        <input
-                            type="text"
-                            id="email"
-                            formControlName="email"
-                            class="form-control"
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            formControlName="password"
-                            class="form-control"
-                            password
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        class="btn btn-outline-danger"
-                        [disabled]="!signUpForm.valid"
-                        (click)="onSubmitSignUp()">
-                        SignUp
-                    </button>
-                </div>
-            </form>
-
+  <div class="panel panel-default col-md-2">
+    <div class="panel-title text-center"><h3>JavaIsland</h3></div>
+    <hr />
+    <div class="panel-body text-center">
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmitSignUp()">
+        <div class="col-xs-12 justify-content-center">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="surname">Surname</label>
+            <input
+              type="text"
+              id="surname"
+              formControlName="surname"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="birthDate">Date of birth</label>
+            <input
+              type="text"
+              id="birthDate"
+              formControlName="birthDate"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              id="email"
+              formControlName="email"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              class="form-control"
+              password
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-outline-danger"
+            [disabled]="!signUpForm.valid"
+            (click)="onSubmitSignUp()"
+          >
+            SignUp
+          </button>
         </div>
       </form>
     </div>
