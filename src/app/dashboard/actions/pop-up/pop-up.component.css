@@ -5,43 +5,58 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 
   z-index: 2;
+}
+
+.container-center-row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.container-center-col {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .popup {
   position: absolute;
 
-  width: 270px;
-  height: 172px;
+  width: 340px;
 
   background-color: var(--menu-font-color);
   z-index: 3;
 
-  /* align-self: center; */
+  align-self: center;
 }
 
-.col-center {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
+h1 {
+  text-transform: capitalize;
+
+  background: -webkit-linear-gradient(
+    45deg,
+    var(--menu-bg-color) 0%,
+    var(--menu-font-color-hover) 70%,
+    var(--menu-font-color-hover) 100%
+  );
+  background-clip: unset;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.row-center {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-}
-
-@media screen and (max-width: 700px) {
-  .popup {
-    width: 40vw;
-    height: 30vh;
-  }
+label {
+  font-weight: bold;
 }
