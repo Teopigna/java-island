@@ -1,6 +1,91 @@
-<div class="backdrop"></div>
-<div class="row-center">
-  <div class="col-center">
-    <div class="panel popup"></div>
+<div class="backdrop" (click)="closeEvent()"></div>
+<div class="container-center-row">
+  <div class="container-center-col">
+    <div class="panel popup">
+      <h1>{{ action }}</h1>
+
+      <div class="form-group" *ngIf="action === 'bonifico'">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <!-- nel caso del giroconto: si mette un menu a tendina -->
+          <label for="toIban">IBAN Destinatario</label>
+          <input
+            type="text"
+            id="toIban"
+            formControlName="toIban"
+            class="form-control"
+          />
+          <span
+            class="help-block"
+            *ngIf="!form.get('toIban')?.valid && form.get('toIban')?.touched"
+          >
+            This field is invalid!
+          </span>
+
+          <br />
+          <label for="amount">Ammontare</label>
+          <input
+            type="text"
+            id="amount"
+            formControlName="amount"
+            class="form-control"
+          />
+          <span
+            class="help-block"
+            *ngIf="!form.get('amount')?.valid && form.get('amount')?.touched"
+          >
+            This field is invalid!
+          </span>
+          <br />
+
+          <label for="description">Causale</label>
+          <br />
+          <textarea
+            style="display: block"
+            formControlName="description"
+            id="description"
+            cols="30"
+            rows="5"
+          ></textarea>
+
+          <!-- domanda: come prendere i validatori di una textarea? -->
+          <span
+            class="help-block"
+            *ngIf="
+              !form.get('description')?.valid &&
+              form.get('description')?.touched
+            "
+          >
+            This field is invalid!
+          </span>
+
+          <br />
+          <button class="btn btn-success" type="submit">Submit</button>
+        </form>
+      </div>
+
+      <div class="form-group" *ngIf="action === 'giroconto'">
+        <form>
+          <input type="text" />
+        </form>
+      </div>
+
+      <div class="form-group" *ngIf="action === 'ricarica'">
+        <form>
+          <input type="text" />
+        </form>
+      </div>
+
+      <div class="form-group" *ngIf="action === 'versamento'">
+        <form>
+          <input type="text" />
+        </form>
+      </div>
+
+      <div class="form-group" *ngIf="action === 'prelievo'">
+        <form>
+          <input type="text" />
+        </form>
+      </div>
+    </div>
   </div>
 </div>
