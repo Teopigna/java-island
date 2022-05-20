@@ -5,6 +5,14 @@ button.btn-success {
     color: #cefffc;
 }
 
+span {
+    color: red;
+}
+
+input.ng-invalid.ng-touched{
+    border: 1px solid red;
+}
+
 button.btn-outline-danger {
     margin-top: 20px;
     margin-bottom: 20px;

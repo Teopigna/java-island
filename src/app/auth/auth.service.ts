@@ -1,5 +1,8 @@
+import { User } from './../shared/user.model';
 import { Injectable } from "@angular/core";
 import {HttpClient} from "@angular/common/http"
+import { BehaviorSubject, catchError, map, of, tap } from "rxjs";
+import { Router } from "@angular/router";
 
 export interface AuthResponseData {
     kind: string,
@@ -14,7 +17,10 @@ export interface AuthResponseData {
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-    constructor(private http: HttpClient) {}
+    //Subject utile ad "avvisare" i componenti che ne hanno bisogno del login/logout effettuato
+    user = new BehaviorSubject<User | null>(null);
+
+    constructor(private http: HttpClient, private router: Router) {}
 
     //SignUp temporaneo su FireBase
     signUp(email: string, password: string){
@@ -50,6 +56,39 @@ export class AuthService {
                 password: password,
                 returnSecureToken: true
             }
+        ).pipe(
+            map((resData:any) => {
+                return {...resData};
+            }),
+            tap((resData:any) => {
+                console.log(resData);
+                this.handleLogin(resData.access_token, +resData.tokenExpireIn, resData.refreshToken, +resData.refreshTokenExpireIn, resData.email)
+            })
         )
+    }
+
+    handleLogin(tk: string, tkExpire: number, refreshTk: string, refreshExpire: number, email: string) {
+
+        const expi = tkExpire - ((new Date()).getTime());
+
+        const user = new User(
+            "user",
+            tk,
+            tkExpire,
+            "Gino",
+            "Paoli",
+            email,
+            "23/09/1934"
+        );
+        
+        this.user.next(user);
+
+        this.router.navigate(['/dashboard'])
+    }
+
+     // Logout - setta la subject user a null e rimuove i dati utente dallo storage locale
+    logout() {
+        this.user.next(null);
+        this.router.navigate(['/homepage'])
     }
 }

@@ -1,6 +1,7 @@
 import { AuthService } from './../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule  } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-homepage',
@@ -8,9 +9,12 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule  } from '@angul
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-
+  // Used to manage wich panel to show: signUp or login
   login: boolean = false;
   signUp: boolean = false;
+
+  // Used to store error message from login/signUP
+  loginErrorMessage: string | null = null;
 
   // Default loginForm, vuoto
   loginForm: FormGroup = new FormGroup({
@@ -41,14 +45,14 @@ export class HomepageComponent implements OnInit {
 
     this.authService.login(email, password).subscribe(
       resData => {
-        console.log(resData);
+        this.loginErrorMessage = null;
       },
-      error => {
-        console.log(error);
+      (error: HttpErrorResponse) => { // Setta il messaggio di errore al messaggio ricevuto come risposta da FireBase
+        this.loginErrorMessage = error.error.error.message;
       }
     );
-
-    this.signUpForm.reset();
+      
+    this.loginForm.reset();
   }
 
   onSubmitSignUp(){
@@ -78,6 +82,7 @@ export class HomepageComponent implements OnInit {
   homeMode(){
     this.login = false;
     this.signUp = false;
+    this.loginErrorMessage = null;
   }
 
   loginMode(){
@@ -88,6 +93,7 @@ export class HomepageComponent implements OnInit {
   signUpMode(){
     this.login = false;
     this.signUp = true;
+    this.loginErrorMessage = null;
   }
 
 }
