@@ -1,72 +1,82 @@
 <!-- NAVBAR -->
-<nav class="navbar ml-auto ">
-    <a class="navbar-brand" (click)="homeMode()">JavaIsland</a>
-    <ul class="nav justify-content-end">
-        <li class="nav-item">
-            <button class="btn btn-success " type="button" (click)="loginMode()">Login</button>
-        </li>
-        <li class="nav-item">
-            <button class="btn btn-success " type="button" (click)="signUpMode()">SignUp</button>
-        </li>
-      </ul>
+<nav class="navbar ml-auto">
+  <a class="navbar-brand" (click)="homeMode()">JavaIsland</a>
+  <ul class="nav justify-content-end">
+    <!-- per ora prima di fare il login DA TOGLIERE -->
+    <li>
+      <a routerLink="/dashboard">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <button class="btn btn-success" type="button" (click)="loginMode()">
+        Login
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="btn btn-success" type="button" (click)="signUpMode()">
+        SignUp
+      </button>
+    </li>
+  </ul>
 </nav>
 <!-- BACKDROP PANEL -->
-<hr *ngIf="!login && !signUp">
+<hr *ngIf="!login && !signUp" />
 <div class="backdrop" *ngIf="login || signUp"></div>
 
 <!-- WELCOME PANEL  -->
 <div class="container">
-    <div class="panel panel-default col-md-2">
-        <div class="panel-title text-center"><h3>JavaIsland</h3></div>
-        <div class="panel-body text-center">
-             <h6>Built around you</h6> 
-        </div>
+  <div class="panel panel-default col-md-2">
+    <div class="panel-title text-center"><h3>JavaIsland</h3></div>
+    <div class="panel-body text-center">
+      <h6>Built around you</h6>
     </div>
+  </div>
 </div>
 
 <!-- LOGIN PANEL -->
 <div class="container" *ngIf="login">
-    <div class="panel panel-default col-md-2">
-        <div class="panel-title text-center"><h3>JavaIsland</h3></div>
-        <hr>
-        <div class="panel-body text-center">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
-                <div class="col-xs-12 justify-content-center">
-                    <div class="form-group ">
-                        <label for="email">E-mail</label>
-                        <input
-                            type="text"
-                            id="email"
-                            formControlName="email"
-                            class="form-control"
-                        />
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            formControlName="password"
-                            class="form-control"
-                            password
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        class="btn btn-outline-danger"
-                        [disabled]="!loginForm.valid"
-                        (click)="onSubmitLogin()">
-                        Login
-                    </button>
-                </div>
-            </form>
+  <div class="panel panel-default col-md-2">
+    <div class="panel-title text-center"><h3>JavaIsland</h3></div>
+    <hr />
+    <div class="panel-body text-center">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+        <div class="col-xs-12 justify-content-center">
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input
+              type="text"
+              id="email"
+              formControlName="email"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              class="form-control"
+              password
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-outline-danger"
+            [disabled]="!loginForm.valid"
+            (click)="onSubmitLogin()"
+          >
+            Login
+          </button>
         </div>
+      </form>
     </div>
+  </div>
 </div>
 
 <!-- SIGNUP PANEL -->
 
 <div class="container" *ngIf="signUp">
+
     <div class="panel panel-default col-md-2">
         <div class="panel-title text-center"><h3>JavaIsland</h3></div>
         <hr>
@@ -128,18 +138,29 @@
                     </button>
                 </div>
             </form>
+
         </div>
+      </form>
     </div>
+  </div>
 </div>
 
 <!-- ANIMAZIONE -->
 <div class="waveWrapper waveAnimation">
-    <div class="waveWrapperInner bgMiddle">
-      <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
-    </div>
-    <div class="waveWrapperInner bgBottom">
-      <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
-    </div>
+  <div class="waveWrapperInner bgMiddle">
+    <div
+      class="wave waveMiddle"
+      style="
+        background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png');
+      "
+    ></div>
   </div>
-
-
+  <div class="waveWrapperInner bgBottom">
+    <div
+      class="wave waveBottom"
+      style="
+        background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png');
+      "
+    ></div>
+  </div>
+</div>

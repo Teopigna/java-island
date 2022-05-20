@@ -1,8 +1,14 @@
 table {
-  background-color: var(--menu-font-color);
+  background: rgba(var(--menu-bg-rgb), 0.5);
+  background: linear-gradient(
+    90deg,
+    rgba(var(--menu-bg-rgb), 0.5) 0%,
+    rgba(var(--menu-font-hover-rgb), 0.5) 80%,
+    rgba(var(--menu-font-hover-rgb), 0.5) 100%
+  );
 }
 
-.tooltip-class .tooltip-inner {
+/* .tooltip-class .tooltip-inner {
   background-color: var(--menu-bg-color);
 }
 .tooltip-class.bs-tooltip-end .tooltip-arrow::before {
@@ -16,7 +22,7 @@ table {
 }
 .tooltip-class.bs-tooltip-bottom .tooltip-arrow::before {
   border-bottom-color: darkgreen;
-}
+} */
 
 .panel {
   overflow-y: scroll;
