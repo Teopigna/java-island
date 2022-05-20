@@ -2,8 +2,10 @@
 
 :root {
   --menu-bg-color: #3688ec;
+  --menu-bg-rgb: 54, 136, 236;
   --menu-font-color: #cefffc;
   --menu-font-color-hover: #70fdea;
+  --menu-font-hover-rgb: 112, 253, 234;
   --grey-titles: rgb(201, 201, 201);
 }
 
