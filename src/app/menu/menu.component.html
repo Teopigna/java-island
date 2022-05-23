@@ -1,4 +1,4 @@
-<div *ngIf="menu === 'closed'" (click)="onSlideMenu()" class="open-menu">
+<div (click)="onSlideMenu()" class="open-menu">
   <i class="fa-solid fa-bars"></i>
 </div>
 <div [@menu]="menuState" class="menu-container" *ngIf="menu === 'open'">

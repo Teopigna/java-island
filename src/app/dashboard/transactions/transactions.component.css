@@ -29,13 +29,28 @@ table {
   height: 35vh;
 }
 
-.container-actions {
-  width: fit-content;
-  margin: 0;
-}
-
 .title {
   color: var(--grey-titles);
-  width: 430px;
+  width: 360px;
   text-indent: 40%;
 }
+
+@media screen and (min-width: 435px) {
+  .container-actions {
+    width: fit-content;
+    margin: 0;
+  }
+
+  .title {
+    color: var(--grey-titles);
+    width: 445px;
+    text-indent: 40%;
+  }
+}
+
+/* @media screen and (max-width: 435px) {
+  .container-actions {
+    width: 100vw;
+    margin: 0;
+  }
+} */
