@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
+import { AccountManagementComponent } from './account-management/account-management.component';
+import { EmployeeComponent } from './employee/employee.component';
 import { MenuComponent } from './menu/menu.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccountCardComponent } from './dashboard/account-card/account-card.component';
@@ -28,6 +30,8 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
   declarations: [
     AppComponent,
+    AccountManagementComponent,
+    EmployeeComponent,
     MenuComponent,
     DashboardComponent,
     AccountCardComponent,
@@ -36,7 +40,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     TransactionsComponent,
     PopUpComponent,
     HomepageComponent,
-    UserProfileComponent
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

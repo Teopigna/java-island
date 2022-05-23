@@ -37,7 +37,9 @@ export class HomepageComponent implements OnInit {
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   onSubmitLogin() {
     if (!this.loginForm.valid) {
@@ -70,17 +72,15 @@ export class HomepageComponent implements OnInit {
     const name = this.signUpForm.value.name;
     const surname = this.signUpForm.value.surname;
     const birthDate = this.signUpForm.value.birthDate;
-
-    this.authService
-      .signUpReal(name, surname, email, birthDate, password)
-      .subscribe(
-        (resData) => {
-          console.log(resData);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    
+    this.authService.signUpReal(name, surname, email, birthDate, password).subscribe(
+      resData => {
+        console.log(resData);
+      },
+      error => {
+        console.log(error);
+      }
+    );
 
     this.signUpForm.reset();
   }
