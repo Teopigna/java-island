@@ -35,9 +35,15 @@ export class MenuComponent implements OnInit {
   menuState = 'closed';
   menu = 'closed';
 
+  userRole: string | undefined = '';
+
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.authService.user.value) {
+      this.userRole = this.authService.user.value?.role;
+    }
+  }
 
   onLogout() {
     this.authService.logout();
