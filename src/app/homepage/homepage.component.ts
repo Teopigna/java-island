@@ -37,7 +37,9 @@ export class HomepageComponent implements OnInit {
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   onSubmitLogin() {
     if (!this.loginForm.valid) {
