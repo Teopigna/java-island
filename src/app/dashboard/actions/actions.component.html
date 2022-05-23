@@ -1,23 +1,28 @@
-<app-menu></app-menu>
+<app-pop-up
+  [action]="popUpType"
+  *ngIf="!closedPopUp"
+  (onClose)="onClosePopUp($event)"
+></app-pop-up>
+
 <div class="half">
   <div class="container-actions">
     <h3 class="title">Azioni</h3>
     <div class="panel">
-      <a href="#"
+      <a [routerLink]="['/dashboard']" [queryParams]="{ action: 'bonifico' }"
         ><h4><i class="fa-solid fa-dollar-sign"></i> Bonifico</h4></a
       >
-      <a href="#"
+      <a [routerLink]="['/dashboard']" [queryParams]="{ action: 'giroconto' }"
         ><h4><i class="fa-solid fa-arrows-rotate"></i> Giroconto</h4></a
       >
-      <a href="#"
+      <a [routerLink]="['/dashboard']" [queryParams]="{ action: 'ricarica' }"
         ><h4>
           <i class="fa-solid fa-mobile-retro"></i> Ricarica telefonica
         </h4></a
       >
-      <a href="#"
+      <a [routerLink]="['/dashboard']" [queryParams]="{ action: 'versamento' }"
         ><h4><i class="fa-solid fa-arrow-down"></i> Versamento</h4></a
       >
-      <a href="#"
+      <a [routerLink]="['/dashboard']" [queryParams]="{ action: 'prelievo' }"
         ><h4><i class="fa-solid fa-arrow-up"></i> Prelievo</h4></a
       >
     </div>

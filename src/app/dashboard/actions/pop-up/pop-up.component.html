@@ -1,6 +1,150 @@
-<div class="backdrop"></div>
-<div class="row-center">
-  <div class="col-center">
-    <div class="panel popup"></div>
+<div class="backdrop" (click)="closeEvent()"></div>
+<div class="container-center-row">
+  <div class="container-center-col">
+    <div class="panel popup">
+      <h1>{{ action }}</h1>
+
+      <div
+        class="form-group"
+        *ngIf="action === 'bonifico' || action === 'giroconto'"
+      >
+        <form [formGroup]="form1" (ngSubmit)="onSubmit()">
+          <label for="toIban">IBAN Destinatario</label>
+          <input
+            type="text"
+            id="toIban"
+            formControlName="toIban"
+            class="form-control"
+          />
+          <span
+            class="help-block"
+            *ngIf="!form1.get('toIban')?.valid && form1.get('toIban')?.touched"
+          >
+            This field is invalid!
+          </span>
+
+          <br />
+          <label for="amount">Ammontare</label>
+          <input
+            type="text"
+            id="amount"
+            formControlName="amount"
+            class="form-control"
+          />
+          <span
+            class="help-block"
+            *ngIf="!form1.get('amount')?.valid && form1.get('amount')?.touched"
+          >
+            This field is invalid!
+          </span>
+          <br />
+
+          <label for="description">Causale</label>
+          <br />
+          <textarea
+            style="display: block"
+            formControlName="description"
+            id="description"
+            cols="30"
+            rows="5"
+          ></textarea>
+
+          <!-- domanda: come prendere i validatori di una textarea? -->
+          <span
+            class="help-block"
+            *ngIf="
+              !form1.get('description')?.valid &&
+              form1.get('description')?.touched
+            "
+          >
+            This field is invalid!
+          </span>
+
+          <br />
+          <button class="btn btn-success" type="submit">Submit</button>
+        </form>
+      </div>
+
+      <div class="form-group" *ngIf="action === 'ricarica'">
+        <form [formGroup]="form2" (ngSubmit)="onSubmit()">
+          <label for="toIban">IBAN Destinatario</label>
+          <input
+            type="text"
+            id="toIban"
+            formControlName="toIban"
+            class="form-control"
+          />
+          <span
+            class="help-block"
+            *ngIf="!form2.get('toIban')?.valid && form2.get('toIban')?.touched"
+          >
+            This field is invalid!
+          </span>
+
+          <br />
+          <label for="amount">Ammontare</label>
+          <input
+            type="text"
+            id="amount"
+            formControlName="amount"
+            class="form-control"
+          />
+          <span
+            class="help-block"
+            *ngIf="!form2.get('amount')?.valid && form2.get('amount')?.touched"
+          >
+            This field is invalid!
+          </span>
+          <br />
+
+          <label for="description">Causale</label>
+          <br />
+          <textarea
+            style="display: block"
+            formControlName="description"
+            id="description"
+            cols="30"
+            rows="5"
+          ></textarea>
+
+          <!-- domanda: come prendere i validatori di una textarea? -->
+          <span
+            class="help-block"
+            *ngIf="
+              !form2.get('description')?.valid &&
+              form2.get('description')?.touched
+            "
+          >
+            This field is invalid!
+          </span>
+
+          <br />
+          <button class="btn btn-success" type="submit">Submit</button>
+        </form>
+      </div>
+
+      <div
+        class="form-group"
+        *ngIf="action === 'versamento' || action === 'prelievo'"
+      >
+        <form [formGroup]="form3" (ngSubmit)="onSubmit()">
+          <label for="amount">Ammontare</label>
+          <input
+            type="text"
+            id="amount"
+            formControlName="amount"
+            class="form-control"
+          />
+          <span
+            class="help-block"
+            *ngIf="!form2.get('amount')?.valid && form2.get('amount')?.touched"
+          >
+            This field is invalid!
+          </span>
+          <br />
+          <button class="btn btn-success" type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
