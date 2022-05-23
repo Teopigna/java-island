@@ -32,54 +32,67 @@ export class AuthService {
       }
     );
   }
-    
+
   //SignUp con EndPoint reale
-  signUpReal(name: string, surname: string, email:string, birthDate: string, password:string){
-      return this.http.post(
-          'https://localhost:8765/api/auth/signup',
-          {   
-              firstName: name,
-              lastName: surname,
-              email: email, 
-              birthDate: birthDate,
-              password: password,
-          }
-      )
+  signUpReal(
+    name: string,
+    surname: string,
+    email: string,
+    birthDate: string,
+    password: string
+  ) {
+    return this.http.post('https://localhost:8765/api/auth/signup', {
+      firstName: name,
+      lastName: surname,
+      email: email,
+      birthDate: birthDate,
+      password: password,
+    });
   }
   //Login temporaneo su FireBase
-  login(email: string, password: string){
-      return this.http.post<AuthResponseData>(
-          'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAXV4EliA62QyHDYEvyUbpvtEvKpzG3mAI',
-          {
-              email: email, 
-              password: password,
-              returnSecureToken: true
-          }
-      ).pipe(
-          map((resData:any) => {
-              return {...resData};
-          }),
-          tap((resData:any) => {
-              console.log(resData);
-              this.handleLogin(resData.access_token, +resData.tokenExpireIn, resData.refreshToken, +resData.refreshTokenExpireIn, resData.email)
-          })
+  login(email: string, password: string) {
+    return this.http
+      .post<AuthResponseData>(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAXV4EliA62QyHDYEvyUbpvtEvKpzG3mAI',
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true,
+        }
       )
+      .pipe(
+        map((resData: any) => {
+          return { ...resData };
+        }),
+        tap((resData: any) => {
+          console.log(resData);
+          this.handleLogin(
+            resData.access_token,
+            +resData.tokenExpireIn,
+            resData.refreshToken,
+            +resData.refreshTokenExpireIn,
+            resData.email
+          );
+        })
+      );
   }
 
   //Login con EndPoint reale
-  loginReal(email:string, password: string){
-      return this.http.post(
-          'https://localhost:8765/api/auth/signin',
-          {   
-              email: email,
-              password: password
-          }
-      )
+  loginReal(email: string, password: string) {
+    return this.http.post('https://localhost:8765/api/auth/signin', {
+      email: email,
+      password: password,
+    });
   }
 
   // Login handling temporaneo con firebase
-  handleLogin(tk: string, tkExpire: number, refreshTk: string, refreshExpire: number, email: string) {
-
+  handleLogin(
+    tk: string,
+    tkExpire: number,
+    refreshTk: string,
+    refreshExpire: number,
+    email: string
+  ) {
     const user = new User(
       'user',
       tk,
@@ -88,7 +101,7 @@ export class AuthService {
       'Paoli',
       email,
       '23/09/1934',
-      'C'
+      'D'
     );
 
     this.user.next(user);
@@ -96,48 +109,46 @@ export class AuthService {
     //Salva l'utente nel localStorage per la funzione di AutoLogin
     localStorage.setItem('user', JSON.stringify(user));
 
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dipendente']);
   }
-  
-  handleLoginReal(){
-      // Per gestire la risposta della richiesta di login e storare token e info dell'utente nell'oggetto User
+
+  handleLoginReal() {
+    // Per gestire la risposta della richiesta di login e storare token e info dell'utente nell'oggetto User
   }
 
   // Recupera i dati relativi all'utente dal local storage quando la pagina viene refreshata
   autoLogin() {
     const userData: {
-        id : string;
-        _token: string;
-        _tokenExpirationDate : string;
-        name: string;
-        surname: string;
-        email:string;
-        birthDate: string;
-        role: string;
-        
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+      name: string;
+      surname: string;
+      email: string;
+      birthDate: string;
+      role: string;
     } = JSON.parse(localStorage.getItem('user') || '{}');
 
-    if(!userData){
-        return;
+    if (!userData) {
+      return;
     }
 
     const loadedUser = new User(
-      userData.id, 
-      userData._token, 
-      +userData._tokenExpirationDate, 
+      userData.id,
+      userData._token,
+      +userData._tokenExpirationDate,
       userData.name,
       userData.surname,
       userData.email,
       userData.birthDate,
       userData.role
-      );
+    );
 
-    if(loadedUser.token) {
-        this.user.next(loadedUser);
-        this.router.navigate(['/dashbooard']);
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+      this.router.navigate(['/dashbooard']);
     }
-
-}
+  }
 
   // Logout - setta la subject user a null e rimuove i dati utente dallo storage locale
   logout() {
