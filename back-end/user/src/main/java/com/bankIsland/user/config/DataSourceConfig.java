@@ -1,5 +1,6 @@
 package com.bankIsland.user.config;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -13,7 +14,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages={"${spring.data.jpa.repository.packages}"})
-public class DemoDataSourceConfig {
+public class DataSourceConfig {
 
 	@Primary
 	@Bean
@@ -41,4 +42,15 @@ public class DemoDataSourceConfig {
 	public DataSource securityDataSource() {
 		return DataSourceBuilder.create().build();
 	}
+
+	@Bean
+	public Queue userQueue() {
+		return new Queue("userQueue", false);
+	}
+
+	@Bean
+	public Queue accountQueue() {
+		return new Queue("accountQueue", false);
+	}
+
 }

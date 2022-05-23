@@ -35,4 +35,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Override
     @RestResource(exported = false)
     void deleteAll();
+
 }
