@@ -1,4 +1,5 @@
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -12,9 +13,9 @@ const appRoutes: Routes = [
   { path: 'profilo', component: UserProfileComponent },
   { path: 'gestione-conti', component: AccountManagementComponent },
   { path: 'dipendente', component: EmployeeComponent },
+  { path: '**', component: ErrorPageComponent },
   // {path: 'error', component: HomepageComponent},
   // {path: '**', redirectTo: 'error'}, pagina di errore da fare dopo
-  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
