@@ -9,9 +9,9 @@ import java.util.Date;
 public class AccountOwner {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //check
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private int id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -35,11 +35,11 @@ public class AccountOwner {
         this.birthDate = birthDate;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

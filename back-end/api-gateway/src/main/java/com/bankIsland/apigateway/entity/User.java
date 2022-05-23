@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users",
+@Table(name = "spring_security_final_challenge.users",
         schema = "spring_security_final_challenge",
         uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User {
@@ -26,6 +26,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @Column(name = "user_id")
+    private int userId;
+
     public User() {
     }
 
@@ -34,10 +37,10 @@ public class User {
         this.password = password;
     }
 
-    public User(String username, String password, Set<Role> authorities) {
+    public User(String username, String password, Set<Role> roles) {
         this.username = username;
         this.password = password;
-        this.roles = authorities;
+        this.roles = roles;
     }
 
     public int getId() {
@@ -70,5 +73,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
