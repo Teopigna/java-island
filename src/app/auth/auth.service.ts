@@ -41,7 +41,7 @@ export class AuthService {
     birthDate: string,
     password: string
   ) {
-    return this.http.post('https://localhost:8765/api/auth/signup', {
+    return this.http.post('http://localhost:8765/api/auth/signup', {
       firstName: name,
       lastName: surname,
       email: email,
@@ -79,7 +79,7 @@ export class AuthService {
 
   //Login con EndPoint reale
   loginReal(email: string, password: string) {
-    return this.http.post('https://localhost:8765/api/auth/signin', {
+    return this.http.post('http://localhost:8765/api/auth/signin', {
       email: email,
       password: password,
     });
