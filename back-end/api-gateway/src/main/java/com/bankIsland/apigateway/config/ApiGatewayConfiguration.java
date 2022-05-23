@@ -1,21 +1,19 @@
 package com.bankIsland.apigateway.config;
 
 import com.bankIsland.apigateway.filter.JwtAuthenticationFilter;
-import com.bankIsland.apigateway.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
 public class ApiGatewayConfiguration {
 
     @Autowired
     private JwtAuthenticationFilter filter;
-
-    @Autowired
-    private JwtUtils jwtUtils;
 
     @Bean
     public RouteLocator gatewayRouter(RouteLocatorBuilder builder) {
@@ -25,5 +23,13 @@ public class ApiGatewayConfiguration {
                         .filters(f -> f.filter(filter))
                         .uri("lb://user"))
                 .build();
+    }
+
+    @Bean
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+        http
+                .csrf(csrf -> csrf.disable());
+
+        return http.build();
     }
 }

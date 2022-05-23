@@ -13,6 +13,8 @@ import com.bankIsland.user.entity.Role;
 import com.bankIsland.user.entity.User;
 import com.bankIsland.user.security.jwt.JwtUtils;
 import com.bankIsland.user.security.service.UserDetailsImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +29,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -44,6 +47,8 @@ public class AuthController {
     PasswordEncoder encoder;
     @Autowired
     JwtUtils jwtUtils;
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -66,29 +71,32 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        logger.info(">>>>>>>>>>>>>>>>Request signup");
         if (userRepository.existsByUsername(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email already used!"));
         }
         // Create new user's account
-        User user = new User(signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()),
-                new HashSet<Role>(List.of(roleRepository.findByName(ERole.ROLE_USER).get())));
 
         AccountOwner accountOwner = new AccountOwner(signUpRequest.getFirstName(),
                 signUpRequest.getLastName(),
                 signUpRequest.getEmail(),
                 signUpRequest.getBirthDate());
-
-        userRepository.save(user);
         accountOwnerRepository.save(accountOwner);
+
+        User user = new User(signUpRequest.getEmail(),
+                encoder.encode(signUpRequest.getPassword()),
+                new HashSet<Role>(List.of(roleRepository.findByName(ERole.ROLE_USER).get())),
+                accountOwner.getId());
+        userRepository.save(user);
+
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
     @GetMapping("/prova")
-    public String prova(@RequestHeader("Authorization") String token) {
-        return token;
+    public String prova(){//@RequestHeader("Authorization") String token) {
+        return "PROVA";
     }
 }
