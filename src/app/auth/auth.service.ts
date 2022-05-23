@@ -36,8 +36,8 @@ export class AuthService {
     
     //SignUp con EndPoint reale
     signUpReal(name: string, surname: string, email:string, birthDate: string, password:string){
-        return this.http.post<AuthResponseData>(
-            'https://localhost:8756/api/auth/signup',
+        return this.http.post(
+            'https://localhost:4200/api/auth/signup',
             {   
                 firstName: name,
                 lastName: surname,
@@ -47,7 +47,7 @@ export class AuthService {
             }
         )
     }
-
+    //Login temporaneo su FireBase
     login(email: string, password: string){
         return this.http.post<AuthResponseData>(
             'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAXV4EliA62QyHDYEvyUbpvtEvKpzG3mAI',
@@ -67,6 +67,18 @@ export class AuthService {
         )
     }
 
+    //Login con EndPoint reale
+    loginReal(email:string, password: string){
+        return this.http.post(
+            'https://localhost:4200/api/auth/signin',
+            {   
+                email: email,
+                password: password
+            }
+        )
+    }
+
+    // Login handling temporaneo con firebase
     handleLogin(tk: string, tkExpire: number, refreshTk: string, refreshExpire: number, email: string) {
 
         const expi = tkExpire - ((new Date()).getTime());
@@ -84,6 +96,10 @@ export class AuthService {
         this.user.next(user);
 
         this.router.navigate(['/dashboard'])
+    }
+    
+    handleLoginReal(){
+        // Per gestire la risposta della richiesta di login e storare token e info dell'utente nell'oggetto User
     }
 
      // Logout - setta la subject user a null e rimuove i dati utente dallo storage locale

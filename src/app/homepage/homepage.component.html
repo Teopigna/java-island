@@ -16,7 +16,7 @@
 </nav>
 <!-- BACKDROP PANEL -->
 <hr *ngIf="!login && !signUp" />
-<div class="backdrop" *ngIf="login || signUp"></div>
+<div class="backdrop" *ngIf="login || signUp" (click)="homeMode()"></div>
 
 <!-- WELCOME PANEL  -->
 <div class="container">
