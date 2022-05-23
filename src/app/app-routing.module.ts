@@ -1,3 +1,5 @@
+import { AuthGuardD } from './auth/authD.guard';
+import { AuthGuardC } from './auth/authC.guard';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -8,10 +10,10 @@ import { EmployeeComponent } from './employee/employee.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomepageComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'profilo', component: UserProfileComponent },
-  { path: 'gestione-conti', component: AccountManagementComponent },
-  { path: 'dipendente', component: EmployeeComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuardC] },
+  { path: 'profilo', component: UserProfileComponent, canActivate:[AuthGuardC] },
+  { path: 'gestione-conti', component: AccountManagementComponent, canActivate:[AuthGuardC] },
+  { path: 'dipendente', component: EmployeeComponent, canActivate:[AuthGuardD] },
   // {path: 'error', component: HomepageComponent},
   // {path: '**', redirectTo: 'error'}, pagina di errore da fare dopo
   { path: '**', redirectTo: '' },
