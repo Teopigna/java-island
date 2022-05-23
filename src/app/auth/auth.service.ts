@@ -101,7 +101,7 @@ export class AuthService {
       'Paoli',
       email,
       '23/09/1934',
-      'D'
+      'C'
     );
 
     this.user.next(user);
@@ -109,7 +109,7 @@ export class AuthService {
     //Salva l'utente nel localStorage per la funzione di AutoLogin
     localStorage.setItem('user', JSON.stringify(user));
 
-    this.router.navigate(['/dipendente']);
+    this.router.navigate(['/dashboard']);
   }
 
   handleLoginReal() {
