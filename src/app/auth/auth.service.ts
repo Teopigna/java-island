@@ -66,9 +66,25 @@ export class AuthService {
               this.handleLoginFire(resData.access_token, +resData.tokenExpireIn, resData.refreshToken, +resData.refreshTokenExpireIn, resData.email)
           })
       )
+      .pipe(
+        map((resData: any) => {
+          return { ...resData };
+        }),
+        tap((resData: any) => {
+          console.log(resData);
+          this.handleLoginFire(
+            resData.access_token,
+            +resData.tokenExpireIn,
+            resData.refreshToken,
+            +resData.refreshTokenExpireIn,
+            resData.email
+          );
+        })
+      );
   }
 
   //Login con EndPoint reale
+<<<<<<< HEAD
   login(email:string, password: string){
       return this.http.post(
           'http://localhost:8765/api/auth/signin',
@@ -93,6 +109,23 @@ export class AuthService {
   // Login handling temporaneo con firebase
   handleLoginFire(tk: string, tkExpire: number, refreshTk: string, refreshExpire: number, email: string) {
 
+=======
+  loginReal(email: string, password: string) {
+    return this.http.post('http://localhost:8765/api/auth/signin', {
+      email: email,
+      password: password,
+    });
+  }
+
+  // Login handling temporaneo con firebase
+  handleLogin(
+    tk: string,
+    tkExpire: number,
+    refreshTk: string,
+    refreshExpire: number,
+    email: string
+  ) {
+>>>>>>> 14bfcf190ebf98a6a1912b417b3a88faa78d93c6
     const user = new User(
       'user',
       tk,
@@ -111,46 +144,44 @@ export class AuthService {
 
     this.router.navigate(['/dashboard']);
   }
-  
-  handleLoginReal(){
-      // Per gestire la risposta della richiesta di login e storare token e info dell'utente nell'oggetto User
+
+  handleLoginReal() {
+    // Per gestire la risposta della richiesta di login e storare token e info dell'utente nell'oggetto User
   }
 
   // Recupera i dati relativi all'utente dal local storage quando la pagina viene refreshata
   autoLogin() {
     const userData: {
-        id : string;
-        _token: string;
-        _tokenExpirationDate : string;
-        name: string;
-        surname: string;
-        email:string;
-        birthDate: string;
-        role: string;
-        
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+      name: string;
+      surname: string;
+      email: string;
+      birthDate: string;
+      role: string;
     } = JSON.parse(localStorage.getItem('user') || '{}');
 
-    if(!userData){
-        return;
+    if (!userData) {
+      return;
     }
 
     const loadedUser = new User(
-      userData.id, 
-      userData._token, 
-      +userData._tokenExpirationDate, 
+      userData.id,
+      userData._token,
+      +userData._tokenExpirationDate,
       userData.name,
       userData.surname,
       userData.email,
       userData.birthDate,
       userData.role
-      );
+    );
 
-    if(loadedUser.token) {
-        this.user.next(loadedUser);
-        this.router.navigate(['/dashbooard']);
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+      this.router.navigate(['/dashbooard']);
     }
-
-}
+  }
 
   // Logout - setta la subject user a null e rimuove i dati utente dallo storage locale
   logout() {

@@ -22,16 +22,26 @@ public class JwtUtils {
 
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        Claims claims = Jwts.claims().setSubject(userPrincipal.getUsername());
+        claims.put("userId", userPrincipal.getUserId());
+        claims.put("role", userPrincipal.getAuthorities());
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .setClaims(claims)
                 .compact();
     }
 
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public int getUserIdFromJwtToken(String token) {
+        Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+
+        return (int) claims.get("userId");
     }
 
     public boolean validateJwtToken(String authToken) {

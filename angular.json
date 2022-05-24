@@ -67,6 +67,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+<<<<<<< HEAD
+=======
+
+>>>>>>> 14bfcf190ebf98a6a1912b417b3a88faa78d93c6
           "configurations": {
             "production": {
               "browserTarget": "java-island:build:production"

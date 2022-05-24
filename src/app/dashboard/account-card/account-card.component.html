@@ -1,16 +1,28 @@
 <div class="half">
-  <div class="card panel">
-    <div>
-      <h3>
-        <span>Saldo:</span> <span>€ {{ saldoUtente }}</span>
-      </h3>
+  <div class="half-col">
+    <div class="arrows-container">
+      <div class="card-container">
+        <div [ngClass]="{ error: !cardDisplayed.active }" class="card panel">
+          <div>
+            <h3>
+              <span>Saldo:</span>
+              <span>€ {{ cardDisplayed.saldoUtente }}</span>
+            </h3>
+          </div>
+          <div class="iban-area">
+            <p>{{ cardDisplayed.iban }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="left-arrow" (click)="onPreviousCard()">
+        <i class="fa-solid fa-circle-arrow-left"></i>
+      </div>
+      <div class="right-arrow" (click)="onNextCard()">
+        <i class="fa-solid fa-circle-arrow-right"></i>
+      </div>
     </div>
-    <div class="iban-area">
-      <p>{{ iban }}</p>
-    </div>
-    <div class="left-arrow"><i class="fa-solid fa-circle-arrow-left"></i></div>
-    <div class="right-arrow">
-      <i class="fa-solid fa-circle-arrow-right"></i>
-    </div>
+    <span class="alert" *ngIf="!cardDisplayed.active"
+      >Attenzione: carta non ancora attiva!</span
+    >
   </div>
 </div>

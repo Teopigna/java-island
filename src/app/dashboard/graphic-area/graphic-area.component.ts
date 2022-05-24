@@ -78,7 +78,7 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   // per il momento, o se non si riesce a fare, mettiamo una grandezza che va bene
   // per ogni tipo di device
 
-  width = '400';
+  width = '360';
   height = '170';
   type = 'spline';
   dataFormat = 'json';

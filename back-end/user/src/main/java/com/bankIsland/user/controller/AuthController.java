@@ -2,17 +2,17 @@ package com.bankIsland.user.controller;
 
 import com.bankIsland.user.controller.payload.request.LoginRequest;
 import com.bankIsland.user.controller.payload.request.SignupRequest;
-import com.bankIsland.user.controller.payload.response.JwtResponse;
+import com.bankIsland.user.controller.payload.response.LoginResponse;
 import com.bankIsland.user.controller.payload.response.MessageResponse;
-import com.bankIsland.user.dao.AccountOwnerRepository;
 import com.bankIsland.user.dao.RoleRepository;
-import com.bankIsland.user.dao.UserRepository;
 import com.bankIsland.user.entity.AccountOwner;
 import com.bankIsland.user.entity.ERole;
 import com.bankIsland.user.entity.Role;
 import com.bankIsland.user.entity.User;
 import com.bankIsland.user.security.jwt.JwtUtils;
 import com.bankIsland.user.security.service.UserDetailsImpl;
+import com.bankIsland.user.service.AccountOwnerService;
+import com.bankIsland.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +38,11 @@ public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
     @Autowired
     RoleRepository roleRepository;
     @Autowired
-    AccountOwnerRepository accountOwnerRepository;
+    AccountOwnerService accountOwnerService;
     @Autowired
     PasswordEncoder encoder;
     @Autowired
@@ -63,16 +63,15 @@ public class AuthController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                roles));
+        return ResponseEntity.ok(new LoginResponse(jwt,
+                accountOwnerService.findByEmail(loginRequest.getUsername()),
+                roles.get(0)));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         logger.info(">>>>>>>>>>>>>>>>Request signup");
-        if (userRepository.existsByUsername(signUpRequest.getEmail())) {
+        if (userService.existsByUsername(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email already used!"));
@@ -83,13 +82,13 @@ public class AuthController {
                 signUpRequest.getLastName(),
                 signUpRequest.getEmail(),
                 signUpRequest.getBirthDate());
-        accountOwnerRepository.save(accountOwner);
+        accountOwnerService.save(accountOwner);
 
         User user = new User(signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
-                new HashSet<Role>(List.of(roleRepository.findByName(ERole.ROLE_USER).get())),
+                new HashSet<Role>(List.of(roleRepository.findByName(ERole.C).get())),
                 accountOwner.getId());
-        userRepository.save(user);
+        userService.save(user);
 
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
