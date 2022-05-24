@@ -23,7 +23,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   //SignUp temporaneo su FireBase
-  signUp(email: string, password: string) {
+  signUpFire(email: string, password: string) {
     return this.http.post<AuthResponseData>(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAXV4EliA62QyHDYEvyUbpvtEvKpzG3mAI',
       {
@@ -35,7 +35,7 @@ export class AuthService {
   }
   
   //SignUp con EndPoint reale
-  signUpReal(name: string, surname: string, email:string, birthDate: string, password:string){
+  signUp(name: string, surname: string, email:string, birthDate: string, password:string){
       return this.http.post(
           'http://localhost:8765/api/auth/signup',
           {   
@@ -47,8 +47,9 @@ export class AuthService {
           }
       )
   }
+
   //Login temporaneo su FireBase
-  login(email: string, password: string){
+  loginFire(email: string, password: string){
       return this.http.post<AuthResponseData>(
           'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAXV4EliA62QyHDYEvyUbpvtEvKpzG3mAI',
           {
@@ -62,24 +63,35 @@ export class AuthService {
           }),
           tap((resData:any) => {
               console.log(resData);
-              this.handleLogin(resData.access_token, +resData.tokenExpireIn, resData.refreshToken, +resData.refreshTokenExpireIn, resData.email)
+              this.handleLoginFire(resData.access_token, +resData.tokenExpireIn, resData.refreshToken, +resData.refreshTokenExpireIn, resData.email)
           })
       )
   }
 
   //Login con EndPoint reale
-  loginReal(email:string, password: string){
+  login(email:string, password: string){
       return this.http.post(
           'http://localhost:8765/api/auth/signin',
           {   
               email: email,
               password: password
           }
-      )
+      ).pipe(
+        map((resData:any) => {
+            return {...resData};
+        }),
+        tap((resData:any) => {
+            console.log(resData);
+        })
+    )
+  }
+
+  handleLogin() {
+
   }
 
   // Login handling temporaneo con firebase
-  handleLogin(tk: string, tkExpire: number, refreshTk: string, refreshExpire: number, email: string) {
+  handleLoginFire(tk: string, tkExpire: number, refreshTk: string, refreshExpire: number, email: string) {
 
     const user = new User(
       'user',

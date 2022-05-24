@@ -61,7 +61,7 @@ export class HomepageComponent implements OnInit {
 
     this.loginForm.reset();
   }
-
+  
   onSubmitSignUp() {
     if (!this.signUpForm.valid) {
       return;
@@ -73,7 +73,7 @@ export class HomepageComponent implements OnInit {
     const surname = this.signUpForm.value.surname;
     const birthDate = this.signUpForm.value.birthDate;
     
-    this.authService.signUpReal(name, surname, email, birthDate, password).subscribe(
+    this.authService.signUp(name, surname, email, birthDate, password).subscribe(
       resData => {
         console.log(resData);
       },
