@@ -26,8 +26,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @Column(name = "user_id")
-    private int userId;
+    @Column(name = "account_owner_id")
+    private int accountOwnerId;
 
     public User() {
     }
@@ -75,11 +75,11 @@ public class User {
         this.roles = roles;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getAccountOwnerId() {
+        return accountOwnerId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setAccountOwnerId(int userId) {
+        this.accountOwnerId = userId;
     }
 }

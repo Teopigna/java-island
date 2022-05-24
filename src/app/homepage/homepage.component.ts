@@ -7,6 +7,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { skip } from 'rxjs';
 
 @Component({
   selector: 'app-homepage',
@@ -20,6 +22,7 @@ export class HomepageComponent implements OnInit {
 
   // Used to store error message from login/signUP
   loginErrorMessage: string | null = null;
+  signUpErrorMessage: string | null = null;
 
   // Default loginForm, vuoto
   loginForm: FormGroup = new FormGroup({
@@ -35,7 +38,7 @@ export class HomepageComponent implements OnInit {
     password: new FormControl('', Validators.required),
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private dateFormatter: NgbDateParserFormatter) {}
 
   ngOnInit(): void {
     
@@ -51,17 +54,17 @@ export class HomepageComponent implements OnInit {
 
     this.authService.login(email, password).subscribe(
       (resData) => {
+        //console.log(resData);
         this.loginErrorMessage = null;
       },
-      (error: HttpErrorResponse) => {
-        // Setta il messaggio di errore al messaggio ricevuto come risposta da FireBase
-        this.loginErrorMessage = error.error.error.message;
+      (error) => {
+        //this.loginErrorMessage = error.error.message;
       }
     );
 
     this.loginForm.reset();
   }
-  
+
   onSubmitSignUp() {
     if (!this.signUpForm.valid) {
       return;
@@ -71,7 +74,7 @@ export class HomepageComponent implements OnInit {
     const password = this.signUpForm.value.password;
     const name = this.signUpForm.value.name;
     const surname = this.signUpForm.value.surname;
-    const birthDate = this.signUpForm.value.birthDate;
+    const birthDate = this.dateFormatter.format(this.signUpForm.value.birthDate);
     
     this.authService.signUp(name, surname, email, birthDate, password).subscribe(
       resData => {
@@ -79,21 +82,25 @@ export class HomepageComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.signUpErrorMessage = error.error.message;
+        if(this.signUpErrorMessage===null){
+          this.signUpForm.reset();
+        }
       }
     );
-
-    this.signUpForm.reset();
   }
 
   homeMode() {
     this.login = false;
     this.signUp = false;
     this.loginErrorMessage = null;
+    this.signUpErrorMessage = null;
   }
 
   loginMode() {
     this.login = true;
     this.signUp = false;
+    this.signUpErrorMessage = null;
   }
 
   signUpMode() {

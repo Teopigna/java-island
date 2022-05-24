@@ -84,52 +84,83 @@ export class AuthService {
   }
 
   //Login con EndPoint reale
-<<<<<<< HEAD
   login(email:string, password: string){
       return this.http.post(
           'http://localhost:8765/api/auth/signin',
           {   
-              email: email,
-              password: password
+            username: email,
+            password: password
           }
       ).pipe(
         map((resData:any) => {
             return {...resData};
         }),
         tap((resData:any) => {
-            console.log(resData);
+            //console.log(resData);
+
+            if(resData.role==="C") {
+              this.handleLogin(
+                resData.token, 
+                resData.accountOwner.email, 
+                resData.accountOwner.firstName,
+                resData.accountOwner.lastName,
+                resData.accountOwner.id,
+                resData.accountOwner.birthDate,
+                resData.role
+                );
+            }
+
+            if(resData.role==="D") {
+              this.handleLogin(
+                resData.token, 
+                resData.user.email, 
+                resData.user.firstName,
+                resData.user.lastName,
+                resData.user.id,
+                resData.user.birthDate,
+                resData.role
+                );
+            }
+
+            
         })
     )
   }
 
-  handleLogin() {
+  handleLogin(token: string, email: string, name: string, surname: string, id: number, birthDate: string, role: string) {
+    const user = new User(
+      id,
+      token,
+      name,
+      surname,
+      email,
+      birthDate,
+      role
+    );
 
+    this.user.next(user);
+
+    //Salva l'utente nel localStorage per la funzione di AutoLogin
+    localStorage.setItem('user', JSON.stringify(user));
+    
+    
+    console.log("Role = " + role);
+
+    if(role==="C") {
+      this.router.navigate(['/dashboard']);
+    }
+    else {
+      
+      this.router.navigate(['/dipendente']);
+    }
   }
 
   // Login handling temporaneo con firebase
   handleLoginFire(tk: string, tkExpire: number, refreshTk: string, refreshExpire: number, email: string) {
-
-=======
-  loginReal(email: string, password: string) {
-    return this.http.post('http://localhost:8765/api/auth/signin', {
-      email: email,
-      password: password,
-    });
-  }
-
-  // Login handling temporaneo con firebase
-  handleLogin(
-    tk: string,
-    tkExpire: number,
-    refreshTk: string,
-    refreshExpire: number,
-    email: string
-  ) {
->>>>>>> 14bfcf190ebf98a6a1912b417b3a88faa78d93c6
+  
     const user = new User(
-      'user',
+      0,
       tk,
-      tkExpire,
       'Gino',
       'Paoli',
       email,
@@ -152,9 +183,8 @@ export class AuthService {
   // Recupera i dati relativi all'utente dal local storage quando la pagina viene refreshata
   autoLogin() {
     const userData: {
-      id: string;
+      id: number;
       _token: string;
-      _tokenExpirationDate: string;
       name: string;
       surname: string;
       email: string;
@@ -169,7 +199,6 @@ export class AuthService {
     const loadedUser = new User(
       userData.id,
       userData._token,
-      +userData._tokenExpirationDate,
       userData.name,
       userData.surname,
       userData.email,

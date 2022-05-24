@@ -8,4 +8,6 @@ public interface AccountOwnerService {
 
     public AccountOwner findByEmail(String email);
 
+    public boolean existsByEmail(String email);
+
 }

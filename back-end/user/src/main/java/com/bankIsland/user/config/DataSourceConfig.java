@@ -43,14 +43,14 @@ public class DataSourceConfig {
 		return DataSourceBuilder.create().build();
 	}
 
-	// @Bean
-	// public Queue userQueue() {
-	// 	return new Queue("userQueue", false);
-	// }
+	@Bean
+	public Queue userQueue() {
+		return new Queue("userQueue", false);
+	}
 
-	// @Bean
-	// public Queue accountQueue() {
-	// 	return new Queue("accountQueue", false);
-	// }
+	@Bean
+	public Queue accountQueue() {
+		return new Queue("accountQueue", false);
+	}
 
 }

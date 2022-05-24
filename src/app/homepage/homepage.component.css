@@ -88,7 +88,7 @@ a.navbar-brand {
         transform: translateX(0) translateZ(0) scaleY(1)
     }
     50% {
-        transform: translateX(-25%) translateZ(0) scaleY(0.55)
+        transform: translateX(-25%) translateZ(0) scaleY(3)
     }
     100% {
         transform: translateX(-50%) translateZ(0) scaleY(1)
@@ -153,3 +153,4 @@ a.navbar-brand {
 .waveAnimation .waveBottom {
     animation: move_wave 25s linear infinite;
 }
+

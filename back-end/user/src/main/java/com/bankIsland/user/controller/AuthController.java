@@ -2,7 +2,8 @@ package com.bankIsland.user.controller;
 
 import com.bankIsland.user.controller.payload.request.LoginRequest;
 import com.bankIsland.user.controller.payload.request.SignupRequest;
-import com.bankIsland.user.controller.payload.response.LoginResponse;
+import com.bankIsland.user.controller.payload.response.EmployeeLoginResponse;
+import com.bankIsland.user.controller.payload.response.UserLoginResponse;
 import com.bankIsland.user.controller.payload.response.MessageResponse;
 import com.bankIsland.user.dao.RoleRepository;
 import com.bankIsland.user.entity.AccountOwner;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,9 +55,15 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        Authentication authentication;
+
+        try {
+            authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Invalid credentials."));
+        }
 
         String jwt = jwtUtils.generateJwtToken(authentication);
 
@@ -63,15 +71,23 @@ public class AuthController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(new LoginResponse(jwt,
-                accountOwnerService.findByEmail(loginRequest.getUsername()),
-                roles.get(0)));
+        switch (roles.get(0)){
+            case "D":
+                return ResponseEntity.ok(new EmployeeLoginResponse(jwt,
+                        userService.findByUsername(loginRequest.getUsername()),
+                        roles.get(0)));
+            default:
+                return ResponseEntity.ok(new UserLoginResponse(jwt,
+                        accountOwnerService.findByEmail(loginRequest.getUsername()),
+                        roles.get(0)));
+        }
+
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         logger.info(">>>>>>>>>>>>>>>>Request signup");
-        if (userService.existsByUsername(signUpRequest.getEmail())) {
+        if (userService.existsByUsername(signUpRequest.getEmail()) || accountOwnerService.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email already used!"));

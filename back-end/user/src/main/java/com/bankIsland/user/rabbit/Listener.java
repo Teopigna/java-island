@@ -8,21 +8,21 @@ import org.springframework.messaging.handler.annotation.SendTo;
 
 public class Listener {
 
-//     @Autowired
-//     private JwtUtils jwtUtils;
+    @Autowired
+    private JwtUtils jwtUtils;
 
-// //    @Autowired
-// //    private UserRepository userRepository;
+//    @Autowired
+//    private UserRepository userRepository;
 
-//     @Autowired
-// 	private UserService userService;
+    @Autowired
+	private UserService userService;
 
-//     @RabbitListener(queues = "userQueue")
-//     @SendTo("accountQueue")
-//     public int listen(String token) {
+    @RabbitListener(queues = "userQueue")
+    @SendTo("accountQueue")
+    public int listen(String token) {
 
-//         String username = jwtUtils.getUserNameFromJwtToken(token);
+        String username = jwtUtils.getUserNameFromJwtToken(token);
 
-//         return userService.findByUsername(username).getId();
-//     }
+        return userService.findByUsername(username).getId();
+    }
 }

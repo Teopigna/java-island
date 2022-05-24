@@ -100,6 +100,11 @@
   <div class="panel panel-default col-md-2 signup-panel">
     <div class="panel-title text-center"><h3>JavaIsland</h3></div>
     <hr />
+    <!-- Pannello errore signUp -->
+    <div class="alert alert-danger" *ngIf="signUpErrorMessage">
+      <p style="text-align: center">{{ signUpErrorMessage }}</p>
+    </div>
+    <!-- Fine Pannello errore -->
     <div class="panel-body text-center">
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmitSignUp()">
         <div class="col-xs-12 justify-content-center">
@@ -146,6 +151,7 @@
             <label for="birthDate" class="date-label">Date of birth</label>
             <div class="input-group mb-2 justify-content-center">
               <input
+                data-date-format="YYYY-MM-DD"
                 ngbDatepicker
                 #d = "ngbDatepicker"
                 [minDate]="{ year: 1920, month: 1, day: 1 }"
@@ -233,6 +239,7 @@
       class="wave waveMiddle"
       style="
         background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png');
+        image-rendering: smooth;
       "
     ></div>
   </div>
@@ -241,6 +248,7 @@
       class="wave waveBottom"
       style="
         background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png');
+        image-rendering: smooth;
       "
     ></div>
   </div>
