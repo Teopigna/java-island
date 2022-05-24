@@ -39,7 +39,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getUsername(),
                 user.getPassword(),
                 authorities,
-                user.getUserId());
+                user.getAccountOwnerId());
     }
 
     @Override

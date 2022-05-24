@@ -8,10 +8,11 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` char(68) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `account_owner_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO users(username,password,account_owner_id) VALUES('dip@gmail.com','$2a$10$VtzUQygDXPmT5suYyuaSq.CMjtxvMCbcrtJVXnWGqOaCjUJutDRG6',0);
 --
 -- Dumping data for table `users`
 --
@@ -67,5 +68,7 @@ CREATE TABLE `user_roles` (
   CONSTRAINT `FK_role` FOREIGN KEY (`role_id`) 
   REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO user_roles(user_id,role_id) VALUES(1,2);
 
 SET FOREIGN_KEY_CHECKS = 1;

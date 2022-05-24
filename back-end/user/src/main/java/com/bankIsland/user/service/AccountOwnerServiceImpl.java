@@ -24,6 +24,11 @@ public class AccountOwnerServiceImpl implements AccountOwnerService {
     public AccountOwner findByEmail(String email) {
         return accountOwnerRepository.findByEmail(email).get();
     }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return accountOwnerRepository.existsByEmail(email);
+    }
 }
 
 
