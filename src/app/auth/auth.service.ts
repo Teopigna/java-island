@@ -108,7 +108,7 @@ export class AuthService {
                 resData.accountOwner.birthDate,
                 resData.role
                 );
-            }
+            } 
 
             if(resData.role==="D") {
               this.handleLogin(
