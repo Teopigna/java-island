@@ -61,6 +61,40 @@ public class AccountController {
         }
     }
 
+    @DeleteMapping
+    public ResponseEntity deleteAccount(@RequestHeader("Authorization") String token, @RequestBody AccountCreationRequest request) {
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+//        rabbitTemplate.convertAndSend("userQueue", token);
+        int userId = jwtUtils.getUserIdFromJwtToken(token);
+        List<Account> accounts = accountService.findAllByUserId(userId);
+        Random rand = new Random();
+        if (accounts.size() == 0) {
+            int value = rand.nextInt(1000000000);
+            Account newAccount = new Account("IT" + value, 0, false, userId);
+            return ResponseEntity.ok(accountService.save(newAccount));
+        } else {
+            try {
+                Account account = accountService.findByAccountNumber(request.getAccountNumber());
+                if (userId == account.getUserId()) {
+                    if (request.getAmount() <= account.getBalance() && request.getAmount() > 0) {
+                        int value = rand.nextInt(1000000000);
+                        account.setBalance(account.getBalance() - request.getAmount());
+                        accountService.save(account);
+                        Account newAccount = new Account("IT" + value, request.getAmount(), false, userId);
+                        return ResponseEntity.ok(accountService.save(newAccount));
+                    } else {
+                        return ResponseEntity.badRequest().body(new MessageResponse("Error: Invalid amount."));
+                    }
+                }
+            } catch (NoSuchElementException e) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Error: Invalid accountNumber."));
+            }
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Invalid request."));
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity validateAccount(@PathVariable int id){
         try {

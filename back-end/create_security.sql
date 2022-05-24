@@ -40,8 +40,8 @@ CREATE TABLE `roles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO roles(name) VALUES('ROLE_USER');
-INSERT INTO roles(name) VALUES('ROLE_EMPLOYEE');
+INSERT INTO roles(name) VALUES('C');
+INSERT INTO roles(name) VALUES('D');
 
 --
 -- Dumping data for table `authorities`
