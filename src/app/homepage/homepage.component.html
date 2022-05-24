@@ -97,7 +97,7 @@
 <!-- SIGNUP PANEL -->
 
 <div class="container" *ngIf="signUp">
-  <div class="panel panel-default col-md-2">
+  <div class="panel panel-default col-md-2 signup-panel">
     <div class="panel-title text-center"><h3>JavaIsland</h3></div>
     <hr />
     <div class="panel-body text-center">
@@ -141,25 +141,38 @@
             </span>
             <!-- Fine messaggio errore -->
           </div>
+          
           <div class="form-group">
-            <label for="birthDate">Date of birth</label>
-            <input
-              type="text"
-              id="birthDate"
-              formControlName="birthDate"
-              class="form-control"
-            />
+            <label for="birthDate" class="date-label">Date of birth</label>
+            <div class="input-group mb-2 justify-content-center">
+              <input
+                ngbDatepicker
+                #d = "ngbDatepicker"
+                [minDate]="{ year: 1920, month: 1, day: 1 }"
+                [maxDate]="{ year: 2022, month: 1, day: 1 }"
+                placeholder="yyyy-mm-dd"
+                type="text"
+                id="birthDate"
+                formControlName="birthDate"
+                class="form-control custom-date"
+              />
+              <span class="input-group-text" id="basic-addon2">
+                <i class="fa-solid fa-calendar-days" (click)="d.toggle()"></i>
+              </span>
+            </div>
+            
+              
+            
+            
             <!-- Messaggio errore in caso data di nascita non valida -->
             <span
-              *ngIf="
-                !signUpForm.get('birthDate')?.valid &&
-                signUpForm.get('birthDate')?.touched
-              "
+              *ngIf=" !signUpForm.get('birthDate')?.valid && signUpForm.get('birthDate')?.touched"
               class="help-block"
-              >Please enter your birth date
+            >Please enter your birth date
             </span>
-            <!-- Fine messaggio errore -->
+            <!-- Fine messaggio errore --> 
           </div>
+        
           <div class="form-group">
             <label for="email">Email</label>
             <input

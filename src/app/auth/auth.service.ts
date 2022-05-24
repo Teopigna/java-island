@@ -1,8 +1,9 @@
 import { User } from './../shared/user.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, map, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { options } from 'fusioncharts';
 
 export interface AuthResponseData {
   kind: string;
@@ -32,11 +33,11 @@ export class AuthService {
       }
     );
   }
-    
+  
   //SignUp con EndPoint reale
   signUpReal(name: string, surname: string, email:string, birthDate: string, password:string){
       return this.http.post(
-          'https://localhost:8765/api/auth/signup',
+          'http://localhost:8765/api/auth/signup',
           {   
               firstName: name,
               lastName: surname,
@@ -69,7 +70,7 @@ export class AuthService {
   //Login con EndPoint reale
   loginReal(email:string, password: string){
       return this.http.post(
-          'https://localhost:8765/api/auth/signin',
+          'http://localhost:8765/api/auth/signin',
           {   
               email: email,
               password: password

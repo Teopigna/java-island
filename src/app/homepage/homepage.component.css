@@ -37,6 +37,21 @@ input {
     margin: auto;
 }
 
+input.custom-date {
+    width: 50%;
+}
+
+i.fa-calendar-days{
+    color: #3688ec;
+}
+
+.input-group{
+    margin: 0 auto;
+    width: 70%;
+}
+
+
+
 label {
     font-weight: bold;
 }
