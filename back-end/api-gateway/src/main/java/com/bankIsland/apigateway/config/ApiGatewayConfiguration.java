@@ -22,6 +22,9 @@ public class ApiGatewayConfiguration {
                 .route(p -> p.path("/api/auth/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://user"))
+                .route(p -> p.path("/api/accounts")
+                        .filters(f -> f.filter(filter))
+                        .uri("lb://account"))
                 .build();
     }
 

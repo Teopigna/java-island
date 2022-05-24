@@ -75,6 +75,14 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
