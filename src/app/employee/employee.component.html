@@ -1,40 +1,47 @@
 <app-menu></app-menu>
 <div>
-  <h2>gestione richieste</h2>
   <button (click)="onOpenAccount()">apertura</button>
   <button (click)="onCloseAccount()">chiusura</button>
   <button (click)="onRegistration()">registrazione</button>
+  <button (click)="onCloseMenu()">chiudi menu</button>
+  <div
+    *ngIf="this.openings || this.closings || this.registering; else notChosen"
+  >
+    <h2>gestione richieste</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Richiedente</th>
+          <th scope="col">numero di conto</th>
+          <th scope="col">saldo</th>
+          <th scope="col">stato</th>
+          <th scope="col">selezione</th>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Richiedente</th>
-        <th scope="col">numero di conto</th>
-        <th scope="col">saldo</th>
-        <th scope="col">stato</th>
-        <th scope="col">selezione</th>
+          <!--<th scope="col">stato</th>-->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let listElement of shownList; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            {{ listElement.richiedente }}
+          </td>
+          <td>{{ listElement.conto }}</td>
 
-        <!--<th scope="col">stato</th>-->
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let listElement of shownList; index as i">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>
-          {{ listElement.richiedente }}
-        </td>
-        <td>{{ listElement.conto }}</td>
-
-        <td>{{ listElement.saldo }}$</td>
-        <td>{{ listElement.stato }}</td>
-        <td>
-          <button class="btn btn-warning">accetta</button>
-          <button class="btn btn-danger" style="margin-left: 10px">
-            rifiuta
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <td>{{ listElement.saldo }}$</td>
+          <td>{{ listElement.stato }}</td>
+          <td>
+            <button class="btn btn-warning">accetta</button>
+            <button class="btn btn-danger" style="margin-left: 10px">
+              rifiuta
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #notChosen>
+    <p>Selezionare un menu</p>
+  </ng-template>
 </div>
