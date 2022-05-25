@@ -22,7 +22,7 @@ import * as FusionCharts from 'fusioncharts';
 import * as charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
-import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlert, NgbDatepicker, NgbDatepickerModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -50,10 +50,10 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     FusionChartsModule,
     NgbProgressbarModule,
     NgbTooltipModule,
+    NgbDatepickerModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-
     AppRoutingModule,
   ],
   providers: [],

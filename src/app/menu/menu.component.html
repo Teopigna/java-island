@@ -1,8 +1,8 @@
-<div *ngIf="menu === 'closed'" (click)="onSlideMenu()" class="open-menu">
+<div (click)="onSlideMenu()" class="open-menu">
   <i class="fa-solid fa-bars"></i>
 </div>
 <div [@menu]="menuState" class="menu-container" *ngIf="menu === 'open'">
-  <div>
+  <div *ngIf="userRole === 'C'">
     <div class="nav-menu">
       <button routerLink="/dashboard"><i class="fa-solid fa-house"></i></button>
       <button (click)="onSlideMenu()"><i class="fa-solid fa-bars"></i></button>
@@ -12,9 +12,48 @@
         <a routerLink="/profilo"><i class="fa-solid fa-user"></i> Profilo</a>
       </li>
       <li>
-        <a href="#"
+        <a routerLink="/gestione-conti"
           ><i class="fa-solid fa-money-check-dollar"></i> Gestione Conti</a
         >
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="userRole === 'D'">
+    <div class="nav-menu">
+      <button routerLink="/dipendente">
+        <i class="fa-solid fa-house"></i>
+      </button>
+      <button (click)="onSlideMenu()"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <ul class="nav-links">
+      <li>
+        Richieste:
+        <ul class="nav-links">
+          <li>
+            <a
+              [routerLink]="['/dipendente']"
+              [queryParams]="{ request: 'apertura' }"
+              ><i class="fa-solid fa-credit-card" style="color: green"></i>
+              Aperture Conti</a
+            >
+          </li>
+          <li>
+            <a
+              [routerLink]="['/dipendente']"
+              [queryParams]="{ request: 'chiusura' }"
+              ><i class="fa-solid fa-credit-card" style="color: red"></i>
+              Chiusure Conti</a
+            >
+          </li>
+          <li>
+            <a
+              [routerLink]="['/dipendente']"
+              [queryParams]="{ request: 'registrazione' }"
+              ><i class="fa-solid fa-user-plus"></i> Registrazione Utenti</a
+            >
+          </li>
+        </ul>
       </li>
     </ul>
   </div>

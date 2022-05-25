@@ -37,6 +37,21 @@ input {
     margin: auto;
 }
 
+input.custom-date {
+    width: 50%;
+}
+
+i.fa-calendar-days{
+    color: #3688ec;
+}
+
+.input-group{
+    margin: 0 auto;
+    width: 70%;
+}
+
+
+
 label {
     font-weight: bold;
 }
@@ -73,7 +88,7 @@ a.navbar-brand {
         transform: translateX(0) translateZ(0) scaleY(1)
     }
     50% {
-        transform: translateX(-25%) translateZ(0) scaleY(0.55)
+        transform: translateX(-25%) translateZ(0) scaleY(3)
     }
     100% {
         transform: translateX(-50%) translateZ(0) scaleY(1)
@@ -138,3 +153,4 @@ a.navbar-brand {
 .waveAnimation .waveBottom {
     animation: move_wave 25s linear infinite;
 }
+
