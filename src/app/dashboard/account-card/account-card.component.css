@@ -115,8 +115,8 @@
   color: var(--error-clr);
 }
 
-@media screen and (max-width: 900px) {
-  .alert {
-    bottom: -40px;
-  }
+/* @media screen and (max-width: 900px) { */
+.alert {
+  bottom: -40px;
 }
+/* } */

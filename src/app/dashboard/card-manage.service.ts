@@ -1,7 +1,20 @@
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+
+export interface Card {
+  saldoUtente: number;
+  iban: string;
+  active: boolean;
+}
 
 @Injectable({ providedIn: 'root' })
 export class CardService {
+  cardChanged = new BehaviorSubject<Card>({
+    saldoUtente: 237.54,
+    iban: 'IT60X0542811101000000123456',
+    active: true,
+  });
+
   arrayCards = [
     {
       saldoUtente: 237.54,
