@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employee.component.css'],
 })
 export class EmployeeComponent implements OnInit {
+  openings: boolean = false;
+  closings: boolean = false;
+  registering: boolean = false;
+
   shownList: {
     richiedente: string;
     conto: number;
@@ -22,12 +26,21 @@ export class EmployeeComponent implements OnInit {
   ngOnInit(): void {}
 
   onOpenAccount() {
+    this.openings = true;
     // shownList= get list from server
   }
   onCloseAccount() {
+    this.closings = true;
     // shownList= get list from server
   }
   onRegistration() {
+    this.registering = true;
     // shownList= get list from server
+  }
+
+  onCloseMenu() {
+    this.openings = false;
+    this.closings = false;
+    this.registering = false;
   }
 }
