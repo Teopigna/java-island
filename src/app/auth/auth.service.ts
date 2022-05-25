@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, map, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { options } from 'fusioncharts';
 
 export interface AuthResponseData {
   kind: string;
