@@ -15,7 +15,7 @@ import {
   templateUrl: './pop-up.component.html',
   styleUrls: ['./pop-up.component.css'],
 })
-export class PopUpComponent implements OnInit, OnDestroy {
+export class PopUpComponent implements OnInit {
   @Input() action: string = '';
   @Output() onClose: EventEmitter<boolean> = new EventEmitter();
 
@@ -47,13 +47,13 @@ export class PopUpComponent implements OnInit, OnDestroy {
     this.form1 = new FormGroup({
       toIban: new FormControl(null, [
         Validators.required,
-        Validators.pattern(
-          /^([A-Z]{2}[ \-]?[0-9]{2})(?=(?:[ \-]?[A-Z0-9]){9,30}$)((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?$/
-        ),
+        // Validators.pattern(
+        //   /^([A-Z]{2}[ \-]?[0-9]{2})(?=(?:[ \-]?[A-Z0-9]){9,30}$)((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?$/
+        // ),
       ]),
       amount: new FormControl(null, [
         Validators.required,
-        Validators.pattern(/^\[0-9]+(\.[0-9][0-9])?$/),
+        // Validators.pattern(/^\[0-9]+(\.[0-9][0-9])?$/),
       ]),
       // la causale non è obbligatoria
       description: new FormControl(null, [Validators.maxLength(200)]),
@@ -62,13 +62,13 @@ export class PopUpComponent implements OnInit, OnDestroy {
     this.form2 = new FormGroup({
       toPhoneNumber: new FormControl(null, [
         Validators.required,
-        Validators.pattern(
-          /^([+]39)?((3[\d]{2})([ ,\-,\/]){0,1}([\d, ]{6,9}))|(((0[\d]{1,4}))([ ,\-,\/]){0,1}([\d, ]{5,10}))$/
-        ),
+        // Validators.pattern(
+        //   /^([+]39)?((3[\d]{2})([ ,\-,\/]){0,1}([\d, ]{6,9}))|(((0[\d]{1,4}))([ ,\-,\/]){0,1}([\d, ]{5,10}))$/
+        // ),
       ]),
       amount: new FormControl(null, [
         Validators.required,
-        Validators.pattern(/^\[0-9]+(\.[0-9][0-9])?$/),
+        // Validators.pattern(/^\[0-9]+(\.[0-9][0-9])?$/),
       ]),
       // la causale non è obbligatoria
       description: new FormControl(null, [Validators.maxLength(200)]),
@@ -77,7 +77,7 @@ export class PopUpComponent implements OnInit, OnDestroy {
     this.form3 = new FormGroup({
       amount: new FormControl(null, [
         Validators.required,
-        Validators.pattern(/^\[0-9]+(\.[0-9][0-9])?$/),
+        // Validators.pattern(/^\[0-9]+(\.[0-9][0-9])?$/),
       ]),
     });
   }
@@ -89,75 +89,103 @@ export class PopUpComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.form1.valid) {
       console.log(this.form1);
-    } else if (this.form2.valid) {
-      console.log(this.form2);
 
-      // logica per la ricarica cellulare (toglie solo soldi, come per il prelievo)
-      if (this.action === 'ricarica') {
-        const newBalance =
+      if (this.action === 'giroconto') {
+        const newBalanceFrom =
           Math.round(
             (this.cardService.cardDisplayed.saldoUtente -
-              +this.form2.value.amount) *
+              +this.form1.value.amount) *
               100
           ) / 100;
-        if (newBalance >= 0) {
+
+        const newBalanceTo =
+          Math.round(
+            (+this.cardService.arrayCards.filter((card) => {
+              return card.iban === this.form1.value.toIban;
+            })[0].saldoUtente +
+              +this.form1.value.amount) *
+              100
+          ) / 100;
+
+        if (newBalanceFrom >= 0) {
+          this.cardService.cardDisplayed.saldoUtente = newBalanceFrom;
+
+          this.cardService.arrayCards.filter((card) => {
+            return card.iban === this.form1.value.toIban;
+          })[0].saldoUtente = newBalanceTo;
+
+          this.cardService.cardChanged.next({
+            saldoUtente: newBalanceFrom,
+            iban: this.cardService.cardDisplayed.iban,
+            active: this.cardService.cardDisplayed.active,
+          });
+        }
+      } else if (this.form2.valid) {
+        console.log(this.form2);
+
+        // logica per la ricarica cellulare (toglie solo soldi, come per il prelievo)
+        if (this.action === 'ricarica') {
+          const newBalance =
+            Math.round(
+              (this.cardService.cardDisplayed.saldoUtente -
+                +this.form2.value.amount) *
+                100
+            ) / 100;
+          if (newBalance >= 0) {
+            this.cardService.cardDisplayed.saldoUtente = newBalance;
+            this.cardService.cardChanged.next({
+              saldoUtente: newBalance,
+              iban: this.cardService.cardDisplayed.iban,
+              active: this.cardService.cardDisplayed.active,
+            });
+          } else {
+            alert(
+              "L'operazione non è andata a buon fine causa saldo insufficiente sulla carta."
+            );
+          }
+        }
+      } else {
+        console.log(this.form3);
+
+        // logica per il prelievo e il versamento: i dati aggiornati andranno poi salvati sul db(?)
+        if (this.action === 'prelievo') {
+          const newBalance =
+            Math.round(
+              (this.cardService.cardDisplayed.saldoUtente -
+                +this.form3.value.amount) *
+                100
+            ) / 100;
+          if (newBalance >= 0) {
+            this.cardService.cardDisplayed.saldoUtente = newBalance;
+            this.cardService.cardChanged.next({
+              saldoUtente: newBalance,
+              iban: this.cardService.cardDisplayed.iban,
+              active: this.cardService.cardDisplayed.active,
+            });
+          } else {
+            alert(
+              "L'operazione non è andata a buon fine causa saldo insufficiente sulla carta."
+            );
+          }
+        } else if (this.action === 'versamento') {
+          const newBalance =
+            Math.round(
+              (this.cardService.cardDisplayed.saldoUtente +
+                +this.form3.value.amount) *
+                100
+            ) / 100;
+
           this.cardService.cardDisplayed.saldoUtente = newBalance;
+
           this.cardService.cardChanged.next({
             saldoUtente: newBalance,
             iban: this.cardService.cardDisplayed.iban,
             active: this.cardService.cardDisplayed.active,
           });
-        } else {
-          alert(
-            "L'operazione non è andata a buon fine causa saldo insufficiente sulla carta."
-          );
         }
       }
-    } else {
-      console.log(this.form3);
 
-      // logica per il prelievo e il versamento: i dati aggiornati andranno poi salvati sul db(?)
-      if (this.action === 'prelievo') {
-        const newBalance =
-          Math.round(
-            (this.cardService.cardDisplayed.saldoUtente -
-              +this.form3.value.amount) *
-              100
-          ) / 100;
-        if (newBalance >= 0) {
-          this.cardService.cardDisplayed.saldoUtente = newBalance;
-          this.cardService.cardChanged.next({
-            saldoUtente: newBalance,
-            iban: this.cardService.cardDisplayed.iban,
-            active: this.cardService.cardDisplayed.active,
-          });
-        } else {
-          alert(
-            "L'operazione non è andata a buon fine causa saldo insufficiente sulla carta."
-          );
-        }
-      } else if (this.action === 'versamento') {
-        const newBalance =
-          Math.round(
-            (this.cardService.cardDisplayed.saldoUtente +
-              +this.form3.value.amount) *
-              100
-          ) / 100;
-
-        this.cardService.cardDisplayed.saldoUtente = newBalance;
-
-        this.cardService.cardChanged.next({
-          saldoUtente: newBalance,
-          iban: this.cardService.cardDisplayed.iban,
-          active: this.cardService.cardDisplayed.active,
-        });
-      }
-
-      console.log(this.cardService.cardDisplayed.saldoUtente);
+      this.closeEvent();
     }
-
-    this.closeEvent();
   }
-
-  ngOnDestroy(): void {}
 }
