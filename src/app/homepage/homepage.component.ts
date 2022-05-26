@@ -58,7 +58,7 @@ export class HomepageComponent implements OnInit {
         this.loginErrorMessage = null;
       },
       (error) => {
-        //this.loginErrorMessage = error.error.message;
+        this.loginErrorMessage = error.error.message;
       }
     );
 
@@ -78,14 +78,30 @@ export class HomepageComponent implements OnInit {
     
     this.authService.signUp(name, surname, email, birthDate, password).subscribe(
       resData => {
-        console.log(resData);
+        //console.log(resData);
       },
-      error => {
-        console.log(error);
+      error => {  
         this.signUpErrorMessage = error.error.message;
-        if(this.signUpErrorMessage===null){
-          this.signUpForm.reset();
-        }
+      }
+    );
+    
+    // Se la registrazione è avvenuta con successo (no messaggi d'errore), lancia il login 
+    if(this.signUpErrorMessage===null){
+      console.log("message is null")
+      this.signUpForm.reset();
+      setTimeout(()=>{this.redirectToLogin(email, password);}, 100)
+      
+    }
+  }
+
+  redirectToLogin(email: string, password: string){
+    this.authService.login(email, password).subscribe(
+      (resData) => {
+        //console.log(resData);
+        this.loginErrorMessage = null;
+      },
+      (error) => {
+        this.loginErrorMessage = error.error.message;
       }
     );
   }

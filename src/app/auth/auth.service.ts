@@ -132,13 +132,21 @@ export class AuthService {
 
     if (loadedUser.token) {
       this.user.next(loadedUser);
-      this.router.navigate(['/dashboard']);
+      if(loadedUser.role==="C"){
+        this.router.navigate(['/dashboard']);
+      }
+      else{
+        this.router.navigate(['/dipendente']);
+      }
+      
     }
   }
 
   // Logout - setta la subject user a null e rimuove i dati utente dallo storage locale
   logout() {
     this.user.next(null);
+    //Per ora clear dal momento che ci sono solo i dati relativi allo user attualmente connesso
+    localStorage.clear();
     this.router.navigate(['']);
   }
 }
