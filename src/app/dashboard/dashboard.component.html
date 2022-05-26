@@ -1,5 +1,27 @@
 <app-menu></app-menu>
-<h1>
+
+<div *ngIf="cardArray.length === 1 && cardArray[0].active === false">
+  <div class="backdrop"></div>
+  <div class="container-center-row">
+    <div class="container-center-col">
+      <div class="panel popup">
+        <h3>Attendere prego...</h3>
+        <p>
+          La tua richiesta di registrazione è in attesa di approvazione. <br />
+          <br />
+          <span>Cliccare il tasto refresh per aggiornare la pagina.</span>
+        </p>
+        <div>
+          <button (click)="onRefreshPage()">
+            <i class="fa-solid fa-arrow-rotate-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h1 class="title">
   Benvenuta, <b>{{ activeUser }}</b
   >.
 </h1>
@@ -7,8 +29,8 @@
 <!-- <app-pop-up></app-pop-up> -->
 
 <div class="dashboard-area">
-  <app-account-card></app-account-card>
-  <app-graphic-area></app-graphic-area>
-  <app-actions></app-actions>
-  <app-transactions></app-transactions>
+  <app-account-card class="left"></app-account-card>
+  <app-graphic-area class="right"></app-graphic-area>
+  <app-actions class="left"></app-actions>
+  <app-transactions class="right"></app-transactions>
 </div>
