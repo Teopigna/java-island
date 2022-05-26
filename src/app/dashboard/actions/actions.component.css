@@ -8,12 +8,16 @@ a:hover {
 }
 
 .container-actions {
-  width: fit-content;
+  min-width: fit-content;
   margin: 0;
 }
 
 .title {
   color: var(--grey-titles);
   width: 190px;
-  text-indent: 50%;
+  text-indent: 55%;
+}
+
+.panel {
+  padding: 20px;
 }

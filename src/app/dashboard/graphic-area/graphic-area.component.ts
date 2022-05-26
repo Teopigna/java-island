@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 
 // data.data è un esempio: andranno sostituiti con i dati che arrivano dal be con le transazioni
@@ -90,6 +90,11 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   subscription?: Subscription;
 
   constructor() {}
+
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event) {
+  //   event.target.innerWidth;
+  // }
 
   ngOnInit(): void {
     // per la progress bar

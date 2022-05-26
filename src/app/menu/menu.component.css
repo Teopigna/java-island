@@ -13,7 +13,7 @@ button:hover {
 .menu-container {
   width: 200px;
   height: 100%;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   display: flex;
@@ -63,4 +63,5 @@ button {
   cursor: pointer;
   color: var(--menu-bg-color);
   font-size: 30px;
+  margin: 0 0 10px 20px;
 }
