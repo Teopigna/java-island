@@ -132,7 +132,6 @@ export class AuthService {
 
     if (loadedUser.token) {
       this.user.next(loadedUser);
-<<<<<<< HEAD
       if(loadedUser.role==="C"){
         this.router.navigate(['/dashboard']);
       }
@@ -140,20 +139,14 @@ export class AuthService {
         this.router.navigate(['/dipendente']);
       }
       
-=======
-      this.router.navigate(['/dashboard']);
->>>>>>> 0a77810e68febef62589c65ca8efe7a6a9eb1c99
     }
   }
 
   // Logout - setta la subject user a null e rimuove i dati utente dallo storage locale
   logout() {
     this.user.next(null);
-<<<<<<< HEAD
     //Per ora clear dal momento che ci sono solo i dati relativi allo user attualmente connesso
     localStorage.clear();
-=======
->>>>>>> 0a77810e68febef62589c65ca8efe7a6a9eb1c99
     this.router.navigate(['']);
   }
 }
