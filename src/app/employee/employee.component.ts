@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employee.component.css'],
 })
 export class EmployeeComponent implements OnInit {
+  query: string = '';
   openings: boolean = false;
   closings: boolean = false;
   registering: boolean = false;
@@ -21,9 +23,19 @@ export class EmployeeComponent implements OnInit {
     { richiedente: 'chiara', conto: 22, saldo: 0, stato: 'inattivo' },
   ];
 
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      console.log(params); // { orderby: "price" }
+      this.query = params['request'];
+
+      console.log(this.query); // price
+    });
+  }
+  request(request: any) {
+    throw new Error('Method not implemented.');
+  }
 
   onOpenAccount() {
     this.openings = true;

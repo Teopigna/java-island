@@ -209,13 +209,13 @@ export class AuthService {
 
     if (loadedUser.token) {
       this.user.next(loadedUser);
-      this.router.navigate(['/dashbooard']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
   // Logout - setta la subject user a null e rimuove i dati utente dallo storage locale
   logout() {
     this.user.next(null);
-    this.router.navigate(['/homepage']);
+    this.router.navigate(['']);
   }
 }

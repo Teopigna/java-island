@@ -84,7 +84,6 @@
             type="submit"
             class="btn btn-outline-danger"
             [disabled]="!loginForm.valid"
-            (click)="onSubmitLogin()"
           >
             Login
           </button>
@@ -146,14 +145,14 @@
             </span>
             <!-- Fine messaggio errore -->
           </div>
-          
+
           <div class="form-group">
             <label for="birthDate" class="date-label">Date of birth</label>
             <div class="input-group mb-2 justify-content-center">
               <input
                 data-date-format="YYYY-MM-DD"
                 ngbDatepicker
-                #d = "ngbDatepicker"
+                #d="ngbDatepicker"
                 [minDate]="{ year: 1920, month: 1, day: 1 }"
                 [maxDate]="{ year: 2022, month: 1, day: 1 }"
                 placeholder="yyyy-mm-dd"
@@ -166,19 +165,19 @@
                 <i class="fa-solid fa-calendar-days" (click)="d.toggle()"></i>
               </span>
             </div>
-            
-              
-            
-            
+
             <!-- Messaggio errore in caso data di nascita non valida -->
             <span
-              *ngIf=" !signUpForm.get('birthDate')?.valid && signUpForm.get('birthDate')?.touched"
+              *ngIf="
+                !signUpForm.get('birthDate')?.valid &&
+                signUpForm.get('birthDate')?.touched
+              "
               class="help-block"
-            >Please enter your birth date
+              >Please enter your birth date
             </span>
-            <!-- Fine messaggio errore --> 
+            <!-- Fine messaggio errore -->
           </div>
-        
+
           <div class="form-group">
             <label for="email">Email</label>
             <input
