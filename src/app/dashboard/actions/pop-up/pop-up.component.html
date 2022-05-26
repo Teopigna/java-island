@@ -9,13 +9,25 @@
         *ngIf="action === 'bonifico' || action === 'giroconto'"
       >
         <form [formGroup]="form1" (ngSubmit)="onSubmit()">
-          <label for="toIban">IBAN Destinatario</label>
-          <input
-            type="text"
-            id="toIban"
-            formControlName="toIban"
-            class="form-control"
-          />
+          <div *ngIf="action === 'bonifico'">
+            <label for="toIban">IBAN Destinatario</label>
+            <input
+              type="text"
+              id="toIban"
+              formControlName="toIban"
+              class="form-control"
+            />
+          </div>
+
+          <div *ngIf="action === 'giroconto'">
+            <label for="toIban">IBAN Destinatario</label>
+            <select formControlName="toIban" class="form-control">
+              <option *ngFor="let card of accountTransfer" [value]="card.iban">
+                {{ card.iban }}
+              </option>
+            </select>
+          </div>
+
           <span
             class="help-block"
             *ngIf="!form1.get('toIban')?.valid && form1.get('toIban')?.touched"
@@ -24,9 +36,9 @@
           </span>
 
           <br />
-          <label for="amount">Ammontare</label>
+          <label for="amount">Ammontare (€)</label>
           <input
-            type="text"
+            type="number"
             id="amount"
             formControlName="amount"
             class="form-control"
@@ -61,7 +73,13 @@
           </span>
 
           <br />
-          <button class="btn btn-success" type="submit">Submit</button>
+          <button
+            [disabled]="!cardIsActive"
+            class="btn btn-success"
+            type="submit"
+          >
+            Submit
+          </button>
         </form>
       </div>
 
@@ -85,9 +103,9 @@
           </span>
 
           <br />
-          <label for="amount">Ammontare</label>
+          <label for="amount">Ammontare (€)</label>
           <input
-            type="text"
+            type="number"
             id="amount"
             formControlName="amount"
             class="form-control"
@@ -122,7 +140,13 @@
           </span>
 
           <br />
-          <button class="btn btn-success" type="submit">Submit</button>
+          <button
+            class="btn btn-success"
+            type="submit"
+            [disabled]="!cardIsActive && !form2?.valid"
+          >
+            Submit
+          </button>
         </form>
       </div>
 
@@ -131,9 +155,9 @@
         *ngIf="action === 'versamento' || action === 'prelievo'"
       >
         <form [formGroup]="form3" (ngSubmit)="onSubmit()">
-          <label for="amount">Ammontare</label>
+          <label for="amount">Ammontare (€)</label>
           <input
-            type="text"
+            type="number"
             id="amount"
             formControlName="amount"
             class="form-control"
@@ -145,7 +169,13 @@
             This field is invalid!
           </span>
           <br />
-          <button class="btn btn-success" type="submit">Submit</button>
+          <button
+            [disabled]="!cardIsActive"
+            class="btn btn-success"
+            type="submit"
+          >
+            Submit
+          </button>
         </form>
       </div>
     </div>

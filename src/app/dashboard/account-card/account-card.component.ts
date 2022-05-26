@@ -1,43 +1,12 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { CardService } from './../card-manage.service';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-account-card',
   templateUrl: './account-card.component.html',
   styleUrls: ['./account-card.component.css'],
-
-  // animazione della carta da aggiungere in seguito
-  // animations: [
-  //   trigger('cardSlide', [
-  //     state(
-  //       'in',
-  //       style({
-  //         transform: 'translateX(0)',
-  //       })
-  //     ),
-  //     state(
-  //       'left',
-  //       style({
-  //         transform: 'translateX(-300px)',
-  //       })
-  //     ),
-  //     state(
-  //       'right',
-  //       style({
-  //         transform: 'translateX(300px)',
-  //       })
-  //     ),
-  //     transition('left<=>in', animate(300)),
-  //     transition('in<=>right', animate(300)),
-  //   ]),
-  // ],
 })
 export class AccountCardComponent implements OnInit {
   arrayCards: { saldoUtente: number; iban: string; active: boolean }[] = [];
@@ -45,18 +14,56 @@ export class AccountCardComponent implements OnInit {
   currentIndex = 0;
   cardDisplayed = { saldoUtente: 0, iban: '', active: false };
 
-  constructor(private cardService: CardService) {}
+  constructor(
+    private cardService: CardService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.arrayCards = this.cardService.arrayCards;
     this.currentIndex = this.cardService.currentIndex;
     this.cardDisplayed = this.cardService.cardDisplayed;
+
+    this.cardService.cardChanged.subscribe((card) => {
+      this.cardDisplayed = card;
+    });
+
+    if (this.cardDisplayed.active) {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { card: (this.currentIndex + 1).toString() },
+        fragment: 'activated',
+      });
+    } else {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { card: (this.currentIndex + 1).toString() },
+      });
+    }
   }
 
   onPreviousCard() {
     if (this.currentIndex - 1 >= 0) {
       this.currentIndex--;
       this.cardDisplayed = this.arrayCards[this.currentIndex];
+
+      this.cardService.currentIndex--;
+      this.cardService.cardDisplayed =
+        this.cardService.arrayCards[this.cardService.currentIndex];
+
+      if (this.cardDisplayed.active) {
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { card: (this.currentIndex + 1).toString() },
+          fragment: 'activated',
+        });
+      } else {
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { card: (this.currentIndex + 1).toString() },
+        });
+      }
     }
   }
 
@@ -64,6 +71,23 @@ export class AccountCardComponent implements OnInit {
     if (this.currentIndex + 1 < this.arrayCards.length) {
       this.currentIndex++;
       this.cardDisplayed = this.arrayCards[this.currentIndex];
+
+      this.cardService.currentIndex++;
+      this.cardService.cardDisplayed =
+        this.cardService.arrayCards[this.cardService.currentIndex];
+
+      if (this.cardDisplayed.active) {
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { card: (this.currentIndex + 1).toString() },
+          fragment: 'activated',
+        });
+      } else {
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { card: (this.currentIndex + 1).toString() },
+        });
+      }
     }
   }
 }

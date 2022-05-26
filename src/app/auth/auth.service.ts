@@ -21,18 +21,6 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  //SignUp temporaneo su FireBase
-  signUpFire(email: string, password: string) {
-    return this.http.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAXV4EliA62QyHDYEvyUbpvtEvKpzG3mAI',
-      {
-        email: email,
-        password: password,
-        returnSecureToken: true,
-      }
-    );
-  }
-
   //SignUp con EndPoint reale
   signUp(
     name: string,
@@ -48,49 +36,6 @@ export class AuthService {
       birthDate: birthDate,
       password: password,
     });
-  }
-
-  //Login temporaneo su FireBase
-  loginFire(email: string, password: string) {
-    return this.http
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAXV4EliA62QyHDYEvyUbpvtEvKpzG3mAI',
-        {
-          email: email,
-          password: password,
-          returnSecureToken: true,
-        }
-      )
-      .pipe(
-        map((resData: any) => {
-          return { ...resData };
-        }),
-        tap((resData: any) => {
-          console.log(resData);
-          this.handleLoginFire(
-            resData.access_token,
-            +resData.tokenExpireIn,
-            resData.refreshToken,
-            +resData.refreshTokenExpireIn,
-            resData.email
-          );
-        })
-      )
-      .pipe(
-        map((resData: any) => {
-          return { ...resData };
-        }),
-        tap((resData: any) => {
-          console.log(resData);
-          this.handleLoginFire(
-            resData.access_token,
-            +resData.tokenExpireIn,
-            resData.refreshToken,
-            +resData.refreshTokenExpireIn,
-            resData.email
-          );
-        })
-      );
   }
 
   //Login con EndPoint reale
@@ -157,28 +102,6 @@ export class AuthService {
     } else {
       this.router.navigate(['/dipendente']);
     }
-  }
-
-  // Login handling temporaneo con firebase
-  handleLoginFire(
-    tk: string,
-    tkExpire: number,
-    refreshTk: string,
-    refreshExpire: number,
-    email: string
-  ) {
-    const user = new User(0, tk, 'Gino', 'Paoli', email, '23/09/1934', 'C');
-
-    this.user.next(user);
-
-    //Salva l'utente nel localStorage per la funzione di AutoLogin
-    localStorage.setItem('user', JSON.stringify(user));
-
-    this.router.navigate(['/dashboard']);
-  }
-
-  handleLoginReal() {
-    // Per gestire la risposta della richiesta di login e storare token e info dell'utente nell'oggetto User
   }
 
   // Recupera i dati relativi all'utente dal local storage quando la pagina viene refreshata

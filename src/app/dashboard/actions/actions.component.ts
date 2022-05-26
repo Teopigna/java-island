@@ -1,3 +1,4 @@
+import { CardService } from './../card-manage.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +15,11 @@ export class ActionsComponent implements OnInit {
 
   routeSub: Subscription = new Subscription();
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private cardService: CardService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.routeSub = this.route.queryParams.subscribe((params) => {
@@ -29,10 +34,18 @@ export class ActionsComponent implements OnInit {
   onClosePopUp(close: boolean) {
     this.closedPopUp = true;
 
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { action: null },
-    });
+    if (this.cardService.cardDisplayed.active) {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { card: (this.cardService.currentIndex + 1).toString() },
+        fragment: 'activated',
+      });
+    } else {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { card: (this.cardService.currentIndex + 1).toString() },
+      });
+    }
 
     console.log(this.closedPopUp);
   }

@@ -2,6 +2,14 @@
   --error-clr: rgb(231, 73, 73);
 }
 
+.vertical-center {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .card {
   width: 260px;
   height: 150px;
@@ -115,8 +123,8 @@
   color: var(--error-clr);
 }
 
-@media screen and (max-width: 900px) {
-  .alert {
-    bottom: -40px;
-  }
+/* @media screen and (max-width: 900px) { */
+.alert {
+  bottom: -40px;
 }
+/* } */
