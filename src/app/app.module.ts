@@ -26,6 +26,8 @@ import { NgbAlert, NgbDatepicker, NgbDatepickerModule, NgbProgressbarModule } fr
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { FooterComponent } from './footer/footer.component';
+import { ProgressBarsComponent } from './dashboard/progress-bars/progress-bars.component';
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
@@ -43,6 +45,8 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     HomepageComponent,
     UserProfileComponent,
     ErrorPageComponent,
+    FooterComponent,
+    ProgressBarsComponent,
   ],
   imports: [
     BrowserModule,

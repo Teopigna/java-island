@@ -1,6 +1,19 @@
 <div class="half">
   <div class="container-actions">
-    <h3 class="title">Transazioni</h3>
+    <h3 class="title">
+      <span>Transazioni</span>
+      <span>
+        <button (click)="onShrinkArray(10)" class="personalized-btn">
+          Ultime 10
+        </button>
+        <button (click)="onShrinkArray(-1)" class="personalized-btn">
+          Tutte
+        </button>
+      </span>
+    </h3>
+    <button class="round-btn">
+      <i class="fa-solid fa-cloud-arrow-down"></i>
+    </button>
     <div class="panel">
       <table class="table table-hover table-striped">
         <thead>
@@ -13,7 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let transaction of transactions">
+          <tr *ngFor="let transaction of transactionsDisplayed">
             <td>
               <i>{{ transaction.date }}</i>
             </td>

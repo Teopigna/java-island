@@ -64,4 +64,6 @@ button {
   color: var(--menu-bg-color);
   font-size: 30px;
   margin: 0 0 10px 20px;
+
+  width: fit-content;
 }
