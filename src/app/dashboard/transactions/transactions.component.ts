@@ -1,5 +1,6 @@
 import { CardService } from '../../services/card-manage.service';
 import { Component, OnInit } from '@angular/core';
+import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-transactions',
@@ -28,10 +29,10 @@ export class TransactionsComponent implements OnInit {
     description: string;
   }[] = [];
 
-  constructor(private cardService: CardService) {}
+  constructor(private traService: TransactionService) {}
 
   ngOnInit(): void {
-    this.transactions = this.cardService.transactions;
+    this.transactions = this.traService.transactions;
 
     this.transactionsDisplayed = this.transactions;
   }

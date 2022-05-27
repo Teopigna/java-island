@@ -24,12 +24,17 @@ export class AccountCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.arrayCards = this.cardService.arrayCards;
-    this.arrayCards.push({
-      saldoUtente: 0,
-      iban: '',
-      active: true,
-    });
+    this.arrayCards = [
+      ...this.cardService.arrayCards,
+      {
+        saldoUtente: 0,
+        iban: '',
+        active: true,
+      },
+    ];
+
+    console.log(this.cardService.arrayCards);
+
     this.currentIndex = this.cardService.currentIndex;
     this.cardDisplayed = this.cardService.cardDisplayed;
 
