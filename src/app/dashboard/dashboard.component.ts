@@ -1,5 +1,5 @@
 import { AuthService } from './../auth/auth.service';
-import { CardService } from './card-manage.service';
+import { CardService } from '../services/card-manage.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
     private cardService: CardService,
     private authService: AuthService
   ) {}
-
+    
   ngOnInit(): void {
     this.cardArray = this.cardService.arrayCards;
 

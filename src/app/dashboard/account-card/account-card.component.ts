@@ -1,5 +1,5 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { CardService } from './../card-manage.service';
+import { CardService } from '../../services/card-manage.service';
 
 import { Component, OnInit } from '@angular/core';
 
