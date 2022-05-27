@@ -76,7 +76,7 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
       }
       i++;
     }
-    // inserire la questione che si aggiorna in modo automatico anche all'inizio: la width
+    // inserire la questione che si aggiorna in modo automatico anche all'inizio: la width.
   }
 
   private changeWidth() {
