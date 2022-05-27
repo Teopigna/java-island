@@ -1,4 +1,4 @@
-import { CardService } from './../../card-manage.service';
+import { CardService } from '../../../services/card-manage.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {
@@ -145,7 +145,7 @@ export class PopUpComponent implements OnInit {
             );
           }
         }
-      } else {
+      } else if (this.form3.valid) {
         console.log(this.form3);
 
         // logica per il prelievo e il versamento: i dati aggiornati andranno poi salvati sul db(?)

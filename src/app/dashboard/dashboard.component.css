@@ -16,6 +16,12 @@
   overflow-y: hidden;
 }
 
+@media screen and (max-width: 900px) {
+  .dashboard-area {
+    overflow-x: hidden;
+  }
+}
+
 .backdrop {
   position: fixed;
   width: 100vw;
