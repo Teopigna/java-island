@@ -87,6 +87,7 @@ export class PopUpComponent implements OnInit {
   }
 
   onSubmit() {
+    // da implementare il bonifico
     if (this.form1.valid) {
       console.log(this.form1);
 

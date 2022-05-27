@@ -1,13 +1,41 @@
 <div class="vertical-center">
   <div class="half">
     <div class="half-col">
+      <h3 class="title">Carta n° {{ currentIndex + 1 }}</h3>
+
       <div class="arrows-container">
         <div class="card-container">
           <div [ngClass]="{ error: !cardDisplayed.active }" class="card panel">
             <div>
+              <button
+                *ngIf="!cardDisplayed.active"
+                class="round-btn"
+                (click)="onRefreshCard()"
+              >
+                <i class="fa-solid fa-arrow-rotate-right"></i>
+              </button>
+            </div>
+            <div>
               <h3>
-                <span>Saldo:</span>
-                <span>€ {{ cardDisplayed.saldoUtente }}</span>
+                <span>
+                  <span class="eye-span"
+                    ><i
+                      *ngIf="!balanceDisplay"
+                      class="eye fa-solid fa-eye"
+                      (click)="onSeeBalance()"
+                    ></i>
+                    <i
+                      *ngIf="balanceDisplay"
+                      class="eye fa-solid fa-eye-slash"
+                      (click)="onSeeBalance()"
+                    ></i
+                  ></span>
+                  Saldo:
+                </span>
+                <span *ngIf="balanceDisplay"
+                  >€ {{ cardDisplayed.saldoUtente }}</span
+                >
+                <span *ngIf="!balanceDisplay">€ ****.**</span>
               </h3>
             </div>
             <div class="iban-area">

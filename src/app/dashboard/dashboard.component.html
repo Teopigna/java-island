@@ -12,7 +12,7 @@
           <span>Cliccare il tasto refresh per aggiornare la pagina.</span>
         </p>
         <div>
-          <button (click)="onRefreshPage()">
+          <button class="round-btn" (click)="onRefreshPage()">
             <i class="fa-solid fa-arrow-rotate-right"></i>
           </button>
         </div>
@@ -22,15 +22,18 @@
 </div>
 
 <h1 class="title">
-  Benvenuta, <b>{{ activeUser }}</b
+  Welcome, <b>{{ activeUser }}</b
   >.
 </h1>
 
 <!-- <app-pop-up></app-pop-up> -->
 
 <div class="dashboard-area">
-  <app-account-card class="left"></app-account-card>
-  <app-graphic-area class="right"></app-graphic-area>
-  <app-actions class="left"></app-actions>
-  <app-transactions class="right"></app-transactions>
+  <div class="dashboard-panels">
+    <app-account-card class="left"></app-account-card>
+    <app-graphic-area class="right"></app-graphic-area>
+    <app-actions class="left"></app-actions>
+    <app-transactions class="right"></app-transactions>
+  </div>
+  <app-footer></app-footer>
 </div>
