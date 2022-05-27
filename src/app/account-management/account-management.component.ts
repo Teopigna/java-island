@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class AccountManagementComponent implements OnInit {
   accounts: Card[] = [];
 
-  showPopup : boolean = false;
+  showPopup: boolean = false;
 
   constructor(private cardService: CardService) {}
 
@@ -19,11 +19,11 @@ export class AccountManagementComponent implements OnInit {
     this.accounts = this.cardService.arrayCards;
   }
 
-  onAddCard(){
+  onAddCard() {
     this.showPopup = true;
   }
 
-  onClosePopUp(){
+  onClosePopUp() {
     this.showPopup = false;
   }
 }

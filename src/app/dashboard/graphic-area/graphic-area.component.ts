@@ -1,3 +1,4 @@
+import { TransactionService } from './../../services/transaction.service';
 import { CardService } from '../../services/card-manage.service';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
@@ -47,7 +48,7 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   maxprogress = '60';
   subscription?: Subscription;
 
-  constructor(private cardService: CardService) {}
+  constructor(private traService: TransactionService) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -64,7 +65,7 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
     });
 
     let i = 0;
-    for (let item of this.cardService.transactions.reverse()) {
+    for (let item of this.traService.transactions.reverse()) {
       if (i <= 10) {
         this.data.data.push({
           label: item.date.toString(),
