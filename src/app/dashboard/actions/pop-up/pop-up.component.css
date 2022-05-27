@@ -46,10 +46,17 @@ select {
 
   width: 340px;
 
-  background-color: var(--menu-font-color);
+  background-color: white;
   z-index: 3;
 
   align-self: center;
+}
+
+input,
+textarea,
+select {
+  background: rgba(var(--menu-font-hover-rgb), 0.3);
+  border-radius: 20px;
 }
 
 h1 {
@@ -68,4 +75,22 @@ h1 {
 
 label {
   font-weight: bold;
+}
+
+.personalized-btn {
+  margin: 0 5px 0 5px;
+  font-size: 20px;
+
+  background: rgba(var(--menu-bg-rgb), 0.5);
+  background: linear-gradient(
+    90deg,
+    rgba(var(--menu-bg-rgb), 0.5) 0%,
+    rgba(var(--menu-font-hover-rgb), 0.5) 80%,
+    rgba(var(--menu-font-hover-rgb), 0.5) 100%
+  );
+}
+
+.personalized-btn:active {
+  background-color: var(--menu-bg-color);
+  color: var(--menu-font-color);
 }

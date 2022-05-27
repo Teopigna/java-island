@@ -75,7 +75,7 @@
           <br />
           <button
             [disabled]="!cardIsActive"
-            class="btn btn-success"
+            class="personalized-btn"
             type="submit"
           >
             Submit
@@ -141,7 +141,7 @@
 
           <br />
           <button
-            class="btn btn-success"
+            class="personalized-btn"
             type="submit"
             [disabled]="!cardIsActive && !form2?.valid"
           >
@@ -164,14 +164,14 @@
           />
           <span
             class="help-block"
-            *ngIf="!form2.get('amount')?.valid && form2.get('amount')?.touched"
+            *ngIf="!form3.get('amount')?.valid && form3.get('amount')?.touched"
           >
             This field is invalid!
           </span>
           <br />
           <button
             [disabled]="!cardIsActive"
-            class="btn btn-success"
+            class="personalized-btn"
             type="submit"
           >
             Submit

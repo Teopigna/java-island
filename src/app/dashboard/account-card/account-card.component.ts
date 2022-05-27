@@ -11,6 +11,9 @@ import { Component, OnInit } from '@angular/core';
 export class AccountCardComponent implements OnInit {
   arrayCards: { saldoUtente: number; iban: string; active: boolean }[] = [];
 
+  balanceDisplay: boolean = true;
+  stars: string = '';
+
   currentIndex = 0;
   cardDisplayed = { saldoUtente: 0, iban: '', active: false };
 
@@ -41,6 +44,14 @@ export class AccountCardComponent implements OnInit {
         queryParams: { card: (this.currentIndex + 1).toString() },
       });
     }
+  }
+
+  onSeeBalance() {
+    this.balanceDisplay = this.balanceDisplay ? false : true;
+  }
+
+  onRefreshCard() {
+    // chiamata per vedere se il dipendente ha accettato la richiesta di creazione nuova carta
   }
 
   onPreviousCard() {

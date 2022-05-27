@@ -1,0 +1,43 @@
+.footer {
+  bottom: 0;
+  height: 200px;
+  width: 100%;
+  background-color: rgb(52, 79, 102);
+  color: var(--menu-font-color);
+
+  display: flex;
+  justify-content: space-around;
+}
+
+@media screen and (min-height: 860px) and (min-width: 900px) {
+  .footer {
+    position: fixed;
+    left: 0;
+  }
+}
+
+@media screen and (min-height: 1050px) and (min-width: 900px) {
+  .footer {
+    position: fixed;
+    left: 0;
+    height: 320px;
+  }
+}
+
+.footer div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+label {
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none;
+}
+
+ul li {
+  text-indent: 10px;
+}
