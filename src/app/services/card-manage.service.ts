@@ -188,7 +188,7 @@ export class CardService {
       description: '15',
     },
   ];
-
+  
   arrayCards = [
     {
       saldoUtente: 237.54,
