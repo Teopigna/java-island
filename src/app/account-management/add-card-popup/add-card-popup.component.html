@@ -11,7 +11,9 @@
             >
                 X
             </button>
+
             <p>Selezionare l'IBAN da cui prelevare importo iniziale</p>
+            
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <label for="fromIban">from IBAN</label>
                 <select formControlName="fromIban" class="form-control">
@@ -19,15 +21,16 @@
                         {{ card.iban }}
                     </option>
                 </select>
-
+                <!-- Errore in caso di Iban non selezionato -->
                 <span
                     class="help-block"
                     *ngIf="!form.get('fromIban')?.valid && form.get('fromIban')?.touched"
                 >
-                    This field is invalid!
+                    Must select IBAN
                 </span>
+                <!-- Fine Errore  -->
+                <br>
 
-                <br/>
                 <label for="amount">Ammontare (€)</label>
                 <input
                     type="number"
@@ -35,19 +38,30 @@
                     formControlName="amount"
                     class="form-control"
                 />
+                <!-- Errore in caso di Amount <= 0 o vuoto -->
                 <span
                     class="help-block"
                     *ngIf="!form.get('amount')?.valid && form.get('amount')?.touched"
                 >
-                    This field is invalid!
+                    The amount must be > 0
                 </span>
+                <!-- Fine Errore  -->
                 <br>
-                <button
-                class="personalized-btn"
-                type="submit"
-                >
-                    Conferma
-                </button>
+                <br>
+                <div class="row text-center">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <button
+                            class="personalized-btn text-center"
+                            type="submit"
+                            [disabled]="!form.valid"
+                        >
+                            Conferma
+                        </button>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+                
             </form>
               
         </div>

@@ -80,5 +80,21 @@
   .right-align {
     margin-left: 90%;
   }
+
+  .center-align {
+    align-self: center;
+  }
+
+  span {
+    color: red;
+  }
+
+  input.ng-invalid.ng-touched{
+      border: 1px solid red;
+  }
+  
+  select.ng-invalid.ng-touched{
+    border: 1px solid red;
+}
   
   

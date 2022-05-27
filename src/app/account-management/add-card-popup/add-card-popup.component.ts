@@ -32,12 +32,28 @@ export class AddCardPopupComponent implements OnInit {
       ]),
       amount: new FormControl(null, [
         Validators.required,
+        Validators.min(0.1)
       ])
     });
   }
 
   onSubmit(){
+    if (!this.form.valid) {
+      return;
+    }
 
+    const fromIban = this.form.value.fromIban;
+    const amount = this.form.value.amount;
+
+    console.log("Richiesta apertura nuovo conto...");
+    console.log("Prelevando "+amount+"$ dal conto "+fromIban+" per la creazione di un nuovo conto");
+
+    // **** Fare qui chiamata a servizio che si occupa di inviare la POST a: /api/accounts  
+    // **** indicando fromIban, la somma, il nome ed il cognome
+    
+
+    this.form.reset();
+    this.closeEvent();
   }
 
   closeEvent() {

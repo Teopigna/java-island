@@ -1,10 +1,13 @@
-.table {
-  border-radius: 15px;
-  box-shadow: 1.5px 1.5px 3px 3px rgba(54, 136, 236, 0.5);
-  margin: 20px;
-
-  padding: 5px;
-  width: fit-content;
+table {
+  text-align: center;
+  border-radius: 10px;
+  background: rgba(var(--menu-bg-rgb), 0.5);
+  background: linear-gradient(
+    90deg,
+    rgba(var(--menu-bg-rgb), 0.5) 0%,
+    rgba(var(--menu-font-hover-rgb), 0.5) 80%,
+    rgba(var(--menu-font-hover-rgb), 0.5) 100%
+  );
 }
 
 .personalized-btn {
