@@ -2,6 +2,7 @@
 <div class="container-center-row">
   <div class="container-center-col">
     <div class="panel popup">
+      <i class="fa-solid fa-circle-xmark" (click)="closeEvent()"></i>
       <h1>{{ action }}</h1>
 
       <div
@@ -74,7 +75,7 @@
 
           <br />
           <button
-            [disabled]="!cardIsActive"
+            [disabled]="!form1.valid"
             class="personalized-btn"
             type="submit"
           >
@@ -141,9 +142,9 @@
 
           <br />
           <button
+            [disabled]="!form2.valid"
             class="personalized-btn"
             type="submit"
-            [disabled]="!cardIsActive && !form2?.valid"
           >
             Submit
           </button>
@@ -170,7 +171,7 @@
           </span>
           <br />
           <button
-            [disabled]="!cardIsActive"
+            [disabled]="!form3.valid"
             class="personalized-btn"
             type="submit"
           >

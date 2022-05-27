@@ -13,6 +13,9 @@ export class ActionsComponent implements OnInit {
   popUpType: string = '';
   closedPopUp: boolean = true;
 
+  currentCard: { saldoUtente: number; iban: string; active: boolean } =
+    this.cardService.cardDisplayed;
+
   routeSub: Subscription = new Subscription();
 
   constructor(
@@ -24,11 +27,21 @@ export class ActionsComponent implements OnInit {
   ngOnInit(): void {
     this.routeSub = this.route.queryParams.subscribe((params) => {
       const action = params['action'];
+      const cardNumber = +params['card'];
       if (action) {
         this.popUpType = action;
         this.onOpenPopUp();
       }
+
+      if (cardNumber) {
+        this.currentCard = this.cardService.arrayCards[cardNumber - 1];
+      }
     });
+
+    // this.cardService.cardChanged.subscribe((card) => {
+    //   this.currentCard = card;
+    //   console.log(this.currentCard);
+    // });
   }
 
   onClosePopUp(close: boolean) {
@@ -46,12 +59,9 @@ export class ActionsComponent implements OnInit {
         queryParams: { card: (this.cardService.currentIndex + 1).toString() },
       });
     }
-
-    console.log(this.closedPopUp);
   }
 
   onOpenPopUp() {
     this.closedPopUp = false;
-    console.log(this.closedPopUp);
   }
 }
