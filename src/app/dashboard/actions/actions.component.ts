@@ -1,4 +1,4 @@
-import { CardService } from './../card-manage.service';
+import { CardService } from '../../services/card-manage.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';

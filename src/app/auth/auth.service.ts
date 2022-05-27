@@ -4,16 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, map, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
-export interface AuthResponseData {
-  kind: string;
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  registered?: boolean;
-}
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   //Subject utile ad "avvisare" i componenti che ne hanno bisogno del login/logout effettuato
