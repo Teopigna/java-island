@@ -78,20 +78,14 @@ export class HomepageComponent implements OnInit {
     
     this.authService.signUp(name, surname, email, birthDate, password).subscribe(
       resData => {
-        //console.log(resData);
+        this.signUpForm.reset();
+        // Se la registrazione è avvenuta con successo (no messaggi d'errore), lancia il login 
+        setTimeout(()=>{this.redirectToLogin(email, password);}, 100)
       },
       error => {  
         this.signUpErrorMessage = error.error.message;
       }
     );
-    
-    // Se la registrazione è avvenuta con successo (no messaggi d'errore), lancia il login 
-    if(this.signUpErrorMessage===null){
-      console.log("message is null")
-      this.signUpForm.reset();
-      setTimeout(()=>{this.redirectToLogin(email, password);}, 100)
-      
-    }
   }
 
   redirectToLogin(email: string, password: string){

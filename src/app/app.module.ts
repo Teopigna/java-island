@@ -28,6 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProgressBarsComponent } from './dashboard/progress-bars/progress-bars.component';
+import { AddCardPopupComponent } from './account-management/add-card-popup/add-card-popup.component';
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
@@ -47,6 +48,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     ErrorPageComponent,
     FooterComponent,
     ProgressBarsComponent,
+    AddCardPopupComponent,
   ],
   imports: [
     BrowserModule,

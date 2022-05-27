@@ -85,13 +85,13 @@ a.navbar-brand {
 
 @keyframes move_wave {
     0% {
-        transform: translateX(0) translateZ(0) scaleY(1)
+        transform: translateX(0) translateZ(0) scaleY(.5)
     }
     50% {
-        transform: translateX(-25%) translateZ(0) scaleY(3)
+        transform: translateX(-25%) translateZ(0) scaleY(1)
     }
     100% {
-        transform: translateX(-50%) translateZ(0) scaleY(1)
+        transform: translateX(-50%) translateZ(0) scaleY(.5)
     }
 }
 .waveWrapper {
