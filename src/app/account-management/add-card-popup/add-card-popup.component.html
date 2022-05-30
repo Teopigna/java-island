@@ -17,8 +17,8 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <label for="fromIban">from IBAN</label>
                 <select formControlName="fromIban" class="form-control">
-                    <option *ngFor="let card of accountTransfer" [value]="card.iban">
-                        {{ card.iban }}
+                    <option *ngFor="let card of accountTransfer" [value]="card.accountNumber">
+                        {{ card.accountNumber }}
                     </option>
                 </select>
                 <!-- Errore in caso di Iban non selezionato -->
