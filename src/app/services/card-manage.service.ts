@@ -1,7 +1,7 @@
 import { Account } from './../shared/account.model';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { AuthService } from './../auth/auth.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 export interface Card {
@@ -43,10 +43,8 @@ export class CardService {
 
   currentIndex = 0;
   cardDisplayed = this.arrayCards[this.currentIndex];
-  
-  getCards(){
 
-    //Preparo l'header Authorization, che contiene il token dell'utente
+  getAccounts(){
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -55,19 +53,14 @@ export class CardService {
       headers: new HttpHeaders(headerDict),
     };
 
-    this.http
-      .get<Account>(
+    return this.http
+      .get<Account[]>(
         'http://localhost:8765/api/accounts',
         requestOptions
-      )
-      .subscribe(
-        (resData: any) => {
+      ).pipe(
+        tap((resData) => {
           this.accountsList = resData;
-          console.log(this.accountsList);
-        },
-        (error) => {
-          console.log(error);
-        }
+        })
       );
   }
 }

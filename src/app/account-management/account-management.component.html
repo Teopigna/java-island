@@ -19,16 +19,16 @@
           <tr *ngFor="let account of accounts; index as i">
             <th scope="row">{{ i + 1 }}</th>
             <td>
-              {{ account.iban }}
+              {{ account.accountNumber }}
             </td>
-            <td>{{ account.saldoUtente | number }}</td>
+            <td>{{ account.balance | number }}</td>
             <td
-              [ngStyle]="{'color': account.active ? 'green' : 'red'}">
-                {{account.active ? "attivo" : "inattivo"}}
+              [ngStyle]="{'color': (account.status===0) ? 'green' : 'red'}">
+                {{(account.status===0) ? "attivo" : "inattivo"}}
             </td>
             <td>
-              <button class="btn btn-warning" [disabled]="!account.active">add bar</button>
-              <button class="btn btn-danger" [disabled]="!account.active" style="margin-left: 10px">delete</button>
+              <button class="btn btn-warning" [disabled]="!(account.status===0)">add bar</button>
+              <button class="btn btn-danger" [disabled]="!(account.status===0)" style="margin-left: 10px">delete</button>
             </td>
           </tr>
         </tbody>

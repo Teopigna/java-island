@@ -40,8 +40,6 @@ export class AuthService {
           return { ...resData };
         }),
         tap((resData: any) => {
-          //console.log(resData);
-
           if (resData.role === 'C') {
             this.handleLogin(
               resData.token,
