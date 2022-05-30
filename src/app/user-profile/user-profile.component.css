@@ -1,8 +1,40 @@
 div.container {
-    margin-top: 20vh;
+  margin-top: 20vh;
 }
 
 i.fa-circle {
-    size: 200px;
-    font-size: 200px;
+  size: 200px;
+  font-size: 200px;
+}
+
+h5 {
+  color: var(--grey-titles);
+}
+
+h1,
+h5 {
+  font-variant: small-caps;
+}
+h1 {
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+p {
+  text-transform: capitalize;
+}
+
+.title-div {
+  display: flex;
+  justify-content: space-between;
+
+  background: -webkit-linear-gradient(
+    45deg,
+    var(--menu-font-color-hover) 0%,
+    var(--menu-bg-color) 70%,
+    var(--menu-bg-color) 100%
+  );
+  background-clip: unset;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
