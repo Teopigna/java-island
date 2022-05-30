@@ -6,6 +6,8 @@ import { AuthService } from './../auth/auth.service';
 interface requestItem {
   id: number;
   accountNumber: string;
+  firstName:string;
+  lastName:string;
   balance: number;
   status: number;
   accountOwnerId: number;
@@ -20,12 +22,8 @@ interface requestItem {
 export class EmployeeComponent implements OnInit {
   query: string = '';
   title: string = '';
+  sent:boolean=false;
 
-  shownList: {
-    richiedente: string;
-    iban: number;
-    saldo: number;
-  }[] = [];
 
   requestList: requestItem[] = [];
 
@@ -54,9 +52,57 @@ export class EmployeeComponent implements OnInit {
 
   onOpenAccount() {
     this.title = 'apertura conto';
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    this.http
+      .get<requestItem>(
+        'http://localhost:8765/api/accounts/intern/opening_accounts',
+        requestOptions
+      )
+
+    .subscribe(
+        (resData: any) => {
+          this.requestList = resData;
+          console.log(this.requestList);
+        },
+        (error) => {
+          console.log(error);
+        }
+    );
   }
   onCloseAccount() {
     this.title = 'chiusura conto';
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    this.http
+      .get<requestItem>(
+        'http://localhost:8765/api/accounts/intern/closing_accounts',
+        requestOptions
+      )
+
+    .subscribe(
+        (resData: any) => {
+          this.requestList = resData;
+          console.log(this.requestList);
+        },
+        (error) => {
+          console.log(error);
+        }
+    );
+
+
   }
   onRegistration() {
     this.title = 'registrazione account';
@@ -72,11 +118,11 @@ export class EmployeeComponent implements OnInit {
 
     this.http
       .get<requestItem>(
-        'http://localhost:8765/api/accounts/validation/registration',
+        'http://localhost:8765/api/accounts/intern/registrations',
         requestOptions
       )
 
-      .subscribe(
+    .subscribe(
         (resData: any) => {
           this.requestList = resData;
           console.log(this.requestList);
@@ -84,10 +130,39 @@ export class EmployeeComponent implements OnInit {
         (error) => {
           console.log(error);
         }
-      );
+    );
   }
 
-  onAcceptRequest() {}
+  onAcceptRequest(index:number) {
 
-  onDeclineRequest() {}
+
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    this.http.put<any>('http://localhost:8765/api/accounts/intern/validation/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
+        .subscribe();
+
+    this.sent=false;
+  }
+
+  onDeclineRequest(index:number) {
+
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    this.http.put<any>('http://localhost:8765/api/accounts/intern/rejection/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
+        .subscribe();
+
+    this.sent=false;
+  }
 }
