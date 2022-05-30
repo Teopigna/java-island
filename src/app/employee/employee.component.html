@@ -18,21 +18,22 @@
         </thead>
         <tbody>
           <tr *ngFor="let listElement of requestList; index as i">
-            <th scope="row">{{ i + 1 }}</th>
+            <th scope="row" aria-disabled="sent">{{ i + 1 }}</th>
             <td>
-              {{ listElement.id }}
+              {{ listElement.firstName+' '+ listElement.lastName }}
             </td>
             <td>{{ listElement.accountNumber }}</td>
 
             <td>{{ listElement.balance }}$</td>
             <td>
-              <button class="btn btn-warning" (click)="onAcceptRequest()">
+              <button class="btn btn-warning" (click)="onAcceptRequest(i)" [disabled]="sent">
                 accetta
               </button>
               <button
                 class="btn btn-danger"
                 style="margin-left: 10px"
-                (click)="onDeclineRequest()"
+                (click)="onDeclineRequest(i)"
+                [disabled]="sent"
               >
                 rifiuta
               </button>

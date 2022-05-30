@@ -12,7 +12,7 @@ export class UserProfileComponent implements OnInit {
   surname?: string;
   email?: string;
   birthDate?: string;
-
+  
   constructor(private authService: AuthService) { }
   
   ngOnInit(): void {
