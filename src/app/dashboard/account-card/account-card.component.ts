@@ -1,5 +1,5 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { CardService } from './../card-manage.service';
+import { CardService } from '../../services/card-manage.service';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -24,7 +24,17 @@ export class AccountCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.arrayCards = this.cardService.arrayCards;
+    this.arrayCards = [
+      ...this.cardService.arrayCards,
+      {
+        saldoUtente: 0,
+        iban: '',
+        active: true,
+      },
+    ];
+
+    console.log(this.cardService.arrayCards);
+
     this.currentIndex = this.cardService.currentIndex;
     this.cardDisplayed = this.cardService.cardDisplayed;
 
@@ -54,6 +64,11 @@ export class AccountCardComponent implements OnInit {
     // chiamata per vedere se il dipendente ha accettato la richiesta di creazione nuova carta
   }
 
+  onAddCard() {
+    // naviga in gestione conti
+    this.router.navigate(['/gestione-conti']);
+  }
+
   onPreviousCard() {
     if (this.currentIndex - 1 >= 0) {
       this.currentIndex--;
@@ -63,7 +78,7 @@ export class AccountCardComponent implements OnInit {
       this.cardService.cardDisplayed =
         this.cardService.arrayCards[this.cardService.currentIndex];
 
-      if (this.cardDisplayed.active) {
+      if (this.cardDisplayed.active && this.cardDisplayed.iban !== '') {
         this.router.navigate([], {
           relativeTo: this.route,
           queryParams: { card: (this.currentIndex + 1).toString() },
@@ -87,7 +102,7 @@ export class AccountCardComponent implements OnInit {
       this.cardService.cardDisplayed =
         this.cardService.arrayCards[this.cardService.currentIndex];
 
-      if (this.cardDisplayed.active) {
+      if (this.cardDisplayed.active && this.cardDisplayed.iban !== '') {
         this.router.navigate([], {
           relativeTo: this.route,
           queryParams: { card: (this.currentIndex + 1).toString() },

@@ -1,71 +1,9 @@
+import { TransactionService } from './../../services/transaction.service';
+import { CardService } from '../../services/card-manage.service';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 
 // data.data è un esempio: andranno sostituiti con i dati che arrivano dal be con le transazioni
-const data = {
-  chart: {
-    caption: 'Average Monthly Temperature in Texas',
-    yaxisname: 'Average Monthly Temperature',
-    anchorradius: '5',
-    plottooltext: 'Average temperature in $label is <b>$dataValue</b>',
-    showhovereffect: '1',
-    showvalues: '0',
-    numbersuffix: '°C',
-    theme: 'fusion',
-    anchorbgcolor: '#70fdea',
-    palettecolors: '#70fdea',
-  },
-  data: [
-    {
-      label: 'Jan',
-      value: '1',
-    },
-    {
-      label: 'Feb',
-      value: '5',
-    },
-    {
-      label: 'Mar',
-      value: '10',
-    },
-    {
-      label: 'Apr',
-      value: '12',
-    },
-    {
-      label: 'May',
-      value: '14',
-    },
-    {
-      label: 'Jun',
-      value: '16',
-    },
-    {
-      label: 'Jul',
-      value: '20',
-    },
-    {
-      label: 'Aug',
-      value: '22',
-    },
-    {
-      label: 'Sep',
-      value: '20',
-    },
-    {
-      label: 'Oct',
-      value: '16',
-    },
-    {
-      label: 'Nov',
-      value: '7',
-    },
-    {
-      label: 'Dec',
-      value: '2',
-    },
-  ],
-};
 
 @Component({
   selector: 'app-graphic-area',
@@ -73,29 +11,49 @@ const data = {
   styleUrls: ['./graphic-area.component.css'],
 })
 export class GraphicAreaComponent implements OnInit, OnDestroy {
+  data = {
+    chart: {
+      caption: 'Grafico delle <b>tue</b> transazioni',
+      yaxisname: 'Ammontare',
+      anchorradius: '5',
+      plottooltext: '$label: <b>$dataValue</b>',
+      showhovereffect: '1',
+      showvalues: '0',
+      numbersuffix: '€',
+      theme: 'fusion',
+      anchorbgcolor: '#70fdea',
+      palettecolors: '#70fdea',
+    },
+    data: [
+      {
+        label: '',
+        value: 0,
+      },
+    ],
+  };
   // da aggiunstare width e height a seconda della grandezza che ci serve... magari cambiarla in relazione
   // alla grandezza del viewport, ma bisogna mettere in ascolto il file ts (@hostlistener)
   // per il momento, o se non si riesce a fare, mettiamo una grandezza che va bene
   // per ogni tipo di device
 
   // da provare altro: più responsive
-  width = '40%';
+  width: any = '40%';
   height = '170';
   type = 'spline';
   dataFormat = 'json';
-  dataSource = data;
+  dataSource = this.data;
 
   // per la progress bar:
   progressAnimation = '0';
   maxprogress = '60';
   subscription?: Subscription;
 
-  constructor() {}
+  constructor(private traService: TransactionService) {}
 
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event) {
-  //   event.target.innerWidth;
-  // }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.width = event.currentTarget.innerWidth * 0.4;
+  }
 
   ngOnInit(): void {
     // per la progress bar
@@ -105,6 +63,20 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
         this.subscription?.unsubscribe();
       }
     });
+
+    let i = 0;
+    for (let item of this.traService.transactions.reverse()) {
+      if (i <= 10) {
+        this.data.data.push({
+          label: item.date.toString(),
+          value: item.amount,
+        });
+      } else {
+        break;
+      }
+      i++;
+    }
+    // inserire la questione che si aggiorna in modo automatico anche all'inizio: la width.
   }
 
   private changeWidth() {

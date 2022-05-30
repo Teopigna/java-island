@@ -1,21 +1,42 @@
 <div class="vertical-center">
   <div class="half">
     <div class="half-col">
-      <h3 class="title">Carta n° {{ currentIndex + 1 }}</h3>
+      <h3 class="title" *ngIf="cardDisplayed.iban !== ''">
+        Carta n° {{ currentIndex + 1 }}
+      </h3>
+
+      <h3 class="title" *ngIf="cardDisplayed.iban === ''">Aggiungi...</h3>
 
       <div class="arrows-container">
         <div class="card-container">
-          <div [ngClass]="{ error: !cardDisplayed.active }" class="card panel">
+          <div
+            [ngClass]="{
+              error: !cardDisplayed.active,
+              green: cardDisplayed.iban === ''
+            }"
+            class="card panel"
+          >
             <div>
               <button
                 *ngIf="!cardDisplayed.active"
-                class="round-btn"
+                class="round-btn red-btn"
                 (click)="onRefreshCard()"
               >
                 <i class="fa-solid fa-arrow-rotate-right"></i>
               </button>
+
+              <button
+                *ngIf="cardDisplayed.iban === ''"
+                class="round-btn green-btn"
+                (click)="onAddCard()"
+              >
+                <i class="fa-solid fa-circle-plus"></i>
+              </button>
             </div>
-            <div>
+            <span class="add-span" *ngIf="cardDisplayed.iban === ''"
+              ><b>Clicca per aggiungere carte</b></span
+            >
+            <div *ngIf="cardDisplayed.iban !== ''">
               <h3>
                 <span>
                   <span class="eye-span"
