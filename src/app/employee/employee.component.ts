@@ -72,7 +72,7 @@ export class EmployeeComponent implements OnInit {
 
     this.http
       .get<requestItem>(
-        'http://localhost:8765/api/accounts/validation/registration',
+        'http://localhost:8765/api/accounts/intern/registrations',
         requestOptions
       )
 
