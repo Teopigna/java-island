@@ -1,24 +1,26 @@
 <div class="vertical-center">
   <div class="half">
     <div class="half-col">
-      <h3 class="title" *ngIf="cardDisplayed.iban !== ''">
+      <h3 class="title" *ngIf="cardDisplayed?.accountNumber !== ''">
         Carta n° {{ currentIndex + 1 }}
       </h3>
 
-      <h3 class="title" *ngIf="cardDisplayed.iban === ''">Aggiungi...</h3>
+      <h3 class="title" *ngIf="cardDisplayed?.accountNumber === ''">
+        Aggiungi...
+      </h3>
 
       <div class="arrows-container">
         <div class="card-container">
           <div
             [ngClass]="{
-              error: !cardDisplayed.active,
-              green: cardDisplayed.iban === ''
+              error: cardDisplayed?.status !== 0,
+              green: cardDisplayed?.accountNumber === ''
             }"
             class="card panel"
           >
             <div>
               <button
-                *ngIf="!cardDisplayed.active"
+                *ngIf="cardDisplayed?.status"
                 class="round-btn red-btn"
                 (click)="onRefreshCard()"
               >
@@ -26,17 +28,17 @@
               </button>
 
               <button
-                *ngIf="cardDisplayed.iban === ''"
+                *ngIf="cardDisplayed?.accountNumber === ''"
                 class="round-btn green-btn"
                 (click)="onAddCard()"
               >
                 <i class="fa-solid fa-circle-plus"></i>
               </button>
             </div>
-            <span class="add-span" *ngIf="cardDisplayed.iban === ''"
+            <span class="add-span" *ngIf="cardDisplayed?.accountNumber === ''"
               ><b>Clicca per aggiungere carte</b></span
             >
-            <div *ngIf="cardDisplayed.iban !== ''">
+            <div *ngIf="cardDisplayed?.accountNumber !== ''">
               <h3>
                 <span>
                   <span class="eye-span"
@@ -54,13 +56,13 @@
                   Saldo:
                 </span>
                 <span *ngIf="balanceDisplay"
-                  >€ {{ cardDisplayed.saldoUtente }}</span
+                  >€ {{ cardDisplayed?.balance }}</span
                 >
                 <span *ngIf="!balanceDisplay">€ ****.**</span>
               </h3>
             </div>
             <div class="iban-area">
-              <p>{{ cardDisplayed.iban }}</p>
+              <p>{{ cardDisplayed?.accountNumber }}</p>
             </div>
           </div>
         </div>
@@ -71,7 +73,7 @@
           <i class="fa-solid fa-circle-arrow-right"></i>
         </div>
       </div>
-      <span class="alert" *ngIf="!cardDisplayed.active"
+      <span class="alert" *ngIf="cardDisplayed?.status != 0"
         >Attenzione: carta non ancora attiva!</span
       >
     </div>

@@ -1,3 +1,4 @@
+import { Account } from './../shared/account.model';
 import { AuthService } from './../auth/auth.service';
 import { CardService } from '../services/card-manage.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,14 +12,14 @@ export class DashboardComponent implements OnInit {
   // per prendere activeUser si userà poi lo stesso metodo nella pagina profile
   activeUser: string | undefined;
   // per controllare se l'utente è in attesa della richiesta di registrazione bisogna controllare se ha un'unica carta e questa è inattiva
-  cardArray: { saldoUtente: number; iban: string; active: boolean }[] = [];
+  cardArray: Account[] = [];
   constructor(
     private cardService: CardService,
     private authService: AuthService
   ) {}
-    
+
   ngOnInit(): void {
-    this.cardArray = this.cardService.arrayCards;
+    this.cardArray = this.cardService.accountsList;
 
     this.activeUser = this.authService.user.value?.name;
   }
