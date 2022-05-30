@@ -12,39 +12,24 @@ export interface Card {
 
 @Injectable({ providedIn: 'root' })
 export class CardService {
+  constructor(private authService: AuthService, private http: HttpClient) {}
 
-  constructor(private authService: AuthService, private http: HttpClient){}
-
-  cardChanged = new BehaviorSubject<Card>({
-    saldoUtente: 237.54,
-    iban: 'IT60X0542811101000000123456',
-    active: true,
+  cardChanged = new BehaviorSubject<Account>({
+    id: 0,
+    accountNumber: '',
+    firstName: '',
+    lastName: '',
+    balance: 0,
+    status: 0,
+    accountOwnerId: 0,
   });
 
-  arrayCards = [
-    {
-      saldoUtente: 237.54,
-      iban: 'IT60X0542811101000000123456',
-      active: true,
-    },
-    {
-      saldoUtente: 2370.54,
-      iban: 'IT60X0542811101000000145656',
-      active: false,
-    },
-    {
-      saldoUtente: 1137.54,
-      iban: 'IT60X0542811101000000199396',
-      active: true,
-    },
-  ];
-
-  accountsList: Account[] = []
+  accountsList: Account[] = [];
 
   currentIndex = 0;
-  cardDisplayed = this.arrayCards[this.currentIndex];
+  cardDisplayed = this.accountsList[this.currentIndex];
 
-  getAccounts(){
+  getAccounts() {
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -54,10 +39,8 @@ export class CardService {
     };
 
     return this.http
-      .get<Account[]>(
-        'http://localhost:8765/api/accounts',
-        requestOptions
-      ).pipe(
+      .get<Account[]>('http://localhost:8765/api/accounts', requestOptions)
+      .pipe(
         tap((resData) => {
           this.accountsList = resData;
         })
