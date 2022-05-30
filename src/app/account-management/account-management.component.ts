@@ -1,3 +1,4 @@
+import { Account } from './../shared/account.model';
 import { Card } from '../services/card-manage.service';
 
 import { CardService } from './../services/card-manage.service';
@@ -9,15 +10,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./account-management.component.css'],
 })
 export class AccountManagementComponent implements OnInit {
-  accounts: Card[] = [];
+  accounts: Account[] = [];
 
   showPopup: boolean = false;
 
   constructor(private cardService: CardService) {}
-  
+
   ngOnInit(): void {
-    this.accounts = this.cardService.arrayCards;
-    this.cardService.getCards();
+    
+    this.cardService.getAccounts().subscribe(
+      (resData: any) => {
+        this.accounts = resData;
+      }
+    );
+    
   }
 
   onAddCard() {
