@@ -14,9 +14,10 @@ export class AccountManagementComponent implements OnInit {
   showPopup: boolean = false;
 
   constructor(private cardService: CardService) {}
-
+  
   ngOnInit(): void {
     this.accounts = this.cardService.arrayCards;
+    this.cardService.getCards();
   }
 
   onAddCard() {
