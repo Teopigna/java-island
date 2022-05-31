@@ -7,6 +7,10 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { requestItem } from '../employee/employee.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-menu',
@@ -34,10 +38,15 @@ import { Component, OnInit } from '@angular/core';
 export class MenuComponent implements OnInit {
   menuState = 'closed';
   menu = 'closed';
+  fileUrl:any;
+  data:any;
 
   userRole: string | undefined = '';
 
-  constructor(private authService: AuthService) {}
+
+  constructor(private authService: AuthService,
+    private http: HttpClient,
+    private sanitizer:DomSanitizer) {}
 
   ngOnInit(): void {
     if (this.authService.user.value) {
@@ -66,5 +75,52 @@ export class MenuComponent implements OnInit {
       }, 10);
       console.log(this.menu);
     }
+  }
+
+  onDownloadList(){
+    /*this.api.getYeah().subscribe((response) => {
+      let data = JSON.stringify(response);
+      const blob = new Blob([data], { type: 'application/json' });
+      this.fileUrl = this.sanitizer.
+           bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob))
+    }*/
+
+
+
+    let requestList: requestItem[] = [];
+
+
+
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    this.http
+      .get<requestItem>(
+        'http://localhost:8765/api/accounts/intern/registrations',
+        requestOptions
+      )
+
+    .subscribe(
+        (resData: any) => {
+          requestList = resData;
+          console.log(requestList);
+
+          this.data = JSON.stringify(resData);
+          console.log('the data ='+this.data)
+
+        },
+        (error) => {
+          console.log(error);
+        }
+    );
+
+    const blob = new Blob([this.data], { type: '.txt' });
+
+    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
   }
 }
