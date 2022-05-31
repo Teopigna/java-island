@@ -113,8 +113,6 @@ export class PopUpComponent implements OnInit {
 
       const headerDict = {
         Authorization: this.authService.user.value!.token,
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
       };
 
       const requestOptions = {
