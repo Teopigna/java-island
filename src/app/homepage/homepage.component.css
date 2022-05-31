@@ -13,23 +13,35 @@ input.ng-invalid.ng-touched{
     border: 1px solid red;
 }
 
-button.btn-outline-danger {
+input.ng-valid.ng-touched{
+    border: 1px solid #3688ec;
+}
+
+button.btn-outline-success {
     margin-top: 20px;
     margin-bottom: 20px;
     border-color: #3688ec;
     color: #3688ec;
 }
 
+button.btn-outline-success:hover {
+    border-color: #3688ec;
+    color: #3688ec;
+    background-color: #cefffc;
+}
+
+
 .container .panel {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    background-color:#cefffc;
-    z-index: 2;
+    background-color:#cefffcbb;
+    box-shadow: none;
     
+    z-index: 2;
     border-radius: 15px;
-    box-shadow: 1.5px 1.5px 3px 3px rgba(54, 136, 236, 0.5);
+    border: 5px solid #3688ec;
 }
 
 input {
@@ -62,12 +74,11 @@ a.navbar-brand {
 
 .navbar {
     background-color: #cefffc;
-    border-color: #3688ec;
     z-index: 2;
 }
 
 .navbar-brand{
-    margin-left: 30px;
+    margin-left: 20px;
 }
 
 

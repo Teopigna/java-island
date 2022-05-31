@@ -1,6 +1,9 @@
 <!-- NAVBAR -->
 <nav class="navbar ml-auto">
-  <a class="navbar-brand" (click)="homeMode()">JavaIsland</a>
+  <a class="navbar-brand" (click)="homeMode()">
+    <h1> <i class="fa-regular fa-sun"></i> JavaIsland</h1>
+    
+  </a>
   <ul class="nav justify-content-end">
     <li class="nav-item">
       <button class="btn btn-success" type="button" (click)="loginMode()">
@@ -19,11 +22,19 @@
 <div class="backdrop" *ngIf="login || signUp" (click)="homeMode()"></div>
 
 <!-- WELCOME PANEL  -->
-<div class="container">
+<div class="container" *ngIf="!login && !signUp">
   <div class="panel panel-default col-md-2">
-    <div class="panel-title text-center"><h3>JavaIsland</h3></div>
+    <div class="panel-title text-center">
+      <h3>
+        <i class="fa-regular fa-sun"></i>
+        JavaIsland
+        <i class="fa-regular fa-sun"></i>
+      </h3>
+    </div>
     <div class="panel-body text-center">
-      <h6>Built around you</h6>
+      <h6>
+        Built around you
+      </h6>
     </div>
   </div>
 </div>
@@ -32,7 +43,7 @@
 <div class="container" *ngIf="login">
   <div class="panel panel-default col-md-2">
     <div class="panel-title text-center"><h3>JavaIsland</h3></div>
-    <hr />
+    <br>
     <!-- Pannello errore login -->
     <div class="alert alert-danger" *ngIf="loginErrorMessage">
       <p style="text-align: center">{{ loginErrorMessage }}</p>
@@ -82,7 +93,7 @@
           </div>
           <button
             type="submit"
-            class="btn btn-outline-danger"
+            class="btn btn-outline-success"
             [disabled]="!loginForm.valid"
           >
             Login
@@ -98,7 +109,7 @@
 <div class="container" *ngIf="signUp">
   <div class="panel panel-default col-md-2 signup-panel">
     <div class="panel-title text-center"><h3>JavaIsland</h3></div>
-    <hr />
+    <br>
     <!-- Pannello errore signUp -->
     <div class="alert alert-danger" *ngIf="signUpErrorMessage">
       <p style="text-align: center">{{ signUpErrorMessage }}</p>
@@ -160,9 +171,10 @@
                 id="birthDate"
                 formControlName="birthDate"
                 class="form-control custom-date"
+                (click)="d.toggle()"
               />
-              <span class="input-group-text" id="basic-addon2">
-                <i class="fa-solid fa-calendar-days" (click)="d.toggle()"></i>
+              <span class="input-group-text" id="basic-addon2" (click)="d.toggle()">
+                <i class="fa-solid fa-calendar-days" ></i>
               </span>
             </div>
 
@@ -219,7 +231,7 @@
           </div>
           <button
             type="submit"
-            class="btn btn-outline-danger"
+            class="btn btn-outline-success"
             [disabled]="!signUpForm.valid"
           >
             SignUp

@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth/auth.service';
 import { Account } from './../../shared/account.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CardService } from './../../services/card-manage.service';
@@ -14,14 +15,14 @@ export class AddCardPopupComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
-  accountTransfer: Account[] = [];
+  accountTransfer: Account[] =
+    [];
 
-  constructor(private cardService: CardService) {}
+  constructor(private cardService: CardService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.accountTransfer = this.cardService.accountsList.filter((card) => {
-      return card !== this.cardService.cardDisplayed;
-    });
+
+    this.accountTransfer = this.cardService.accountsList;
 
     this.form = new FormGroup({
       fromIban: new FormControl(null, [Validators.required]),
@@ -46,8 +47,13 @@ export class AddCardPopupComponent implements OnInit {
         ' per la creazione di un nuovo conto'
     );
 
-    // **** Fare qui chiamata a servizio che si occupa di inviare la POST a: /api/accounts
+
+
+    // **** Fare qui chiamata a servizio che si occupa di inviare la POST a: /api/accounts  
     // **** indicando fromIban, la somma, il nome ed il cognome
+
+    this.cardService.newAccount(this.authService.user.value!.name, this.authService.user.value!.surname, fromIban, amount );
+    
 
     this.form.reset();
     this.closeEvent();
