@@ -11,7 +11,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./add-card-popup.component.css'],
 })
 export class AddCardPopupComponent implements OnInit {
-  @Output() onClose: EventEmitter<null> = new EventEmitter();
+
+  @Output() onClose: EventEmitter<Account[] | null> = new EventEmitter();
 
   form: FormGroup = new FormGroup({});
 
@@ -52,7 +53,10 @@ export class AddCardPopupComponent implements OnInit {
     // **** Fare qui chiamata a servizio che si occupa di inviare la POST a: /api/accounts  
     // **** indicando fromIban, la somma, il nome ed il cognome
 
-    this.cardService.newAccount(this.authService.user.value!.name, this.authService.user.value!.surname, fromIban, amount );
+    this.cardService.newAccount(this.authService.user.value!.name, this.authService.user.value!.surname, fromIban, amount )
+      .subscribe((resData) => {
+        console.log(resData);
+      });
     
 
     this.form.reset();

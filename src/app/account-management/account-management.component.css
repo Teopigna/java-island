@@ -25,3 +25,7 @@ table {
     rgba(var(--menu-font-hover-rgb), 0.5) 100%
   );
 }
+
+span.span-error{
+  color: red;
+}

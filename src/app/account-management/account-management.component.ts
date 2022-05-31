@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Account } from './../shared/account.model';
 import { Card } from '../services/card-manage.service';
 
@@ -14,9 +15,18 @@ export class AccountManagementComponent implements OnInit {
 
   showPopup: boolean = false;
 
+  closureError: boolean = false;
+  errorIndex: number = 0;
+
+  
+
   constructor(private cardService: CardService) {}
 
   ngOnInit(): void {
+
+    this.cardService.accountsListChanged.subscribe(
+      () => {this.accounts = this.cardService.accountsList;}
+    )
     
     this.cardService.getAccounts().subscribe(
       (resData: any) => {
@@ -24,6 +34,22 @@ export class AccountManagementComponent implements OnInit {
       }
     );
     
+  }
+
+  sendCloseRequest(ind: number){
+    const id = this.accounts[ind].id;
+    console.log(this.accounts[ind].status);
+
+    this.cardService.closeAccount(id).subscribe(
+      (resData) => {
+        //console.log(resData);
+      },
+      (error) => {
+        console.log(error.error.message);
+        this.errorIndex = ind;
+        this.closureError = true;
+      } 
+    )
   }
 
   onAddCard() {

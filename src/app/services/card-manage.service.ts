@@ -23,8 +23,11 @@ export class CardService {
     status: 0,
     accountOwnerId: 0,
   });
-
+  
   accountsList: Account[] = [];
+
+  //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
+  accountsListChanged = new BehaviorSubject<Account[]>([]);
 
   currentIndex = 0;
   cardDisplayed = this.accountsList[this.currentIndex];
@@ -42,7 +45,7 @@ export class CardService {
       .get<Account[]>('http://localhost:8765/api/accounts', requestOptions)
       .pipe(
         tap((resData) => {
-          this.accountsList = resData;
+          this.accountsListChanged.next(this.accountsList);
         })
       );
   }
@@ -57,7 +60,7 @@ export class CardService {
     };
 
     return this.http
-      .post(
+      .post<Account>(
         'http://localhost:8765/api/accounts',
         {
           "firstName" : name,
@@ -68,12 +71,45 @@ export class CardService {
         requestOptions
       )
       .pipe(
-        tap((resData) => {
-          console.log(resData);
+        tap((resData: Account) => {
+          //Quando si apre un nuovo conto, vanno aggiornati gli array contenenti i conti dell'utente loggato
+          this.getAccounts().subscribe(
+            (resData) => {
+              this.accountsList = resData;
+              //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
+              this.accountsListChanged.next(this.accountsList);
+            }
+          )
         })
-      ).subscribe(
-        (error => {
-          console.log(error);
+      )
+  }
+
+  closeAccount(id: number) {
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    return this.http
+      .put(
+        'http://localhost:8765/api/accounts/'+id,
+        {
+          "account_id" : id
+        },
+        requestOptions
+      ).pipe(
+        tap((resData) => {
+          //Quando si chiude un conto, vanno aggiornati gli array contenenti i conti dell'utente loggato
+          this.getAccounts().subscribe(
+            (resData) => {
+              this.accountsList = resData;
+              //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
+              this.accountsListChanged.next(this.accountsList);
+            }
+          )
         })
       );
   }
