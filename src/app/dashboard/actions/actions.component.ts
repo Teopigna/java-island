@@ -1,3 +1,4 @@
+import { Account } from './../../shared/account.model';
 import { CardService } from '../../services/card-manage.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -13,8 +14,7 @@ export class ActionsComponent implements OnInit {
   popUpType: string = '';
   closedPopUp: boolean = true;
 
-  currentCard: { saldoUtente: number; iban: string; active: boolean } =
-    this.cardService.cardDisplayed;
+  currentCard: Account = this.cardService.cardDisplayed;
 
   routeSub: Subscription = new Subscription();
 
@@ -33,9 +33,13 @@ export class ActionsComponent implements OnInit {
         this.onOpenPopUp();
       }
 
-      if (cardNumber) {
-        this.currentCard = this.cardService.arrayCards[cardNumber - 1];
-      }
+      // this.cardService.getAccounts().subscribe((accountList) => {
+      //   if (cardNumber) {
+      //     this.currentCard = accountList[cardNumber - 1];
+      //   }
+      // });
+
+      this.currentCard = this.cardService.accountsList[cardNumber - 1];
     });
 
     // this.cardService.cardChanged.subscribe((card) => {
@@ -47,7 +51,7 @@ export class ActionsComponent implements OnInit {
   onClosePopUp(close: boolean) {
     this.closedPopUp = true;
 
-    if (this.cardService.cardDisplayed.active) {
+    if (this.cardService.cardDisplayed?.status === 0) {
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: { card: (this.cardService.currentIndex + 1).toString() },

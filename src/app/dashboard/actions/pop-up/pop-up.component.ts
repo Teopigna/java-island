@@ -1,3 +1,5 @@
+import { AuthService } from './../../../auth/auth.service';
+import { Account } from './../../../shared/account.model';
 import { CardService } from '../../../services/card-manage.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -9,6 +11,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-pop-up',
@@ -23,23 +26,29 @@ export class PopUpComponent implements OnInit {
   form2: FormGroup = new FormGroup({});
   form3: FormGroup = new FormGroup({});
 
-  accountTransfer: { saldoUtente: number; iban: string; active: boolean }[] =
-    [];
+  accountTransfer: Account[] = [];
 
-  cardIsActive: boolean = false;
+  cardIsActive: number = 1;
+  // 0: conto attivo
+  // 1: primo conto da attivare
+  // 2: conto non primo da attivare
+  // 3: conto da chiudere
+  // 4: conto non validato
 
   constructor(
     private cardService: CardService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
-    this.accountTransfer = this.cardService.arrayCards.filter((card) => {
+    this.accountTransfer = this.cardService.accountsList.filter((card) => {
       return card !== this.cardService.cardDisplayed;
     });
 
-    this.cardIsActive = this.cardService.cardDisplayed.active;
+    this.cardIsActive = this.cardService.cardDisplayed?.status;
     console.log('card is active:', this.cardIsActive);
 
     // console.log(this.accountTransfer[0].iban);
@@ -92,101 +101,77 @@ export class PopUpComponent implements OnInit {
       console.log(this.form1);
 
       if (this.action === 'giroconto') {
-        const newBalanceFrom =
-          Math.round(
-            (this.cardService.cardDisplayed.saldoUtente -
-              +this.form1.value.amount) *
-              100
-          ) / 100;
-
-        const newBalanceTo =
-          Math.round(
-            (+this.cardService.arrayCards.filter((card) => {
-              return card.iban === this.form1.value.toIban;
-            })[0].saldoUtente +
-              +this.form1.value.amount) *
-              100
-          ) / 100;
-
-        if (newBalanceFrom >= 0) {
-          this.cardService.cardDisplayed.saldoUtente = newBalanceFrom;
-
-          this.cardService.arrayCards.filter((card) => {
-            return card.iban === this.form1.value.toIban;
-          })[0].saldoUtente = newBalanceTo;
-
-          this.cardService.cardChanged.next({
-            saldoUtente: newBalanceFrom,
-            iban: this.cardService.cardDisplayed.iban,
-            active: this.cardService.cardDisplayed.active,
-          });
-        }
-      } else if (this.form2.valid) {
-        console.log(this.form2);
-
-        // logica per la ricarica cellulare (toglie solo soldi, come per il prelievo)
-        if (this.action === 'ricarica') {
-          const newBalance =
-            Math.round(
-              (this.cardService.cardDisplayed.saldoUtente -
-                +this.form2.value.amount) *
-                100
-            ) / 100;
-          if (newBalance >= 0) {
-            this.cardService.cardDisplayed.saldoUtente = newBalance;
-            this.cardService.cardChanged.next({
-              saldoUtente: newBalance,
-              iban: this.cardService.cardDisplayed.iban,
-              active: this.cardService.cardDisplayed.active,
-            });
-          } else {
-            alert(
-              "L'operazione non è andata a buon fine causa saldo insufficiente sulla carta."
-            );
-          }
-        }
-      } else if (this.form3.valid) {
-        console.log(this.form3);
-
-        // logica per il prelievo e il versamento: i dati aggiornati andranno poi salvati sul db(?)
-        if (this.action === 'prelievo') {
-          const newBalance =
-            Math.round(
-              (this.cardService.cardDisplayed.saldoUtente -
-                +this.form3.value.amount) *
-                100
-            ) / 100;
-          if (newBalance >= 0) {
-            this.cardService.cardDisplayed.saldoUtente = newBalance;
-            this.cardService.cardChanged.next({
-              saldoUtente: newBalance,
-              iban: this.cardService.cardDisplayed.iban,
-              active: this.cardService.cardDisplayed.active,
-            });
-          } else {
-            alert(
-              "L'operazione non è andata a buon fine causa saldo insufficiente sulla carta."
-            );
-          }
-        } else if (this.action === 'versamento') {
-          const newBalance =
-            Math.round(
-              (this.cardService.cardDisplayed.saldoUtente +
-                +this.form3.value.amount) *
-                100
-            ) / 100;
-
-          this.cardService.cardDisplayed.saldoUtente = newBalance;
-
-          this.cardService.cardChanged.next({
-            saldoUtente: newBalance,
-            iban: this.cardService.cardDisplayed.iban,
-            active: this.cardService.cardDisplayed.active,
-          });
-        }
       }
+    } else if (this.form2.valid) {
+      console.log(this.form2);
 
-      this.closeEvent();
+      // logica per la ricarica cellulare (toglie solo soldi, come per il prelievo)
+      if (this.action === 'ricarica') {
+      }
+    } else {
+      console.log(this.form3);
+
+      const headerDict = {
+        Authorization: this.authService.user.value!.token,
+      };
+
+      const requestOptions = {
+        headers: new HttpHeaders(headerDict),
+      };
+
+      // logica per il prelievo e il versamento: i dati aggiornati andranno poi salvati sul db(?)
+      if (this.action === 'prelievo') {
+        console.log(this.cardService.cardDisplayed?.accountNumber);
+        console.log(-+this.form3.value.amount);
+
+        this.http
+          .post<any>(
+            'http://localhost:8765/api/transactions',
+            {
+              accountNumber: this.cardService.cardDisplayed.accountNumber,
+              amount: -this.form3.value.amount,
+            },
+            requestOptions
+          )
+          .subscribe(
+            (response) => {
+              console.log(response);
+              this.cardService.getAccounts().subscribe((cardsList) => {
+                this.cardService.cardChanged.next(
+                  cardsList[this.cardService.currentIndex]
+                );
+              });
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+      } else if (this.action === 'versamento') {
+        this.http
+          .post<any>(
+            'http://localhost:8765/api/transactions',
+            {
+              accountNumber: this.cardService.cardDisplayed.accountNumber,
+              amount: this.form3.value.amount,
+            },
+            requestOptions
+          )
+          .subscribe(
+            (response) => {
+              console.log(response);
+              this.cardService.getAccounts().subscribe((cardsList) => {
+                this.cardService.cardChanged.next(
+                  cardsList[this.cardService.currentIndex]
+                );
+              });
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+      }
     }
+
+    this.closeEvent();
   }
 }

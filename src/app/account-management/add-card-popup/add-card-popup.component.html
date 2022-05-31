@@ -1,71 +1,68 @@
-<div class="backdrop" ></div>
+<div class="backdrop"></div>
 <div class="container-center-row">
-    
-    <div class="container-center-col">
-        <div class="panel popup">
-            
+  <div class="container-center-col">
+    <div class="panel popup">
+      <button
+        class="personalized-btn right-align"
+        type="button"
+        (click)="closeEvent()"
+      >
+        X
+      </button>
+
+      <p>Selezionare l'IBAN da cui prelevare importo iniziale</p>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <label for="fromIban">from IBAN</label>
+        <select formControlName="fromIban" class="form-control">
+          <option
+            *ngFor="let card of accountTransfer"
+            [value]="card?.accountNumber"
+          >
+            {{ card?.accountNumber }}
+          </option>
+        </select>
+        <!-- Errore in caso di Iban non selezionato -->
+        <span
+          class="help-block"
+          *ngIf="!form.get('fromIban')?.valid && form.get('fromIban')?.touched"
+        >
+          Must select IBAN
+        </span>
+        <!-- Fine Errore  -->
+        <br />
+
+        <label for="amount">Ammontare (€)</label>
+        <input
+          type="number"
+          id="amount"
+          formControlName="amount"
+          class="form-control"
+        />
+        <!-- Errore in caso di Amount <= 0 o vuoto -->
+        <span
+          class="help-block"
+          *ngIf="!form.get('amount')?.valid && form.get('amount')?.touched"
+        >
+          The amount must be > 0
+        </span>
+        <!-- Fine Errore  -->
+        <br />
+        <br />
+        <div class="row text-center">
+          <div class="col-4"></div>
+          <div class="col-4">
             <button
-                class="personalized-btn right-align"
-                type="button"
-                (click)="closeEvent()"
+              class="personalized-btn text-center"
+              type="submit"
+              [disabled]="!form.valid"
             >
-                X
+              Conferma
             </button>
-
-            <p>Selezionare l'IBAN da cui prelevare importo iniziale</p>
-            
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                <label for="fromIban">from IBAN</label>
-                <select formControlName="fromIban" class="form-control">
-                    <option *ngFor="let card of accountTransfer" [value]="card.iban">
-                        {{ card.iban }}
-                    </option>
-                </select>
-                <!-- Errore in caso di Iban non selezionato -->
-                <span
-                    class="help-block"
-                    *ngIf="!form.get('fromIban')?.valid && form.get('fromIban')?.touched"
-                >
-                    Must select IBAN
-                </span>
-                <!-- Fine Errore  -->
-                <br>
-
-                <label for="amount">Ammontare (€)</label>
-                <input
-                    type="number"
-                    id="amount"
-                    formControlName="amount"
-                    class="form-control"
-                />
-                <!-- Errore in caso di Amount <= 0 o vuoto -->
-                <span
-                    class="help-block"
-                    *ngIf="!form.get('amount')?.valid && form.get('amount')?.touched"
-                >
-                    The amount must be > 0
-                </span>
-                <!-- Fine Errore  -->
-                <br>
-                <br>
-                <div class="row text-center">
-                    <div class="col-4"></div>
-                    <div class="col-4">
-                        <button
-                            class="personalized-btn text-center"
-                            type="submit"
-                            [disabled]="!form.valid"
-                        >
-                            Conferma
-                        </button>
-                    </div>
-                    <div class="col-4"></div>
-                </div>
-                
-            </form>
-              
+          </div>
+          <div class="col-4"></div>
         </div>
+      </form>
     </div>
+  </div>
 </div>
-
-
