@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from './../auth/auth.service';
 
-interface requestItem {
+export interface requestItem {
   id: number;
   accountNumber: string;
   firstName:string;
@@ -22,7 +22,7 @@ interface requestItem {
 export class EmployeeComponent implements OnInit {
   query: string = '';
   title: string = '';
-  sent:boolean=false;
+
 
 
   requestList: requestItem[] = [];
@@ -36,6 +36,7 @@ export class EmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.query = params['request'];
+
 
       if (this.query === 'apertura') {
         this.onOpenAccount();
@@ -106,7 +107,6 @@ export class EmployeeComponent implements OnInit {
   }
   onRegistration() {
     this.title = 'registrazione account';
-    //this.shownList = this.;
 
     const headerDict = {
       Authorization: this.authService.user.value!.token,
@@ -146,8 +146,10 @@ export class EmployeeComponent implements OnInit {
 
     this.http.put<any>('http://localhost:8765/api/accounts/intern/validation/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
         .subscribe();
+        setTimeout(()=>{this.onRegistration()}, 100)
 
-    this.sent=false;
+
+
   }
 
   onDeclineRequest(index:number) {
@@ -162,7 +164,23 @@ export class EmployeeComponent implements OnInit {
 
     this.http.put<any>('http://localhost:8765/api/accounts/intern/rejection/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
         .subscribe();
+        setTimeout(()=>{this.onRegistration()}, 100)
+  }
 
-    this.sent=false;
+  onRefresh(){
+    switch ( this.query ) {
+      case 'apertura':
+          this.onOpenAccount()
+          break;
+      case 'chiusura':
+          this.onCloseAccount()
+          break;
+      case 'registrazione':
+          this.onRegistration()
+          break;
+      default:
+          //
+          break;
+   }
   }
 }
