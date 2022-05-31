@@ -41,6 +41,7 @@ export class AuthService {
         }),
         tap((resData: any) => {
           if (resData.role === 'C') {
+            //Aggiungere Dto alla fine
             this.handleLogin(
               resData.token,
               resData.accountOwner.email,
@@ -107,7 +108,7 @@ export class AuthService {
     if (!userData) {
       return;
     }
-    
+
     const loadedUser = new User(
       userData.id,
       userData._token,
