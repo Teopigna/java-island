@@ -33,6 +33,7 @@ export class CardService {
   cardDisplayed = this.accountsList[this.currentIndex];
   
   getAccounts(){
+
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -47,6 +48,7 @@ export class CardService {
         tap((resData) => {
           this.accountsList = resData;
           this.accountsListChanged.next(this.accountsList);
+          this.cardDisplayed = this.accountsList[this.currentIndex];
         })
       );
   }
