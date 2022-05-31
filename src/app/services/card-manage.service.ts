@@ -28,8 +28,8 @@ export class CardService {
 
   currentIndex = 0;
   cardDisplayed = this.accountsList[this.currentIndex];
-
-  getAccounts() {
+  
+  getAccounts(){
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -43,6 +43,37 @@ export class CardService {
       .pipe(
         tap((resData) => {
           this.accountsList = resData;
+        })
+      );
+  }
+
+  newAccount(name: string, surname: string, accountNum: string, amount: number){
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    return this.http
+      .post(
+        'http://localhost:8765/api/accounts',
+        {
+          "firstName" : name,
+          "lastName": surname,
+          "accountNumber": accountNum,
+          "amount": amount
+        },
+        requestOptions
+      )
+      .pipe(
+        tap((resData) => {
+          console.log(resData);
+        })
+      ).subscribe(
+        (error => {
+          console.log(error);
         })
       );
   }

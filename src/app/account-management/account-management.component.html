@@ -11,8 +11,8 @@
             <th scope="col">#</th>
             <th scope="col">IBAN</th>
             <th scope="col">Saldo</th>
-            <th scope="col">Status</th>
-            <th scope="col">Settings</th>
+            <th scope="col">Stato</th>
+            <th scope="col">Gestione</th>
           </tr>
         </thead>
         <tbody>
@@ -27,8 +27,7 @@
                 {{(account.status===0) ? "attivo" : "inattivo"}}
             </td>
             <td>
-              <button class="btn btn-warning" [disabled]="!(account.status===0)">add bar</button>
-              <button class="btn btn-danger" [disabled]="!(account.status===0)" style="margin-left: 10px">delete</button>
+              <button class="btn btn-danger" [disabled]="!(account.status===0)" style="margin-left: 10px">Invia richiesta chiusura</button>
             </td>
           </tr>
         </tbody>

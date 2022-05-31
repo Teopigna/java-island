@@ -2,6 +2,13 @@ div.container {
   margin-top: 20vh;
 }
 
+i.fa-circle-user {
+    font-size: 100px;
+    color: #3688ec;
+}
+h5.field {
+    font-weight: bold;
+}
 i.fa-circle {
   size: 200px;
   font-size: 200px;
