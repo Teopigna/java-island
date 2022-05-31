@@ -38,8 +38,8 @@ export class ActionsComponent implements OnInit {
       //     this.currentCard = accountList[cardNumber - 1];
       //   }
       // });
-      
-      this.currentCard = this.cardService.accountsList[cardNumber-1];
+
+      this.currentCard = this.cardService.accountsList[cardNumber - 1];
     });
 
     // this.cardService.cardChanged.subscribe((card) => {

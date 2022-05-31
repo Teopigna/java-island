@@ -121,13 +121,11 @@ export class AuthService {
 
     if (loadedUser.token) {
       this.user.next(loadedUser);
-      if(loadedUser.role==="C"){
+      if (loadedUser.role === 'C') {
         this.router.navigate(['/dashboard']);
-      }
-      else{
+      } else {
         this.router.navigate(['/dipendente']);
       }
-      
     }
   }
 
