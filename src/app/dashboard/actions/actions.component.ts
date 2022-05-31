@@ -33,11 +33,13 @@ export class ActionsComponent implements OnInit {
         this.onOpenPopUp();
       }
 
-      this.cardService.getAccounts().subscribe((accountList) => {
-        if (cardNumber) {
-          this.currentCard = accountList[cardNumber - 1];
-        }
-      });
+      // this.cardService.getAccounts().subscribe((accountList) => {
+      //   if (cardNumber) {
+      //     this.currentCard = accountList[cardNumber - 1];
+      //   }
+      // });
+
+      this.currentCard = this.cardService.accountsList[cardNumber - 1];
     });
 
     // this.cardService.cardChanged.subscribe((card) => {

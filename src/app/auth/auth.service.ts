@@ -43,11 +43,11 @@ export class AuthService {
           if (resData.role === 'C') {
             this.handleLogin(
               resData.token,
-              resData.accountOwner.email,
-              resData.accountOwner.firstName,
-              resData.accountOwner.lastName,
-              resData.accountOwner.id,
-              resData.accountOwner.birthDate,
+              resData.accountOwnerDto.email,
+              resData.accountOwnerDto.firstName,
+              resData.accountOwnerDto.lastName,
+              resData.accountOwnerDto.id,
+              resData.accountOwnerDto.birthDate,
               resData.role
             );
           }
@@ -55,11 +55,11 @@ export class AuthService {
           if (resData.role === 'D') {
             this.handleLogin(
               resData.token,
-              resData.user.email,
-              resData.user.firstName,
-              resData.user.lastName,
-              resData.user.id,
-              resData.user.birthDate,
+              resData.userDto.email,
+              resData.userDto.firstName,
+              resData.userDto.lastName,
+              resData.userDto.id,
+              resData.userDto.birthDate,
               resData.role
             );
           }
@@ -120,13 +120,11 @@ export class AuthService {
 
     if (loadedUser.token) {
       this.user.next(loadedUser);
-      if(loadedUser.role==="C"){
+      if (loadedUser.role === 'C') {
         this.router.navigate(['/dashboard']);
-      }
-      else{
+      } else {
         this.router.navigate(['/dipendente']);
       }
-      
     }
   }
 
