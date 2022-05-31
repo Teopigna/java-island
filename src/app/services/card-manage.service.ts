@@ -23,7 +23,7 @@ export class CardService {
     status: 0,
     accountOwnerId: 0,
   });
-  
+
   accountsList: Account[] = [];
 
   //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
@@ -45,6 +45,7 @@ export class CardService {
       .get<Account[]>('http://localhost:8765/api/accounts', requestOptions)
       .pipe(
         tap((resData) => {
+          this.accountsList = resData;
           this.accountsListChanged.next(this.accountsList);
         })
       );
