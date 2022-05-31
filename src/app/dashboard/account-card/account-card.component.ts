@@ -1,3 +1,4 @@
+import { Account } from './../../shared/account.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CardService } from '../../services/card-manage.service';
 
@@ -9,13 +10,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./account-card.component.css'],
 })
 export class AccountCardComponent implements OnInit {
-  arrayCards: { saldoUtente: number; iban: string; active: boolean }[] = [];
+  arrayCards: Account[] = [];
 
   balanceDisplay: boolean = true;
   stars: string = '';
 
   currentIndex = 0;
-  cardDisplayed = { saldoUtente: 0, iban: '', active: false };
+  cardDisplayed: Account | undefined;
 
   constructor(
     private cardService: CardService,
@@ -24,25 +25,36 @@ export class AccountCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.arrayCards = [
-      ...this.cardService.arrayCards,
-      {
-        saldoUtente: 0,
-        iban: '',
-        active: true,
-      },
-    ];
+    this.cardService.getAccounts().subscribe((accountList) => {
+      this.arrayCards = [
+        ...accountList,
+        {
+          id: 0,
+          accountNumber: '',
+          firstName: '',
+          lastName: '',
+          balance: 0,
+          status: 0,
+          accountOwnerId: 0,
+        },
+      ];
 
-    console.log(this.cardService.arrayCards);
+      this.currentIndex = this.cardService.currentIndex;
+      this.cardDisplayed = this.arrayCards[this.currentIndex];
 
-    this.currentIndex = this.cardService.currentIndex;
-    this.cardDisplayed = this.cardService.cardDisplayed;
+      console.log(accountList);
+    });
+
+    // setTimeout(() => {
+    //   this.currentIndex = this.cardService.currentIndex;
+    //   this.cardDisplayed = this.arrayCards[this.currentIndex];
+    // }, 100);
 
     this.cardService.cardChanged.subscribe((card) => {
       this.cardDisplayed = card;
     });
 
-    if (this.cardDisplayed.active) {
+    if (this.cardDisplayed?.status === 0) {
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: { card: (this.currentIndex + 1).toString() },
@@ -76,9 +88,12 @@ export class AccountCardComponent implements OnInit {
 
       this.cardService.currentIndex--;
       this.cardService.cardDisplayed =
-        this.cardService.arrayCards[this.cardService.currentIndex];
+        this.cardService.accountsList[this.cardService.currentIndex];
 
-      if (this.cardDisplayed.active && this.cardDisplayed.iban !== '') {
+      if (
+        this.cardDisplayed.status === 0 &&
+        this.cardDisplayed.accountNumber !== ''
+      ) {
         this.router.navigate([], {
           relativeTo: this.route,
           queryParams: { card: (this.currentIndex + 1).toString() },
@@ -100,9 +115,12 @@ export class AccountCardComponent implements OnInit {
 
       this.cardService.currentIndex++;
       this.cardService.cardDisplayed =
-        this.cardService.arrayCards[this.cardService.currentIndex];
+        this.cardService.accountsList[this.cardService.currentIndex];
 
-      if (this.cardDisplayed.active && this.cardDisplayed.iban !== '') {
+      if (
+        this.cardDisplayed.status === 0 &&
+        this.cardDisplayed.accountNumber !== ''
+      ) {
         this.router.navigate([], {
           relativeTo: this.route,
           queryParams: { card: (this.currentIndex + 1).toString() },

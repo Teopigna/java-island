@@ -50,8 +50,6 @@ select {
   z-index: 3;
 
   align-self: center;
-
-  position: relative;
 }
 
 .fa-circle-xmark {

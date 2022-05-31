@@ -19,12 +19,15 @@
               class="form-control"
             />
           </div>
-          
+
           <div *ngIf="action === 'giroconto'">
             <label for="toIban">IBAN Destinatario</label>
             <select formControlName="toIban" class="form-control">
-              <option *ngFor="let card of accountTransfer" [value]="card.iban">
-                {{ card.iban }}
+              <option
+                *ngFor="let card of accountTransfer"
+                [value]="card?.accountNumber"
+              >
+                {{ card?.accountNumber }}
               </option>
             </select>
           </div>

@@ -9,11 +9,11 @@
     <h3 class="title">Azioni</h3>
 
     <div class="panel">
-      <div class="not-active" *ngIf="!currentCard.active">
+      <div class="not-active" *ngIf="currentCard?.status !== 0">
         <span
           ><p>
             Nessuna azione è disponibile<br />
-            per questa carta inattiva. <br />Clicca il pulsante sulla carta per
+            per questa carta. <br />Clicca il pulsante sulla carta per
             aggiornare.
           </p></span
         >
