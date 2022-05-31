@@ -76,6 +76,7 @@ export class EmployeeComponent implements OnInit {
         }
     );
   }
+  
   onCloseAccount() {
     this.title = 'chiusura conto';
     const headerDict = {

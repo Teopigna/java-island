@@ -27,7 +27,16 @@
                 {{(account.status===0) ? "attivo" : "inattivo"}}
             </td>
             <td>
-              <button class="btn btn-danger" [disabled]="!(account.status===0)" style="margin-left: 10px">Invia richiesta chiusura</button>
+              <button 
+                class="btn btn-danger" 
+                [disabled]="!(account.status===0)" 
+                style="margin-left: 10px"
+                (click)="sendCloseRequest(i)"
+              >
+                Invia richiesta chiusura
+              </button>
+              <br>
+              <span class="span-error" *ngIf="closureError && i===errorIndex">Il saldo deve essere pari a 0</span>
             </td>
           </tr>
         </tbody>
