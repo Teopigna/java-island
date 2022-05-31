@@ -128,7 +128,7 @@ export class PopUpComponent implements OnInit {
           .post<any>(
             'http://localhost:8765/api/transactions',
             {
-              accountNumber: this.cardService.cardDisplayed?.accountNumber,
+              accountNumber: this.cardService.cardDisplayed.accountNumber,
               amount: -this.form3.value.amount,
             },
             requestOptions
@@ -136,6 +136,11 @@ export class PopUpComponent implements OnInit {
           .subscribe(
             (response) => {
               console.log(response);
+              this.cardService.getAccounts().subscribe((cardsList) => {
+                this.cardService.cardChanged.next(
+                  cardsList[this.cardService.currentIndex]
+                );
+              });
             },
             (error) => {
               console.log(error);
@@ -146,7 +151,7 @@ export class PopUpComponent implements OnInit {
           .post<any>(
             'http://localhost:8765/api/transactions',
             {
-              accountNumber: this.cardService.cardDisplayed?.accountNumber,
+              accountNumber: this.cardService.cardDisplayed.accountNumber,
               amount: this.form3.value.amount,
             },
             requestOptions
@@ -154,6 +159,11 @@ export class PopUpComponent implements OnInit {
           .subscribe(
             (response) => {
               console.log(response);
+              this.cardService.getAccounts().subscribe((cardsList) => {
+                this.cardService.cardChanged.next(
+                  cardsList[this.cardService.currentIndex]
+                );
+              });
             },
             (error) => {
               console.log(error);
