@@ -1,3 +1,4 @@
+import { Transaction } from './../../shared/transaction.model';
 import { CardService } from '../../services/card-manage.service';
 import { Component, OnInit } from '@angular/core';
 import { TransactionService } from 'src/app/services/transaction.service';
@@ -8,26 +9,9 @@ import { TransactionService } from 'src/app/services/transaction.service';
   styleUrls: ['./transactions.component.css'],
 })
 export class TransactionsComponent implements OnInit {
-  transactions:
-    | {
-        id: number;
-        type: string;
-        amount: number;
-        date: string;
-        from: string;
-        to: string;
-        description: string;
-      }[] = [];
+  transactions: Transaction[] = [];
 
-  transactionsDisplayed: {
-    id: number;
-    type: string;
-    amount: number;
-    date: string;
-    from: string;
-    to: string;
-    description: string;
-  }[] = [];
+  transactionsDisplayed: Transaction[] = [];
 
   constructor(private traService: TransactionService) {}
 
