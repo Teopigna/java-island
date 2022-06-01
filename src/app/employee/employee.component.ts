@@ -75,7 +75,7 @@ export class EmployeeComponent implements OnInit {
         }
     );
   }
-  
+
   onCloseAccount() {
     this.title = 'chiusura conto';
     const headerDict = {
@@ -143,8 +143,25 @@ export class EmployeeComponent implements OnInit {
       headers: new HttpHeaders(headerDict),
     };
 
-    this.http.put<any>('http://localhost:8765/api/accounts/intern/validation/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
+    switch ( this.query ) {
+      case 'apertura':
+        this.http.put<any>('http://localhost:8765/api/accounts/intern/validation/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
+        .subscribe((res)=>this.onOpenAccount());
+          break;
+      case 'chiusura':
+        this.http.put<any>('http://localhost:8765/api/accounts/intern/rejection/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
+        .subscribe((res)=>this.onCloseAccount());
+
+          break;
+      case 'registrazione':
+        this.http.put<any>('http://localhost:8765/api/accounts/intern/validation/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
         .subscribe((res)=>this.onRegistration());
+          break;
+      default:
+          //
+          break;
+   }
+
 
   }
 
@@ -160,15 +177,17 @@ export class EmployeeComponent implements OnInit {
 
     switch ( this.query ) {
       case 'apertura':
-          this.onOpenAccount()
+        this.http.put<any>('http://localhost:8765/api/accounts/intern/rejection/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
+        .subscribe((res)=>this.onOpenAccount());
           break;
       case 'chiusura':
-          this.onCloseAccount()
+        this.http.put<any>('http://localhost:8765/api/accounts/intern/validation/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
+        .subscribe((res)=>this.onCloseAccount());
+
           break;
       case 'registrazione':
         this.http.put<any>('http://localhost:8765/api/accounts/intern/rejection/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
         .subscribe((res)=>this.onRegistration());
-        this.onRegistration()
           break;
       default:
           //
