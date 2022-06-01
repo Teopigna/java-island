@@ -19,11 +19,13 @@ export class AddCardPopupComponent implements OnInit {
   accountTransfer: Account[] =
     [];
 
+  
   constructor(private cardService: CardService, private authService: AuthService) { }
 
   ngOnInit(): void {
 
     this.accountTransfer = this.cardService.accountsList;
+    this.accountTransfer= this.accountTransfer.filter(i => i.status === 0);
 
     this.form = new FormGroup({
       fromIban: new FormControl(null, [Validators.required]),
