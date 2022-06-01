@@ -23,8 +23,6 @@ export class EmployeeComponent implements OnInit {
   query: string = '';
   title: string = '';
 
-
-
   requestList: requestItem[] = [];
 
   constructor(
@@ -77,6 +75,7 @@ export class EmployeeComponent implements OnInit {
         }
     );
   }
+  
   onCloseAccount() {
     this.title = 'chiusura conto';
     const headerDict = {
@@ -105,6 +104,7 @@ export class EmployeeComponent implements OnInit {
 
 
   }
+
   onRegistration() {
     this.title = 'registrazione account';
 
@@ -121,7 +121,6 @@ export class EmployeeComponent implements OnInit {
         'http://localhost:8765/api/accounts/intern/registrations',
         requestOptions
       )
-
     .subscribe(
         (resData: any) => {
           this.requestList = resData;
@@ -146,8 +145,6 @@ export class EmployeeComponent implements OnInit {
 
     this.http.put<any>('http://localhost:8765/api/accounts/intern/validation/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
         .subscribe((res)=>this.onRegistration());
-
-
 
   }
 

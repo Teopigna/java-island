@@ -48,8 +48,10 @@ export class PopUpComponent implements OnInit {
       return card !== this.cardService.cardDisplayed;
     });
 
+
     this.cardIsActive = this.cardService.cardDisplayed?.status;
     console.log('card is active:', this.cardIsActive);
+    console.log('current card index: ' +this.cardService.currentIndex)
 
     // console.log(this.accountTransfer[0].iban);
 

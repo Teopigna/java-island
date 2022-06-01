@@ -38,11 +38,11 @@ export class AccountCardComponent implements OnInit {
           accountOwnerId: 0,
         },
       ];
-
+      
       this.currentIndex = this.cardService.currentIndex;
       this.cardDisplayed = this.arrayCards[this.currentIndex];
-
-      console.log(accountList);
+      console.log("CurrentCard (account-card component): "+ this.cardDisplayed);
+      
     });
 
     // setTimeout(() => {

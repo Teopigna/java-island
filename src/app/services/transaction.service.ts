@@ -1,178 +1,36 @@
+import { Account } from './../shared/account.model';
+import { Transaction } from './../shared/transaction.model';
+import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
-  transactions = [
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '1',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: -40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '1',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: -100,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '1',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: -400,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '1',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: -40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '1',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '2',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '3',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '4',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '5',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '6',
-    },
-    {
-      id: 1,
-      type: 'versamento',
-      amount: 3,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '7',
-    },
-    {
-      id: 1,
-      type: 'versamento',
-      amount: 27.99,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '8',
-    },
-    {
-      id: 1,
-      type: 'giroconto',
-      amount: 100,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '9',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 40.92,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '10',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 234,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '11',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '12',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '13',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '14',
-    },
-    {
-      id: 1,
-      type: 'bonifico',
-      amount: 40,
-      date: '27-09-2021',
-      from: 'contoxxx',
-      to: 'contoyyy',
-      description: '15',
-    },
-  ];
+  transactions: Transaction[] = [];
+  transactionsChanged = new BehaviorSubject<Transaction[]>([]);
+
+  constructor(private authService: AuthService, private http: HttpClient) {}
+
+  getTransactions(card: Account) {
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    return this.http
+      .get<Transaction[]>(
+        'http://localhost:8765/api/transactions/' + card.accountNumber,
+        requestOptions
+      )
+      .pipe(
+        tap((resData) => {
+          this.transactions = resData;
+          this.transactionsChanged.next(this.transactions);
+        })
+      );
+  }
 }

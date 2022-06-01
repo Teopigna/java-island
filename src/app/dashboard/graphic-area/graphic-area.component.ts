@@ -48,21 +48,33 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   maxprogress = '60';
   subscription?: Subscription;
 
-  constructor(private traService: TransactionService) {}
+  constructor(private traService: TransactionService) {
+    this.onResize();
+  }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.width = event.currentTarget.innerWidth * 0.4;
+  onResize(event?: any) {
+    if (window.innerWidth <= 900) {
+      this.width = window.innerWidth * 0.9;
+    } else {
+      this.width = window.innerWidth * 0.4;
+    }
+
+    if (window.innerHeight <= 1500) {
+      this.height = '200';
+    } else {
+      this.height = '400';
+    }
   }
 
   ngOnInit(): void {
     // per la progress bar
-    this.subscription = interval(100).subscribe(() => {
-      this.changeWidth();
-      if (+this.progressAnimation >= +this.maxprogress) {
-        this.subscription?.unsubscribe();
-      }
-    });
+    // this.subscription = interval(100).subscribe(() => {
+    //   this.changeWidth();
+    //   if (+this.progressAnimation >= +this.maxprogress) {
+    //     this.subscription?.unsubscribe();
+    //   }
+    // });
 
     let i = 0;
     for (let item of this.traService.transactions.reverse()) {

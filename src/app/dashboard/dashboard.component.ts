@@ -13,13 +13,21 @@ export class DashboardComponent implements OnInit {
   activeUser: string | undefined;
   // per controllare se l'utente è in attesa della richiesta di registrazione bisogna controllare se ha un'unica carta e questa è inattiva
   cardArray: Account[] = [];
+
   constructor(
     private cardService: CardService,
     private authService: AuthService
   ) {}
-
+  
   ngOnInit(): void {
-    this.cardArray = this.cardService.accountsList;
+    this.cardService.getAccounts().subscribe((accountList) => {
+      this.cardArray = [
+        ...accountList
+      ];
+      
+      console.log("CurrentCard (dashboard component): "+ this.cardArray);
+      
+    });
 
     this.activeUser = this.authService.user.value?.name;
   }

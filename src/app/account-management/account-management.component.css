@@ -25,3 +25,11 @@ table {
     rgba(var(--menu-font-hover-rgb), 0.5) 100%
   );
 }
+
+span.span-error{
+  color: red;
+}
+
+h1 {
+  font-variant: small-caps;
+}

@@ -33,9 +33,9 @@
             <td>
               <b>€ {{ transaction.amount }}</b>
             </td>
-            <td>{{ transaction.from }}</td>
-            <td>{{ transaction.to }}</td>
-            <td>{{ transaction.type }}</td>
+            <td>{{ transaction.accountNumberFrom }}</td>
+            <td>{{ transaction.accountNumberTo }}</td>
+            <td>{{ transaction.type ? transaction.type : "" }}</td>
           </tr>
         </tbody>
       </table>
