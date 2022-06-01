@@ -1,7 +1,7 @@
+import { Transaction } from './../../shared/transaction.model';
 import { TransactionService } from './../../services/transaction.service';
-import { CardService } from '../../services/card-manage.service';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 // data.data è un esempio: andranno sostituiti con i dati che arrivano dal be con le transazioni
 
@@ -46,9 +46,13 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   // per la progress bar:
   progressAnimation = '0';
   maxprogress = '60';
-  subscription?: Subscription;
+  subscription: Subscription = new Subscription();
 
-  constructor(private traService: TransactionService) {
+  //Per le transazioni
+  transactionChangeSub : Subscription = new Subscription();
+  transactions : Transaction[] = [];
+
+  constructor(private transactionService: TransactionService) {
     this.onResize();
   }
 
@@ -76,18 +80,32 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
     //   }
     // });
 
-    let i = 0;
-    for (let item of this.traService.transactions.reverse()) {
-      if (i <= 10) {
-        this.data.data.push({
-          label: item.date.toString(),
-          value: item.amount,
-        });
-      } else {
-        break;
+    this.transactionChangeSub = this.transactionService.transactionsChanged.subscribe(
+      () => {
+        this.transactions = this.transactionService.transactions;
+        console.log(this.transactions);
+
+        this.data.data =  [
+          {
+            label: '',
+            value: 0,
+          },
+        ];
+
+        let i = 0;
+        for (let item of this.transactions.reverse()) {
+          if (i <= 10) {
+            this.data.data.push({
+              label: item.date.toString(),
+              value: item.amount,
+            });
+          } else {
+            break;
+          }
+          i++;
+        }
       }
-      i++;
-    }
+    );
     // inserire la questione che si aggiorna in modo automatico anche all'inizio: la width.
   }
 
@@ -96,6 +114,8 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscription.unsubscribe();
+
+    this.transactionChangeSub.unsubscribe();
   }
 }
