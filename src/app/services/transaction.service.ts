@@ -27,7 +27,7 @@ export class TransactionService {
       headers: new HttpHeaders(headerDict),
     };
 
-    const cardNum = this.cardService.cardDisplayed.accountNumber;
+    const cardNum = this.cardService.cardDisplayed?.accountNumber;
 
     return this.http
       .get<Transaction[]>(
@@ -77,7 +77,13 @@ export class TransactionService {
   }
 
   //Chiamata per Bonifico/Giroconto
-  doTransfer(fromIban: string, toIban: string, amount: number, cause: string) {
+  doTransfer(
+    type: number,
+    fromIban: string,
+    toIban: string,
+    amount: number,
+    cause: string
+  ) {
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -92,7 +98,7 @@ export class TransactionService {
         {
           accountNumberFrom: fromIban,
           accountNumberTo: toIban,
-          type: 0,
+          type: type,
           amount: amount,
           cause: cause,
         },

@@ -26,10 +26,14 @@ table {
   );
 }
 
-span.span-error{
+span.span-error {
   color: red;
 }
 
 h1 {
   font-variant: small-caps;
+}
+
+.d-flex {
+  width: 100%;
 }

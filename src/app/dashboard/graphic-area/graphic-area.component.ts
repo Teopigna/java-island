@@ -49,8 +49,8 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
 
   //Per le transazioni
-  transactionChangeSub : Subscription = new Subscription();
-  transactions : Transaction[] = [];
+  transactionChangeSub: Subscription = new Subscription();
+  transactions: Transaction[] = [];
 
   constructor(private transactionService: TransactionService) {
     this.onResize();
@@ -80,12 +80,12 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
     //   }
     // });
 
-    this.transactionChangeSub = this.transactionService.transactionsChanged.subscribe(
-      () => {
+    this.transactionChangeSub =
+      this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions;
         console.log(this.transactions);
 
-        this.data.data =  [
+        this.data.data = [
           {
             label: '',
             value: 0,
@@ -104,8 +104,7 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
           }
           i++;
         }
-      }
-    );
+      });
     // inserire la questione che si aggiorna in modo automatico anche all'inizio: la width.
   }
 
