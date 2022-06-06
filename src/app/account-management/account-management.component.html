@@ -2,13 +2,15 @@
 
 <app-add-card-popup *ngIf="showPopup" (onClose)="onClosePopUp()" ></app-add-card-popup>
 
+<app-warning-popup *ngIf="showWarning" (onClose)="onCloseWarning()"></app-warning-popup>
+
 <div class="row d-flex text-center"> 
   <h1>I tuoi conti</h1>
 </div>
 
-<div class="container ">
+<div class="container">
   <div class="row ">
-    <div class="col text-center">
+    <div class="col">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -31,13 +33,23 @@
                 {{(account.status===0) ? "attivo" : checkActivity(account.status)}}
             </td>
             <td>
-              <button 
+              <button
+                *ngIf="account.status!=4" 
                 class="btn btn-danger" 
                 [disabled]="!(account.status===0)" 
                 style="margin-left: 10px"
                 (click)="sendCloseRequest(i)"
               >
                 Invia richiesta chiusura
+              </button>
+
+              <button
+                *ngIf="account.status ===4" 
+                class="btn btn-danger" 
+                style="margin-left: 10px"
+                (click)="deleteAccount(i)"
+              >
+                Elimina conto
               </button>
               <br>
               <span class="span-error" *ngIf="closureError && i===errorIndex">Il saldo deve essere pari a 0</span>

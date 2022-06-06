@@ -10,10 +10,17 @@
         X
       </button>
 
-      <p>Selezionare l'IBAN da cui prelevare importo iniziale</p>
+      <!-- Pannello errore signUp -->
+      <div class="alert alert-danger" *ngIf="showAlert">
+        <p style="text-align: center">{{ amountError }}</p>
+      </div>
+      <!-- Fine Pannello errore -->
+
+      
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <label for="fromIban">from IBAN</label>
+        <label for="fromIban">Conto<p class="small-p">(da cui prelevare importo iniziale)</p></label>
+        
         <select formControlName="fromIban" class="form-control">
           <option
             *ngFor="let card of accountTransfer"
@@ -22,6 +29,7 @@
             {{ card?.accountNumber }}
           </option>
         </select>
+        
         <!-- Errore in caso di Iban non selezionato -->
         <span
           class="help-block"

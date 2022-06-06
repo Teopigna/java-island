@@ -33,3 +33,7 @@ span.span-error{
 h1 {
   font-variant: small-caps;
 }
+
+.d-flex {
+  width: 100%;
+}

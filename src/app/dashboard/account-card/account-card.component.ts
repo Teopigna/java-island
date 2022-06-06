@@ -21,9 +21,8 @@ export class AccountCardComponent implements OnInit, OnDestroy {
   currentIndex = 0;
   cardDisplayed: Account | undefined;
 
-  cardChangeSub : Subscription = new Subscription();
+  cardChangeSub: Subscription = new Subscription();
   accountsChangeSub: Subscription = new Subscription();
-
 
   constructor(
     private cardService: CardService,
@@ -33,10 +32,23 @@ export class AccountCardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-
-    this.accountsChangeSub = this.cardService.accountsListChanged.subscribe(() => {
-      this.arrayCards = this.cardService.accountsList;
-    });
+    this.accountsChangeSub = this.cardService.accountsListChanged.subscribe(
+      () => {
+        this.arrayCards = [
+          ...this.cardService.accountsList,
+          {
+            id: 0,
+            accountNumber: '',
+            firstName: '',
+            lastName: '',
+            balance: 0,
+            status: 0,
+            accountOwnerId: 0,
+          },
+        ];
+        this.cardDisplayed = this.arrayCards[this.currentIndex];
+      }
+    );
 
     //Inizializza arrayCards
     this.cardService.getAccounts().subscribe((accountList) => {
@@ -56,8 +68,7 @@ export class AccountCardComponent implements OnInit, OnDestroy {
       this.currentIndex = this.cardService.currentIndex;
       this.cardDisplayed = this.arrayCards[this.currentIndex];
       //Setta le transazioni rispetto alla carta mostrata
-      this.transService.getTransactions().subscribe((trList)=> {})
-      
+      this.transService.getTransactions().subscribe((trList) => {});
     });
 
     this.cardChangeSub = this.cardService.cardChanged.subscribe((card) => {
@@ -85,7 +96,6 @@ export class AccountCardComponent implements OnInit, OnDestroy {
 
   // Chiamata per vedere se il dipendente ha accettato la richiesta di creazione nuova carta
   onRefreshCard() {
-    
     this.cardService.getAccounts().subscribe((accountList) => {
       // Set new accountList
       this.arrayCards = [
@@ -120,11 +130,8 @@ export class AccountCardComponent implements OnInit, OnDestroy {
         });
       }
       //Update transactions on refresh
-      this.transService.getTransactions().subscribe((trList)=> {})
-
+      this.transService.getTransactions().subscribe((trList) => {});
     });
-
-    
   }
   // Naviga in gestione conti al click di aggiungi carta
   onAddCard() {
@@ -157,9 +164,9 @@ export class AccountCardComponent implements OnInit, OnDestroy {
       }
     }
     //Update transactions when changhing card
-    this.transService.getTransactions().subscribe((trList)=> {})
+    this.transService.getTransactions().subscribe((trList) => {});
   }
-  
+
   // Aggiorna la carta mostrata al click della freccia destra
   onNextCard() {
     if (this.currentIndex + 1 < this.arrayCards.length) {
@@ -188,7 +195,7 @@ export class AccountCardComponent implements OnInit, OnDestroy {
     }
 
     //Update transactions when changhing card
-    this.transService.getTransactions().subscribe((trList)=> {})
+    this.transService.getTransactions().subscribe((trList) => {});
   }
 
   ngOnDestroy(): void {

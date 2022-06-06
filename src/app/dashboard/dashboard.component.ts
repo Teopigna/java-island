@@ -34,5 +34,11 @@ export class DashboardComponent implements OnInit {
 
   onRefreshPage() {
     // farà la richiesta get per sapere se l'account è stato accettato
+
+    this.cardService.getAccounts().subscribe((accountList) => {
+      this.cardArray = [
+        ...accountList
+      ];
+    });
   }
 }
