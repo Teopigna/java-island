@@ -1,3 +1,4 @@
+import { NoPopupActionsComponent } from './dashboard/actions/no-popup-actions/no-popup-actions.component';
 import { AuthGuardD } from './auth/authD.guard';
 import { AuthGuardC } from './auth/authC.guard';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -15,6 +16,10 @@ const appRoutes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     // canActivate: [AuthGuardC],
+  },
+  {
+    path: 'bonifico',
+    component: NoPopupActionsComponent,
   },
   {
     path: 'profilo',
