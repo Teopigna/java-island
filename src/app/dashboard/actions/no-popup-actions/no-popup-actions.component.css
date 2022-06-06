@@ -25,9 +25,6 @@ h5 {
 h1 {
   margin-left: 10px;
   margin-right: 20px;
-}
-
-p {
   text-transform: capitalize;
 }
 
@@ -44,4 +41,25 @@ p {
   background-clip: unset;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.center-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.center-input {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+mat-form-field {
+  margin-left: 5px;
+  margin-right: 5px;
 }

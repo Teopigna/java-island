@@ -22,14 +22,15 @@
       <a [routerLink]="['/bonifico']"
         ><h4><i class="fa-solid fa-dollar-sign"></i> Bonifico</h4></a
       >
-      <a [routerLink]="['/bonifico']"
+      <a [routerLink]="['/giroconto']"
         ><h4><i class="fa-solid fa-arrows-rotate"></i> Giroconto</h4></a
       >
-      <a [routerLink]="['/bonifico']"
+      <a [routerLink]="['/ricarica']"
         ><h4>
           <i class="fa-solid fa-mobile-retro"></i> Ricarica telefonica
         </h4></a
       >
+      <!-- per ora, versamento e prelievo sono ancora popup: se vogliamo modificarli li mettiamo nella no-popup component -->
       <a [routerLink]="['/dashboard']" [queryParams]="{ action: 'versamento' }"
         ><h4><i class="fa-solid fa-arrow-down"></i> Versamento</h4></a
       >
