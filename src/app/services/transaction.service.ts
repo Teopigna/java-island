@@ -42,7 +42,7 @@ export class TransactionService {
       );
   }
 
-  postTransaction(amount: number) {
+  postTransaction(amount: number, type: number) {
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -50,8 +50,6 @@ export class TransactionService {
     const requestOptions = {
       headers: new HttpHeaders(headerDict),
     };
-
-    const type = amount > 0 ? 1 : 2;
 
     this.http
       .post<any>(

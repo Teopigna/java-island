@@ -72,8 +72,9 @@ export class PopUpComponent implements OnInit {
         console.log(this.cardService.cardDisplayed?.accountNumber);
         console.log(-+this.form3.value.amount);
 
-        this.traService.postTransaction(this.form3.value.amount);
+        this.traService.postTransaction(this.form3.value.amount, 3);
       } else if (this.action === 'versamento') {
+        this.traService.postTransaction(this.form3.value.amount, 2);
       }
     }
 
