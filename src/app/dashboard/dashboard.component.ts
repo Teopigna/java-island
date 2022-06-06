@@ -1,3 +1,4 @@
+import { TransactionService } from 'src/app/services/transaction.service';
 import { Account } from './../shared/account.model';
 import { AuthService } from './../auth/auth.service';
 import { CardService } from '../services/card-manage.service';
@@ -16,7 +17,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private cardService: CardService,
-    private authService: AuthService
+    private authService: AuthService,
+    private transactionService: TransactionService
   ) {}
   
   ngOnInit(): void {
@@ -24,9 +26,7 @@ export class DashboardComponent implements OnInit {
       this.cardArray = [
         ...accountList
       ];
-      
-      console.log("CurrentCard (dashboard component): "+ this.cardArray);
-      
+      //console.log("CurrentCard (dashboard component): "+ this.cardArray);
     });
 
     this.activeUser = this.authService.user.value?.name;

@@ -38,8 +38,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class MenuComponent implements OnInit {
   menuState = 'closed';
   menu = 'closed';
+  requestList:string='request list vuota';
   fileUrl:any;
-  data:any;
 
   userRole: string | undefined = '';
 
@@ -52,6 +52,33 @@ export class MenuComponent implements OnInit {
     if (this.authService.user.value) {
       this.userRole = this.authService.user.value?.role;
     }
+
+    let requestList: requestItem[] = [];
+
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    this.http
+      .get<requestItem>(
+        'http://localhost:8765/api/accounts/intern/registrations',
+        requestOptions
+      )
+
+    .subscribe(
+        (resData: requestItem) => {
+          const blob = new Blob([JSON.stringify(resData)], { type: '.txt' });
+          this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+        },
+        (error) => {
+          console.log(error);
+        }
+    );
+
   }
 
   onLogout() {
@@ -106,12 +133,12 @@ export class MenuComponent implements OnInit {
       )
 
     .subscribe(
-        (resData: any) => {
-          requestList = resData;
-          console.log(requestList);
+        (resData: requestItem) => {
 
-          this.data = JSON.stringify(resData);
-          console.log('the data ='+this.data)
+
+          const blob = new Blob([JSON.stringify(resData)], { type: '.txt' });
+
+          this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
 
         },
         (error) => {
@@ -119,8 +146,8 @@ export class MenuComponent implements OnInit {
         }
     );
 
-    const blob = new Blob([this.data], { type: '.txt' });
 
-    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+    console.log(this.requestList+'log')
+
   }
 }

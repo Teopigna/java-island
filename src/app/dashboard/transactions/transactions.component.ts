@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { Transaction } from './../../shared/transaction.model';
 import { CardService } from '../../services/card-manage.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,12 +14,25 @@ export class TransactionsComponent implements OnInit {
 
   transactionsDisplayed: Transaction[] = [];
 
-  constructor(private traService: TransactionService) {}
+  transactionChangeSub: Subscription = new Subscription();
+
+  constructor(private transactionService: TransactionService) {}
 
   ngOnInit(): void {
-    this.transactions = this.traService.transactions;
 
-    this.transactionsDisplayed = this.transactions;
+    this.transactionChangeSub = this.transactionService.transactionsChanged.subscribe(
+      () => {
+        this.transactions = this.transactionService.transactions;
+        this.transactionsDisplayed = this.transactions;
+      }
+    )
+    
+    // this.transactionService.getTransactions().subscribe((transList) => {
+    //   this.transactions = transList;
+    //   this.transactionsDisplayed = this.transactions;
+    // });
+
+
   }
 
   onShrinkArray(howMany: number) {
