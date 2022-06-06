@@ -102,7 +102,7 @@ export class TransactionService {
       .pipe(
         tap((response) => {
           //Do something when receiving response
-          //Update transaction?
+          //Update transaction
           this.getTransactions().subscribe();
         })
       );

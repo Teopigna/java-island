@@ -25,7 +25,7 @@ export class ActionsComponent implements OnInit, OnDestroy{
     private route: ActivatedRoute,
     private router: Router
   ) {}
-
+  
   ngOnInit(): void {
     this.routeSub = this.route.queryParams.subscribe((params) => {
       const action = params['action'];

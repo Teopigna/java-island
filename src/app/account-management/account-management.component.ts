@@ -51,8 +51,7 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
     this.closureError = false;
 
     const id = this.accounts[ind].id;
-    console.log(this.accounts[ind].status);
-
+    
     this.cardService.closeAccount(id).subscribe(
       (resData) => {
         //console.log(resData);
@@ -62,6 +61,20 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
         this.errorIndex = ind;
         this.closureError = true;
       } 
+    )
+  }
+
+  deleteAccount(ind: number){
+
+    const id = this.accounts[ind].id;
+
+    this.cardService.deleteAccount(id).subscribe(
+      (res) => {
+
+      },
+      (error) => {
+        console.log(error.error.message);
+      }
     )
   }
 

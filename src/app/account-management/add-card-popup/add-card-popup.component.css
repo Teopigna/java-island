@@ -96,5 +96,10 @@
   select.ng-invalid.ng-touched{
     border: 1px solid red;
 }
+
+.small-p {
+  font-size: small;
+  margin-bottom: 2px;
+}
   
   
