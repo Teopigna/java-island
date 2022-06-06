@@ -41,6 +41,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProgressBarsComponent } from './dashboard/progress-bars/progress-bars.component';
 import { AddCardPopupComponent } from './account-management/add-card-popup/add-card-popup.component';
+import { WarningPopupComponent } from './account-management/warning-popup/warning-popup.component';
 import { NoPopupActionsComponent } from './dashboard/actions/no-popup-actions/no-popup-actions.component';
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
@@ -62,6 +63,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     FooterComponent,
     ProgressBarsComponent,
     AddCardPopupComponent,
+    WarningPopupComponent,
     NoPopupActionsComponent,
   ],
   imports: [

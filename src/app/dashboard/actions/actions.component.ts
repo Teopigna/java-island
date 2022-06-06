@@ -2,7 +2,7 @@ import { Account } from './../../shared/account.model';
 import { CardService } from '../../services/card-manage.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,31 +10,33 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './actions.component.html',
   styleUrls: ['./actions.component.css'],
 })
-export class ActionsComponent implements OnInit {
+export class ActionsComponent implements OnInit, OnDestroy{
   popUpType: string = '';
   closedPopUp: boolean = true;
 
   currentCard: Account = this.cardService.cardDisplayed;
+  accountListSub: Subscription = new Subscription();
 
   routeSub: Subscription = new Subscription();
+  cardNumber = 1;
 
   constructor(
     private cardService: CardService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
-
+  
   ngOnInit(): void {
     this.routeSub = this.route.queryParams.subscribe((params) => {
       const action = params['action'];
-      const cardNumber = +params['card'];
+      this.cardNumber = +params['card'];
       if (action) {
         this.popUpType = action;
         this.onOpenPopUp();
       }
 
-      if (cardNumber) {
-        this.currentCard = this.cardService.accountsList[cardNumber - 1];
+      if (this.cardNumber) {
+        this.currentCard = this.cardService.accountsList[this.cardNumber - 1];
       }
     });
 
@@ -42,6 +44,13 @@ export class ActionsComponent implements OnInit {
       this.currentCard = this.cardService.accountsList[0];
       console.log("CurrentCard (action component): "+ this.cardService.accountsList[0]);
     }, 200);
+
+
+    this.accountListSub = this.cardService.accountsListChanged.subscribe(
+      () => {
+        this.currentCard = this.cardService.accountsList[this.cardNumber - 1];
+      }
+    );
 
 
 
@@ -72,5 +81,9 @@ export class ActionsComponent implements OnInit {
 
   onOpenPopUp() {
     this.closedPopUp = false;
+  }
+
+  ngOnDestroy(): void {
+      this.accountListSub.unsubscribe();
   }
 }

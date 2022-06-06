@@ -5,10 +5,23 @@ import {
   FormGroup,
   Validators,
   ReactiveFormsModule,
+  ValidatorFn,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { skip } from 'rxjs';
+
+export const passwordMatchingValidatior: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const password = control.get('password');
+  const confirmPassword = control.get('confirmPassword');
+
+  return password?.value === confirmPassword?.value ? null : { notmatched: true };
+};
+
+
+
 
 @Component({
   selector: 'app-homepage',
@@ -36,13 +49,16 @@ export class HomepageComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     birthDate: new FormControl('', [Validators.required]),
     password: new FormControl('', Validators.required),
-  });
-
+    confirmPassword: new FormControl('', [Validators.required])
+  }, { validators: passwordMatchingValidatior });
+  
   constructor(private authService: AuthService, private dateFormatter: NgbDateParserFormatter) {}
 
   ngOnInit(): void {
     
   }
+
+ 
 
   onSubmitLogin() {
     if (!this.loginForm.valid) {

@@ -229,6 +229,26 @@
             </span>
             <!-- Fine messaggio errore -->
           </div>
+          <div class="form-group">
+            <label for="confirmPassword">Conferma password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              class="form-control"
+              password
+            />
+            <!-- Messaggio errore in caso conferma password vuota -->
+            <span
+              *ngIf="
+                (signUpForm.get('confirmPassword')?.touched &&
+                signUpForm.errors?.['notmatched'])
+              "
+              class="help-block"
+              >Le password non matchano
+            </span>
+            <!-- Fine messaggio errore -->
+          </div>
           <button
             type="submit"
             class="btn btn-outline-success"

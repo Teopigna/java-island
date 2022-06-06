@@ -69,10 +69,10 @@ export class PopUpComponent implements OnInit {
 
       // logica per il prelievo e il versamento: i dati aggiornati andranno poi salvati sul db(?)
       if (this.action === 'prelievo') {
-        console.log(this.cardService.cardDisplayed?.accountNumber);
-        console.log(-+this.form3.value.amount);
+        // console.log(this.cardService.cardDisplayed?.accountNumber);
+        // console.log(-+this.form3.value.amount);
+        this.traService.postTransaction(-this.form3.value.amount, 3);
 
-        this.traService.postTransaction(this.form3.value.amount, 3);
       } else if (this.action === 'versamento') {
         this.traService.postTransaction(this.form3.value.amount, 2);
       }

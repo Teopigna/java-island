@@ -46,7 +46,7 @@
   
     width: 340px;
   
-    background-color: white;
+    background-color: rgb(255, 94, 94);
     z-index: 3;
   
     align-self: center;
@@ -78,7 +78,7 @@
   }
 
   .right-align {
-    margin-left: 90%;
+    margin-left: 80%;
   }
 
   .center-align {
@@ -97,9 +97,14 @@
     border: 1px solid red;
 }
 
-.small-p {
-  font-size: small;
-  margin-bottom: 2px;
+.warning-text {
+    color: rgb(255, 219, 152);
+}
+
+.btn {
+    width: fit-content;
+    height: fit-content;
+    margin: 2%;
 }
   
   
