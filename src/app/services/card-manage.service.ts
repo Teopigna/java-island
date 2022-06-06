@@ -117,4 +117,31 @@ export class CardService {
         })
       );
   }
+
+  deleteAccount(id:number){
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+    
+    return this.http
+      .delete(
+        'http://localhost:8765/api/accounts/intern/delete/'+id,
+        requestOptions
+      ).pipe(
+        tap((resData) => {
+          //Quando si elimina un conto, vanno aggiornati gli array contenenti i conti dell'utente loggato
+          this.getAccounts().subscribe(
+            (resData) => {
+              this.accountsList = resData;
+              //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
+              this.accountsListChanged.next(this.accountsList);
+            }
+          )
+        })
+      );
+  }
 }

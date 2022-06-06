@@ -16,6 +16,9 @@ export class AddCardPopupComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
+  amountError: string  = "";
+  showAlert: boolean = false;
+
   accountTransfer: Account[] =
     [];
 
@@ -40,32 +43,25 @@ export class AddCardPopupComponent implements OnInit {
 
     const fromIban = this.form.value.fromIban;
     const amount = this.form.value.amount;
-
-    console.log('Richiesta apertura nuovo conto...');
-    console.log(
-      'Prelevando ' +
-        amount +
-        '$ dal conto ' +
-        fromIban +
-        ' per la creazione di un nuovo conto'
-    );
-
-
-
     // **** Fare qui chiamata a servizio che si occupa di inviare la POST a: /api/accounts  
     // **** indicando fromIban, la somma, il nome ed il cognome
 
     this.cardService.newAccount(this.authService.user.value!.name, this.authService.user.value!.surname, fromIban, amount )
-      .subscribe((resData) => {
-        console.log(resData);
-      });
-    
-
-    this.form.reset();
-    this.closeEvent();
+      .subscribe(
+        (resData) => {
+          this.showAlert = false;
+          this.form.reset();
+          this.closeEvent();
+        },
+        (error) => {
+          //console.log(error.error.message);
+          this.amountError = error.error.message;
+          this.showAlert = true;
+        });
   }
 
   closeEvent() {
+    this.showAlert = false;
     this.onClose.emit();
   }
 }

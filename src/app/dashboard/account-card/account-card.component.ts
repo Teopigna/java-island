@@ -48,6 +48,7 @@ export class AccountCardComponent implements OnInit, OnDestroy {
             accountOwnerId: 0,
           },
         ];
+        this.cardDisplayed = this.arrayCards[this.currentIndex];
       }
     );
 
