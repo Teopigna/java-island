@@ -4,10 +4,14 @@
 <div [@menu]="menuState" class="menu-container" *ngIf="menu === 'open'">
   <div *ngIf="userRole === 'C'">
     <div class="nav-menu">
-      <button routerLink="/dashboard"><i class="fa-solid fa-house"></i></button>
       <button (click)="onSlideMenu()"><i class="fa-solid fa-bars"></i></button>
     </div>
     <ul class="nav-links">
+      <li>
+        <a routerLink="/dashboard"
+          ><i class="fa-solid fa-house"></i> Dashboard</a
+        >
+      </li>
       <li>
         <a routerLink="/profilo"><i class="fa-solid fa-user"></i> Profilo</a>
       </li>
@@ -55,7 +59,11 @@
           </li>
         </ul>
       </li>
-      <li><a style="cursor: pointer" (click)="onDownloadList()">Scarica file lista correntisti</a></li>
+      <li>
+        <a style="cursor: pointer" (click)="onDownloadList()"
+          >Scarica file lista correntisti</a
+        >
+      </li>
     </ul>
   </div>
   <div class="logout-btn">
