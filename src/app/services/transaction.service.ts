@@ -69,6 +69,7 @@ export class TransactionService {
               cardsList[this.cardService.currentIndex]
             );
           });
+          this.getTransactions().subscribe();
         },
         (error) => {
           console.log(error);
