@@ -1,3 +1,10 @@
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+
+import { MatButtonModule } from '@angular/material/button';
+
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +29,12 @@ import * as FusionCharts from 'fusioncharts';
 import * as charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
-import { NgbAlert, NgbDatepicker, NgbDatepickerModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbAlert,
+  NgbDatepicker,
+  NgbDatepickerModule,
+  NgbProgressbarModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -30,6 +42,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ProgressBarsComponent } from './dashboard/progress-bars/progress-bars.component';
 import { AddCardPopupComponent } from './account-management/add-card-popup/add-card-popup.component';
 import { WarningPopupComponent } from './account-management/warning-popup/warning-popup.component';
+import { NoPopupActionsComponent } from './dashboard/actions/no-popup-actions/no-popup-actions.component';
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
@@ -51,6 +64,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     ProgressBarsComponent,
     AddCardPopupComponent,
     WarningPopupComponent,
+    NoPopupActionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +77,11 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
