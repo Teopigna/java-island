@@ -1,0 +1,110 @@
+* {
+    overflow: hidden;
+  }
+  
+  select {
+    appearance: auto;
+  }
+  
+  .backdrop {
+    background-color: var(--menu-bg-color);
+    opacity: 0.5;
+  
+    position: fixed;
+  
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+  
+    z-index: 2;
+  }
+  
+  .container-center-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .container-center-col {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .popup {
+    position: fixed;
+  
+    width: 340px;
+  
+    background-color: rgb(255, 94, 94);
+    z-index: 3;
+  
+    align-self: center;
+  }
+  
+  input,
+  textarea,
+  select {
+    background: rgba(var(--menu-font-hover-rgb), 0.3);
+    border-radius: 20px;
+  }
+  
+  h1 {
+    text-transform: capitalize;
+  
+    background: -webkit-linear-gradient(
+      45deg,
+      var(--menu-bg-color) 0%,
+      var(--menu-font-color-hover) 70%,
+      var(--menu-font-color-hover) 100%
+    );
+    background-clip: unset;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+
+  .right-align {
+    margin-left: 80%;
+  }
+
+  .center-align {
+    align-self: center;
+  }
+
+  span {
+    color: red;
+  }
+
+  input.ng-invalid.ng-touched{
+      border: 1px solid red;
+  }
+  
+  select.ng-invalid.ng-touched{
+    border: 1px solid red;
+}
+
+.warning-text {
+    color: rgb(255, 219, 152);
+}
+
+.btn {
+    width: fit-content;
+    height: fit-content;
+    margin: 2%;
+}
+  
+  

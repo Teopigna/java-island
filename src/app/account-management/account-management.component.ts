@@ -14,6 +14,7 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
   accounts: Account[] = [];
 
   showPopup: boolean = false;
+  showWarning: boolean = false;
 
   closureError: boolean = false;
   errorIndex: number = 0;
@@ -41,6 +42,12 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
 
   sendCloseRequest(ind: number){
 
+    if(this.accounts.length === 1) {
+      console.log("Only one account");
+      this.showWarning = true;
+      return;
+    }
+
     this.closureError = false;
 
     const id = this.accounts[ind].id;
@@ -67,6 +74,10 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
     this.closureError = false;
   }
 
+  onCloseWarning(){
+    this.showWarning = false;
+  }
+
   onUpdate(){
     this.cardService.getAccounts().subscribe(
       (resData: any) => {
@@ -90,7 +101,7 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
         break;
       }
       case 4: {
-        return "conto prossimo alla chiusura"
+        return "conto chiuso: elimina"
         break;
       } 
       default: { 
