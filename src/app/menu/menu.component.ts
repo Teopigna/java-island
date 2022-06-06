@@ -11,6 +11,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { requestItem } from '../employee/employee.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { map } from 'rxjs';
+
+interface PeopleData {
+  name: string;
+  lastName: string;
+  account: number;
+  balance: number;
+
+}
 
 @Component({
   selector: 'app-menu',
@@ -38,7 +47,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class MenuComponent implements OnInit {
   menuState = 'closed';
   menu = 'closed';
-  requestList:string='request list vuota';
+  //requestList:string='request list vuota';
   fileUrl:any;
 
   userRole: string | undefined = '';
@@ -53,7 +62,7 @@ export class MenuComponent implements OnInit {
       this.userRole = this.authService.user.value?.role;
     }
 
-    let requestList: requestItem[] = [];
+    let requestList: PeopleData[] = [];
 
     const headerDict = {
       Authorization: this.authService.user.value!.token,
@@ -65,12 +74,13 @@ export class MenuComponent implements OnInit {
 
     this.http
       .get<requestItem>(
-        'http://localhost:8765/api/accounts/intern/registrations',
+        'http://localhost:8765/api/account_owners/intern',
         requestOptions
       )
 
     .subscribe(
         (resData: requestItem) => {
+
           const blob = new Blob([JSON.stringify(resData)], { type: '.txt' });
           this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
         },
@@ -78,7 +88,6 @@ export class MenuComponent implements OnInit {
           console.log(error);
         }
     );
-
   }
 
   onLogout() {
@@ -104,13 +113,13 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  onDownloadList(){
-    /*this.api.getYeah().subscribe((response) => {
+  /*onDownloadList(){
+    this.api.getYeah().subscribe((response) => {
       let data = JSON.stringify(response);
       const blob = new Blob([data], { type: 'application/json' });
       this.fileUrl = this.sanitizer.
            bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob))
-    }*/
+    }
 
 
 
@@ -149,5 +158,5 @@ export class MenuComponent implements OnInit {
 
     console.log(this.requestList+'log')
 
-  }
+  }*/
 }
