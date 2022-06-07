@@ -21,7 +21,7 @@
     Non è possibile effettuare un giroconto: l'utente ha una sola carta attiva.
   </p>
   <ng-template #elseDiv>
-    <mat-stepper [linear]="isLinear" #stepper>
+    <mat-stepper [orientation]="orientation" [linear]="isLinear" #stepper>
       <form [formGroup]="form1">
         <mat-step [stepControl]="form1" label="Inserisci Dati">
           <div class="center-input">
@@ -81,6 +81,14 @@
             </mat-form-field>
           </div>
           <div class="center-button">
+            <button
+              mat-button
+              matStepperPrevious
+              type="button"
+              routerLink="/dashboard"
+            >
+              Annulla
+            </button>
             <button mat-button matStepperNext type="button">Prosegui</button>
           </div>
         </mat-step>
@@ -125,7 +133,7 @@
               <button
                 mat-button
                 (click)="stepper.reset()"
-                (click)="onNavigate()"
+                routerLink="/dashboard"
                 type="button"
               >
                 Finito

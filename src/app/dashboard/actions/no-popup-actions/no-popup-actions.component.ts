@@ -2,12 +2,20 @@ import { Observable } from 'rxjs';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CardService } from 'src/app/services/card-manage.service';
 import { Account } from 'src/app/shared/account.model';
+import { StepperOrientation } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-no-popup-actions',
@@ -31,12 +39,16 @@ export class NoPopupActionsComponent implements OnInit {
   // 3: conto da chiudere
   // 4: conto non validato
 
+  orientation: StepperOrientation = 'horizontal';
+
   constructor(
     private cardService: CardService,
     private traService: TransactionService,
     private router: Router,
     private location: Location
-  ) {}
+  ) {
+    this.onResize();
+  }
 
   ngOnInit(): void {
     this.accountTransfer = this.cardService.accountsList.filter((card) => {
@@ -60,6 +72,15 @@ export class NoPopupActionsComponent implements OnInit {
     });
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: any) {
+    if (window.innerWidth <= 767) {
+      this.orientation = 'vertical';
+    } else {
+      this.orientation = 'horizontal';
+    }
+  }
+
   onSubmit() {
     console.log(this.form1);
 
@@ -70,20 +91,24 @@ export class NoPopupActionsComponent implements OnInit {
     } else if (this.action === 'giroconto') {
       type = 4;
     } else if (this.action === 'ricarica') {
-      type = 5;
+      type = 3; //sono un prelievo...
     }
 
-    this.traService
-      .doTransfer(
-        type,
-        this.cardService.cardDisplayed.accountNumber,
-        this.form1.value.to,
-        this.form1.value.amount,
-        this.form1.value.cause
-      )
-      .subscribe((response) => {
-        console.log(response);
-      });
+    if (type === 1 || type === 4) {
+      this.traService
+        .doTransfer(
+          type,
+          this.cardService.cardDisplayed.accountNumber,
+          this.form1.value.to,
+          this.form1.value.amount,
+          this.form1.value.cause
+        )
+        .subscribe((response) => {
+          console.log(response);
+        });
+    } else if (type === 3) {
+      this.traService.postTransaction(-this.form1.value.amount, type);
+    }
   }
 
   onNavigate() {
