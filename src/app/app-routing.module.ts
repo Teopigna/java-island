@@ -22,6 +22,14 @@ const appRoutes: Routes = [
     component: NoPopupActionsComponent,
   },
   {
+    path: 'giroconto',
+    component: NoPopupActionsComponent,
+  },
+  {
+    path: 'ricarica',
+    component: NoPopupActionsComponent,
+  },
+  {
     path: 'profilo',
     component: UserProfileComponent,
     // canActivate: [AuthGuardC],

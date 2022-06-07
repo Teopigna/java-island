@@ -31,9 +31,8 @@ export class CardService {
 
   currentIndex = 0;
   cardDisplayed = this.accountsList[this.currentIndex];
-  
-  getAccounts(){
 
+  getAccounts() {
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -53,7 +52,12 @@ export class CardService {
       );
   }
 
-  newAccount(name: string, surname: string, accountNum: string, amount: number){
+  newAccount(
+    name: string,
+    surname: string,
+    accountNum: string,
+    amount: number
+  ) {
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -66,25 +70,23 @@ export class CardService {
       .post<Account>(
         'http://localhost:8765/api/accounts',
         {
-          "firstName" : name,
-          "lastName": surname,
-          "accountNumber": accountNum,
-          "amount": amount
+          firstName: name,
+          lastName: surname,
+          accountNumber: accountNum,
+          amount: amount,
         },
         requestOptions
       )
       .pipe(
         tap((resData: Account) => {
           //Quando si apre un nuovo conto, vanno aggiornati gli array contenenti i conti dell'utente loggato
-          this.getAccounts().subscribe(
-            (resData) => {
-              this.accountsList = resData;
-              //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
-              this.accountsListChanged.next(this.accountsList);
-            }
-          )
+          this.getAccounts().subscribe((resData) => {
+            this.accountsList = resData;
+            //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
+            this.accountsListChanged.next(this.accountsList);
+          });
         })
-      )
+      );
   }
 
   closeAccount(id: number) {
@@ -98,21 +100,20 @@ export class CardService {
 
     return this.http
       .put(
-        'http://localhost:8765/api/accounts/'+id,
+        'http://localhost:8765/api/accounts/' + id,
         {
-          "account_id" : id
+          account_id: id,
         },
         requestOptions
-      ).pipe(
+      )
+      .pipe(
         tap((resData) => {
           //Quando si chiude un conto, vanno aggiornati gli array contenenti i conti dell'utente loggato
-          this.getAccounts().subscribe(
-            (resData) => {
-              this.accountsList = resData;
-              //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
-              this.accountsListChanged.next(this.accountsList);
-            }
-          )
+          this.getAccounts().subscribe((resData) => {
+            this.accountsList = resData;
+            //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
+            this.accountsListChanged.next(this.accountsList);
+          });
         })
       );
   }

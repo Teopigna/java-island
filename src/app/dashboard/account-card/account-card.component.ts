@@ -32,6 +32,8 @@ export class AccountCardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    console.log('parte cards');
+
     this.accountsChangeSub = this.cardService.accountsListChanged.subscribe(
       () => {
         this.arrayCards = [

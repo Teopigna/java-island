@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './actions.component.html',
   styleUrls: ['./actions.component.css'],
 })
-export class ActionsComponent implements OnInit, OnDestroy{
+export class ActionsComponent implements OnInit, OnDestroy {
   popUpType: string = '';
   closedPopUp: boolean = true;
 
@@ -25,8 +25,11 @@ export class ActionsComponent implements OnInit, OnDestroy{
     private route: ActivatedRoute,
     private router: Router
   ) {}
-  
+
   ngOnInit(): void {
+    this.currentCard =
+      this.cardService.accountsList[this.cardService.currentIndex];
+
     this.routeSub = this.route.queryParams.subscribe((params) => {
       const action = params['action'];
       this.cardNumber = +params['card'];
@@ -40,21 +43,19 @@ export class ActionsComponent implements OnInit, OnDestroy{
       }
     });
 
+    console.log(this.cardNumber);
     setTimeout(() => {
-      this.currentCard = this.cardService.accountsList[0];
-      console.log("CurrentCard (action component): "+ this.cardService.accountsList[0]);
+      if (!this.cardNumber) {
+        this.currentCard = this.cardService.accountsList[0];
+        console.log(
+          'CurrentCard (action component): ' + this.cardService.accountsList[0]
+        );
+      }
     }, 200);
 
-
-    this.accountListSub = this.cardService.accountsListChanged.subscribe(
-      () => {
-        this.currentCard = this.cardService.accountsList[this.cardNumber - 1];
-      }
-    );
-
-
-
-    
+    this.accountListSub = this.cardService.accountsListChanged.subscribe(() => {
+      this.currentCard = this.cardService.accountsList[this.cardNumber - 1];
+    });
 
     // this.cardService.cardChanged.subscribe((card) => {
     //   this.currentCard = card;
@@ -84,6 +85,6 @@ export class ActionsComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-      this.accountListSub.unsubscribe();
+    this.accountListSub.unsubscribe();
   }
 }

@@ -20,15 +20,14 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
     private transactionService: TransactionService
   ) {}
-  
+
   ngOnInit(): void {
     this.cardService.getAccounts().subscribe((accountList) => {
-      this.cardArray = [
-        ...accountList
-      ];
+      this.cardArray = [...accountList];
       //console.log("CurrentCard (dashboard component): "+ this.cardArray);
     });
 
+    console.log(this.cardService.currentIndex);
     this.activeUser = this.authService.user.value?.name;
   }
 
