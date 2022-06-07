@@ -42,8 +42,7 @@ export class ActionsComponent implements OnInit, OnDestroy {
         this.currentCard = this.cardService.accountsList[this.cardNumber - 1];
       }
     });
-
-    console.log(this.cardNumber);
+    
     setTimeout(() => {
       if (!this.cardNumber) {
         this.currentCard = this.cardService.accountsList[0];

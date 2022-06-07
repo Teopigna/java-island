@@ -32,7 +32,6 @@ export class AccountCardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log('parte cards');
 
     this.accountsChangeSub = this.cardService.accountsListChanged.subscribe(
       () => {
@@ -78,12 +77,14 @@ export class AccountCardComponent implements OnInit, OnDestroy {
     });
 
     if (this.cardDisplayed?.status === 0) {
+      this.currentIndex = this.cardService.currentIndex;
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: { card: (this.currentIndex + 1).toString() },
         fragment: 'activated',
       });
     } else {
+      this.currentIndex = this.cardService.currentIndex;
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: { card: (this.currentIndex + 1).toString() },
