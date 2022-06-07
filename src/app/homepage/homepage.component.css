@@ -1,167 +1,212 @@
+h1,
+h3 {
+  font-family: "Libre Baskerville", serif;
+}
+
+button {
+  border-radius: 15px;
+}
+
 button.btn-success {
-    margin-right: 30px;
-    border-color: #cefffc;
-    background-color: #3688ec;
-    color: #cefffc;
+  margin-right: 30px;
+  border-color: #3688ec;
+  background-color: #3688ec;
+  color: #cefffc;
 }
 
-span {
-    color: red;
+.error {
+  color: red;
 }
 
-input.ng-invalid.ng-touched{
-    border: 1px solid red;
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
 }
 
-input.ng-valid.ng-touched{
-    border: 1px solid #3688ec;
+input.ng-valid.ng-touched {
+  border: 1px solid #3688ec;
 }
 
 button.btn-outline-success {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border-color: #3688ec;
-    color: #3688ec;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-color: #3688ec;
+  color: #3688ec;
 }
 
 button.btn-outline-success:hover {
-    border-color: #3688ec;
-    color: #3688ec;
-    background-color: #cefffc;
+  border-color: #3688ec;
+  color: #3688ec;
+  background-color: #cefffc;
 }
 
-
 .container .panel {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    background-color:#cefffcbb;
-    box-shadow: none;
-    
-    z-index: 2;
-    border-radius: 15px;
-    border: 5px solid #3688ec;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: none;
+
+  z-index: 2;
+  border-radius: 15px;
+
+  width: fit-content;
+  padding: 20px;
+}
+
+@media screen and (min-width: 700px) {
+  .panel {
+    width: 60vw;
+  }
 }
 
 input {
-    width: 70%;
-    margin: auto;
+  width: 70%;
+  margin: auto;
 }
 
 input.custom-date {
-    width: 50%;
+  width: 50%;
 }
 
-i.fa-calendar-days{
-    color: #3688ec;
+i.fa-calendar-days {
+  color: #3688ec;
 }
 
-.input-group{
-    margin: 0 auto;
-    width: 70%;
+.input-group {
+  margin: 0 auto;
+  width: 70%;
 }
-
-
 
 label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 a.navbar-brand {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+a.navbar-brand:hover,
+.panel-title h1 a:hover {
+  animation: jump;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
 }
 
 .navbar {
-    background-color: #cefffc;
-    z-index: 2;
+  background-color: #fff;
+  z-index: 2;
 }
 
-.navbar-brand{
-    margin-left: 20px;
+.navbar-brand {
+  margin-left: 20px;
 }
-
 
 .backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--menu-bg-rgb), 0.5);
+  z-index: 1;
+}
+
+/* jump animation */
+
+@keyframes jump {
+  0% {
+    transform: scale(1.3, 0.8);
+  }
+
+  10% {
+    transform: scale(0.7, 1.4);
+  }
+
+  50% {
+    transform: scale(1.2, 0.9);
+  }
+
+  75% {
+    transform: scale(0.95, 1.05);
+  }
+
+  100% {
+    transform: scale(1, 1);
+  }
 }
 
 /* Animation */
 
 @keyframes move_wave {
-    0% {
-        transform: translateX(0) translateZ(0) scaleY(.5)
-    }
-    50% {
-        transform: translateX(-25%) translateZ(0) scaleY(1)
-    }
-    100% {
-        transform: translateX(-50%) translateZ(0) scaleY(.5)
-    }
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(0.5);
+  }
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(1);
+  }
+  100% {
+    transform: translateX(-50%) translateZ(0) scaleY(0.5);
+  }
 }
 .waveWrapper {
-    overflow: hidden;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    margin: auto;
-    z-index: -10;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  z-index: -10;
 }
 .waveWrapperInner {
-    position: absolute;
-    width: 100%;
-    overflow: hidden;
-    height: 100%;
-    bottom: -1px;
-    background-image: linear-gradient(to top, #3688ec 40%, #cefffc 60%);  
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+  bottom: -1px;
+  background-color: var(--home-bg-color);
+  /* background-image: linear-gradient(to top, #3688ec 40%, #cefffc 60%); */
 }
 .bgTop {
-    z-index: 15;
-    opacity: 0.5;
+  z-index: 15;
+  opacity: 0.5;
 }
 .bgMiddle {
-    z-index: 10;
-    opacity: 0.75;
+  z-index: 10;
+  opacity: 0.75;
 }
 .bgBottom {
-    z-index: 5;
+  z-index: 5;
 }
 .wave {
-    position: absolute;
-    left: 0;
-    width: 200%;
-    height: 100%;
-    background-repeat: repeat no-repeat;
-    background-position: 0 bottom;
-    transform-origin: center bottom;
+  position: absolute;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-repeat: repeat no-repeat;
+  background-position: 0 bottom;
+  transform-origin: center bottom;
 }
 .waveTop {
-    background-size: 50% 100px;
+  background-size: 50% 100px;
 }
 .waveAnimation .waveTop {
   animation: move-wave 3s;
-   -webkit-animation: move-wave 3s;
-   -webkit-animation-delay: 1s;
-   animation-delay: 1s;
+  -webkit-animation: move-wave 3s;
+  -webkit-animation-delay: 1s;
+  animation-delay: 1s;
 }
 .waveMiddle {
-    background-size: 50% 120px;
+  background-size: 50% 120px;
 }
 .waveAnimation .waveMiddle {
-    animation: move_wave 30s linear infinite;
+  animation: move_wave 30s linear infinite;
 }
 .waveBottom {
-    background-size: 50% 100px;
+  background-size: 50% 100px;
 }
 .waveAnimation .waveBottom {
-    animation: move_wave 25s linear infinite;
+  animation: move_wave 25s linear infinite;
 }
-
