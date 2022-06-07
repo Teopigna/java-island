@@ -11,6 +11,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { requestItem } from '../employee/employee.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { map } from 'rxjs';
+
+/*interface PeopleData {
+  name: string;
+  lastName: string;
+  account: number;
+  balance: number;
+
+}*/
 
 @Component({
   selector: 'app-menu',
@@ -38,8 +47,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class MenuComponent implements OnInit {
   menuState = 'closed';
   menu = 'closed';
-  requestList:string='request list vuota';
+  //requestList:string='request list vuota';
   fileUrl:any;
+  requestList: string= '';
+  //printList:PeopleData[]=[];
 
   userRole: string | undefined = '';
 
@@ -53,7 +64,6 @@ export class MenuComponent implements OnInit {
       this.userRole = this.authService.user.value?.role;
     }
 
-    let requestList: requestItem[] = [];
 
     const headerDict = {
       Authorization: this.authService.user.value!.token,
@@ -64,20 +74,37 @@ export class MenuComponent implements OnInit {
     };
 
     this.http
-      .get<requestItem>(
-        'http://localhost:8765/api/accounts/intern/registrations',
+      .get<any>(
+        'http://localhost:8765/api/account_owners/intern',
         requestOptions
       )
 
     .subscribe(
-        (resData: requestItem) => {
-          const blob = new Blob([JSON.stringify(resData)], { type: '.txt' });
-          this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+        (resData: any) => {
+          this.requestList=JSON.stringify(resData);
+
         },
         (error) => {
           console.log(error);
         }
     );
+
+
+    setTimeout(()=>{
+      this.requestList=this.requestList.replace(/"/g,'');
+      this.requestList=this.requestList.replace(/},{/g,'\n');
+      this.requestList=this.requestList.replace(/,/g,', ');
+      this.requestList=this.requestList.replace(/}/g,'');
+      this.requestList=this.requestList.replace(/{/g,'');
+
+      
+
+      const blob = new Blob(['LISTA DEI CORRENTISTI \n'+this.requestList], { type: '.txt' });
+      this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));}, 1000)
+
+
+
+
 
   }
 
@@ -90,7 +117,7 @@ export class MenuComponent implements OnInit {
       this.menuState = 'closed';
       setTimeout(() => {
         this.menu = 'closed';
-        console.log(this.menu);
+        //console.log(this.menu);
       }, 500);
     } else {
       this.menu = 'open';
@@ -100,54 +127,7 @@ export class MenuComponent implements OnInit {
       setTimeout(() => {
         this.menuState = 'open';
       }, 10);
-      console.log(this.menu);
+      //console.log(this.menu);
     }
-  }
-
-  onDownloadList(){
-    /*this.api.getYeah().subscribe((response) => {
-      let data = JSON.stringify(response);
-      const blob = new Blob([data], { type: 'application/json' });
-      this.fileUrl = this.sanitizer.
-           bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob))
-    }*/
-
-
-
-    let requestList: requestItem[] = [];
-
-
-
-    const headerDict = {
-      Authorization: this.authService.user.value!.token,
-    };
-
-    const requestOptions = {
-      headers: new HttpHeaders(headerDict),
-    };
-
-    this.http
-      .get<requestItem>(
-        'http://localhost:8765/api/accounts/intern/registrations',
-        requestOptions
-      )
-
-    .subscribe(
-        (resData: requestItem) => {
-
-
-          const blob = new Blob([JSON.stringify(resData)], { type: '.txt' });
-
-          this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-
-        },
-        (error) => {
-          console.log(error);
-        }
-    );
-
-
-    console.log(this.requestList+'log')
-
   }
 }

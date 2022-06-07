@@ -66,7 +66,7 @@ export class NoPopupActionsComponent implements OnInit {
 
     this.form1 = new FormGroup({
       to: new FormControl(null, [Validators.required]),
-      amount: new FormControl(null, [Validators.required]),
+      amount: new FormControl(null, [Validators.required, Validators.min(0.1)]),
       // la causale non è obbligatoria
       description: new FormControl(null, [Validators.maxLength(200)]),
     });
@@ -112,7 +112,9 @@ export class NoPopupActionsComponent implements OnInit {
   }
 
   onNavigate() {
+    console.log("Carta sui query params:")
     console.log(this.cardService.currentIndex + 1);
+    
     this.router.navigate(['dashboard'], {
       queryParams: { card: (this.cardService.currentIndex + 1).toString() },
       fragment: 'activated',
