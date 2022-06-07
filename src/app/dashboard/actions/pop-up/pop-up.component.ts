@@ -49,11 +49,12 @@ export class PopUpComponent implements OnInit {
     this.form3 = new FormGroup({
       amount: new FormControl(null, [
         Validators.required,
+        Validators.min(0.1)
         // Validators.pattern(/^\[0-9]+(\.[0-9][0-9])?$/),
       ]),
     });
   }
-
+  
   closeEvent() {
     this.onClose.emit(true);
   }

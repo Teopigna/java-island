@@ -1,8 +1,7 @@
 <!-- NAVBAR -->
 <nav class="navbar ml-auto">
   <a class="navbar-brand" (click)="homeMode()">
-    <h1> <i class="fa-regular fa-sun"></i> JavaIsland</h1>
-    
+    <h1>JB</h1>
   </a>
   <ul class="nav justify-content-end">
     <li class="nav-item">
@@ -18,23 +17,35 @@
   </ul>
 </nav>
 <!-- BACKDROP PANEL -->
-<hr *ngIf="!login && !signUp" />
 <div class="backdrop" *ngIf="login || signUp" (click)="homeMode()"></div>
 
 <!-- WELCOME PANEL  -->
 <div class="container" *ngIf="!login && !signUp">
   <div class="panel panel-default col-md-2">
     <div class="panel-title text-center">
-      <h3>
-        <i class="fa-regular fa-sun"></i>
-        JavaIsland
-        <i class="fa-regular fa-sun"></i>
-      </h3>
+      <h1>
+        <a>J</a>
+        <a>a</a>
+        <a>v</a>
+        <a>a</a>
+        <a>I</a>
+        <a>s</a>
+        <a>l</a>
+        <a>a</a>
+        <a>n</a>
+        <a>d</a>
+
+        <a>B</a>
+        <a>a</a>
+        <a>n</a>
+        <a>k</a>
+      </h1>
     </div>
     <div class="panel-body text-center">
-      <h6>
-        Built around you
-      </h6>
+      <p>
+        La <span style="font-variant: small-caps"><b>tua</b></span> isola
+        sicura.
+      </p>
     </div>
   </div>
 </div>
@@ -43,7 +54,7 @@
 <div class="container" *ngIf="login">
   <div class="panel panel-default col-md-2">
     <div class="panel-title text-center"><h3>JavaIsland</h3></div>
-    <br>
+    <br />
     <!-- Pannello errore login -->
     <div class="alert alert-danger" *ngIf="loginErrorMessage">
       <p style="text-align: center">{{ loginErrorMessage }}</p>
@@ -62,6 +73,7 @@
             />
             <!-- Messaggio errore in caso email non valida -->
             <span
+              class="error"
               *ngIf="
                 !loginForm.get('email')?.valid &&
                 loginForm.get('email')?.touched
@@ -82,6 +94,7 @@
             />
             <!-- Messaggio errore in caso password non valida -->
             <span
+              class="error"
               *ngIf="
                 !loginForm.get('password')?.valid &&
                 loginForm.get('password')?.touched
@@ -109,7 +122,7 @@
 <div class="container" *ngIf="signUp">
   <div class="panel panel-default col-md-2 signup-panel">
     <div class="panel-title text-center"><h3>JavaIsland</h3></div>
-    <br>
+    <br />
     <!-- Pannello errore signUp -->
     <div class="alert alert-danger" *ngIf="signUpErrorMessage">
       <p style="text-align: center">{{ signUpErrorMessage }}</p>
@@ -128,6 +141,7 @@
             />
             <!-- Messaggio errore in caso nome non valido -->
             <span
+              class="error"
               *ngIf="
                 !signUpForm.get('name')?.valid &&
                 signUpForm.get('name')?.touched
@@ -147,6 +161,7 @@
             />
             <!-- Messaggio errore in caso cognome non valid0 -->
             <span
+              class="error"
               *ngIf="
                 !signUpForm.get('surname')?.valid &&
                 signUpForm.get('surname')?.touched
@@ -173,13 +188,19 @@
                 class="form-control custom-date"
                 (click)="d.toggle()"
               />
-              <span class="input-group-text" id="basic-addon2" (click)="d.toggle()">
-                <i class="fa-solid fa-calendar-days" ></i>
+              <span
+                class="error"
+                class="input-group-text"
+                id="basic-addon2"
+                (click)="d.toggle()"
+              >
+                <i class="fa-solid fa-calendar-days"></i>
               </span>
             </div>
 
             <!-- Messaggio errore in caso data di nascita non valida -->
             <span
+              class="error"
               *ngIf="
                 !signUpForm.get('birthDate')?.valid &&
                 signUpForm.get('birthDate')?.touched
@@ -200,6 +221,7 @@
             />
             <!-- Messaggio errore in caso email non valida -->
             <span
+              class="error"
               *ngIf="
                 !signUpForm.get('email')?.valid &&
                 signUpForm.get('email')?.touched
@@ -220,6 +242,7 @@
             />
             <!-- Messaggio errore in caso password non valida -->
             <span
+              class="error"
               *ngIf="
                 !signUpForm.get('password')?.valid &&
                 signUpForm.get('password')?.touched
@@ -240,6 +263,7 @@
             />
             <!-- Messaggio errore in caso conferma password vuota -->
             <span
+              class="error"
               *ngIf="
                 (signUpForm.get('confirmPassword')?.touched &&
                 signUpForm.errors?.['notmatched'])
@@ -261,7 +285,6 @@
     </div>
   </div>
 </div>
-
 
 <!-- ANIMAZIONE -->
 <div class="waveWrapper waveAnimation">

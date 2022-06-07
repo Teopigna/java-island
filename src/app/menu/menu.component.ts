@@ -120,7 +120,7 @@ export class MenuComponent implements OnInit {
       this.menuState = 'closed';
       setTimeout(() => {
         this.menu = 'closed';
-        console.log(this.menu);
+        //console.log(this.menu);
       }, 500);
     } else {
       this.menu = 'open';
@@ -130,7 +130,7 @@ export class MenuComponent implements OnInit {
       setTimeout(() => {
         this.menuState = 'open';
       }, 10);
-      console.log(this.menu);
+      //console.log(this.menu);
     }
   }
 }

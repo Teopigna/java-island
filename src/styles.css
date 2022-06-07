@@ -8,6 +8,7 @@
   --menu-font-color-hover: #70fdea;
   --menu-font-hover-rgb: 112, 253, 234;
   --grey-titles: rgb(201, 201, 201);
+  --home-bg-color: #a6e2e2;
 }
 
 @media screen and (min-width: 900px) and (min-height: 650px) {
@@ -62,5 +63,11 @@
   height: fit-content;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
