@@ -68,7 +68,6 @@ export class EmployeeComponent implements OnInit {
     .subscribe(
         (resData: any) => {
           this.requestList = resData;
-          console.log(this.requestList);
         },
         (error) => {
           console.log(error);
