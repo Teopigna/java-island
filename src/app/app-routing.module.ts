@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     // canActivate: [AuthGuardD],
   },
   { path: 'error', component: ErrorPageComponent },
-  //{ path: '**', redirectTo: 'error' }, //pagina di errore da fare dopo
+  { path: '**', redirectTo: 'error' }, //pagina di errore da fare dopo
 ];
 
 @NgModule({

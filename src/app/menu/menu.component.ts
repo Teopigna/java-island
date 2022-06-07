@@ -9,17 +9,8 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { requestItem } from '../employee/employee.component';
 import { DomSanitizer } from '@angular/platform-browser';
-import { map } from 'rxjs';
 
-/*interface PeopleData {
-  name: string;
-  lastName: string;
-  account: number;
-  balance: number;
-
-}*/
 
 @Component({
   selector: 'app-menu',
@@ -47,10 +38,9 @@ import { map } from 'rxjs';
 export class MenuComponent implements OnInit {
   menuState = 'closed';
   menu = 'closed';
-  //requestList:string='request list vuota';
   fileUrl:any;
   requestList: string= '';
-  //printList:PeopleData[]=[];
+  printList: any=[];
 
   userRole: string | undefined = '';
 
@@ -81,9 +71,18 @@ export class MenuComponent implements OnInit {
 
     .subscribe(
         (resData: any) => {
-          this.requestList=JSON.stringify(resData);
+          this.printList=resData;
+          for( let i=0; i<this.printList.length;i++){
+            delete this.printList[i]['id']
+            let valore: string='';                    //dichiaro la variabile valore che uso per modificare la lunghezza della data
+            valore=this.printList[i]['birthDate']     //e poi la ricopio nel campo BirthDate
+            valore=valore.substring(0,10)
+            this.printList[i]['birthDate']=valore
 
+          }
+          this.requestList=JSON.stringify(this.printList)
         },
+
         (error) => {
           console.log(error);
         }
@@ -91,13 +90,17 @@ export class MenuComponent implements OnInit {
 
 
     setTimeout(()=>{
+
+      this.requestList=this.requestList.replace(/]/g,'');
       this.requestList=this.requestList.replace(/"/g,'');
       this.requestList=this.requestList.replace(/},{/g,'\n');
       this.requestList=this.requestList.replace(/,/g,', ');
       this.requestList=this.requestList.replace(/}/g,'');
       this.requestList=this.requestList.replace(/{/g,'');
-
-          console.log(this.requestList)
+      this.requestList=this.requestList.replace(/firstName/g,'nome');
+      this.requestList=this.requestList.replace(/lastName/g,'cognome');
+      this.requestList=this.requestList.replace(/birthDate/g,'data di nascita');
+      this.requestList=this.requestList.substring(1)
 
       const blob = new Blob(['LISTA DEI CORRENTISTI \n'+this.requestList], { type: '.txt' });
       this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));}, 1000)
