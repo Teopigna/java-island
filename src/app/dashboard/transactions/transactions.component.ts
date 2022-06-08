@@ -27,12 +27,6 @@ export class TransactionsComponent implements OnInit {
       }
     )
     
-    // this.transactionService.getTransactions().subscribe((transList) => {
-    //   this.transactions = transList;
-    //   this.transactionsDisplayed = this.transactions;
-    // });
-
-
   }
 
   onShrinkArray(howMany: number) {

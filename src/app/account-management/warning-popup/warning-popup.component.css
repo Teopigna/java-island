@@ -51,6 +51,10 @@
   
     align-self: center;
   }
+
+  mat-stepper {
+    background-color: rgb(255, 94, 94);
+  }
   
   input,
   textarea,
@@ -106,5 +110,8 @@
     height: fit-content;
     margin: 2%;
 }
-  
+
+::ng-deep .mat-vertical-stepper-header{
+  pointer-events: none !important;
+}
   
