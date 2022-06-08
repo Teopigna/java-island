@@ -144,4 +144,19 @@ export class CardService {
         })
       );
   }
+
+  deleteUser(){
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    return this.http.delete(
+      "http://localhost:8765/api/account_owners",
+      requestOptions
+    )
+  }
 }

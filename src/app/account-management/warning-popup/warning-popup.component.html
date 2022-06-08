@@ -2,37 +2,46 @@
 <div class="container-center-row">
     <div class="container-center-col">
         <div class="panel popup">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col">
                     <h4 class="warning-text">Attenzione!</h4>
                     <hr>
                 </div>
-            </div>
+            </div> -->
             
-            
-            
-            <p class="warning-text">La chiusura dell'ultimo conto a voi associato risulterà nella perdita del saldo presente sul conto e nell'eleminazione definitiva dell'account cliente JavaIsland.</p>
-            <p class="warning-text">Si è sicuri di voler procedere?</p>
-            <hr>
+            <mat-stepper orientation="vertical" [linear]="true" #stepper>
+                <mat-step label="Attenzione">
+                    <p class="warning-text">
+                        La chiusura dell'ultimo conto a voi associato risulterà nella perdita del
+                        saldo presente e nell'eleminazione definitiva dell'account cliente JavaIsland.
+                        Sei sicuro di voler proseguire?
+                    </p>
+                    <div>
+                        <button mat-button matStepperNext>Prosegui</button>
+                        <button mat-button (click)="onCancel()">Annulla</button>
+                    </div>
+                </mat-step>
 
-            <div class="row d-flex justify-content-center">
-                <button
-                class="btn btn-success"
-                type="button"
-                (click)="onConfirm()"
-                >
-                    Conferma
-                </button>
-                
-                <button
-                class="btn btn-warning"
-                type="button"
-                (click)="onCancel()"
-                >
-                    Annulla
-                </button>
-            </div>
+                <mat-step label="Conferma chiusura">
+                    <p class="warning-text">
+                       Clickando su conferma il tuo account verrà eliminato definitivamente. Il processo è irreversibile.
+                    </p>
+                    <div>
+                        <button mat-button matStepperNext (click)="onConfirm()">Conferma</button>
+                        <button mat-button matStepperPrevious>Indietro</button>
+                    </div>
+                </mat-step>
 
+                <mat-step label="Riepilogo">
+                    <p class="warning-text">
+                       Il tuo account è stato eliminato con successo, clicka ok se non si è reindirizzati automaticamente alla homepage.
+                    </p>
+                    <div>
+                        <button mat-button (click)="onOK()">OK</button>
+                    </div>
+                </mat-step>
+
+            </mat-stepper>
             
 
         </div>

@@ -51,6 +51,10 @@
   
     align-self: center;
   }
+
+  mat-stepper {
+    background-color: rgb(255, 94, 94);
+  }
   
   input,
   textarea,
