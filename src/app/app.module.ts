@@ -1,3 +1,4 @@
+import { TwoDigitDecimalDirective } from './shared/directives/two-digit-decimal.directive';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -66,6 +67,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     AddCardPopupComponent,
     WarningPopupComponent,
     NoPopupActionsComponent,
+    TwoDigitDecimalDirective
   ],
   imports: [
     BrowserModule,

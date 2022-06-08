@@ -17,8 +17,8 @@
                         Sei sicuro di voler proseguire?
                     </p>
                     <div>
-                        <button mat-button matStepperNext>Prosegui</button>
-                        <button mat-button (click)="onCancel()">Annulla</button>
+                        <button mat-button matStepperNext class="stepper-but">Prosegui</button>
+                        <button mat-button (click)="onCancel()" class="stepper-but">Annulla</button>
                     </div>
                 </mat-step>
 
@@ -27,8 +27,8 @@
                        Clickando su conferma il tuo account verrà eliminato definitivamente. Il processo è irreversibile.
                     </p>
                     <div>
-                        <button mat-button matStepperNext (click)="onConfirm()">Conferma</button>
-                        <button mat-button matStepperPrevious>Indietro</button>
+                        <button mat-button matStepperNext (click)="onConfirm()" class="stepper-but">Conferma</button>
+                        <button mat-button matStepperPrevious class="stepper-but">Indietro</button>
                     </div>
                 </mat-step>
 
@@ -37,7 +37,7 @@
                        Il tuo account è stato eliminato con successo, clicka ok se non si è reindirizzati automaticamente alla homepage.
                     </p>
                     <div>
-                        <button mat-button (click)="onOK()">OK</button>
+                        <button mat-button (click)="onOK()" class="stepper-but">OK</button>
                     </div>
                 </mat-step>
 
