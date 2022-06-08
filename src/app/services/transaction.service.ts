@@ -31,7 +31,7 @@ export class TransactionService {
 
     return this.http
       .get<Transaction[]>(
-        'http://localhost:8765/api/transactions/' + cardNum,
+        'http://localhost:8765/api/transactions/' + cardNum + "/-1",
         requestOptions
       )
       .pipe(
