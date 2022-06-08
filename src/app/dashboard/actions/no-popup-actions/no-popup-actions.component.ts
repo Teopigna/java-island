@@ -80,7 +80,7 @@ export class NoPopupActionsComponent implements OnInit {
       this.orientation = 'horizontal';
     }
   }
-
+  
   onSubmit() {
     console.log(this.form1);
 
