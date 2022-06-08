@@ -110,5 +110,8 @@
     height: fit-content;
     margin: 2%;
 }
-  
+
+::ng-deep .mat-vertical-stepper-header{
+  pointer-events: none !important;
+}
   

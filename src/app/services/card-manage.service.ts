@@ -129,7 +129,7 @@ export class CardService {
     
     return this.http
       .delete(
-        'http://localhost:8765/api/accounts/intern/delete/'+id,
+        'http://localhost:8765/api/accounts/'+id,
         requestOptions
       ).pipe(
         tap((resData) => {
