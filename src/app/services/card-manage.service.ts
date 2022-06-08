@@ -91,6 +91,36 @@ export class CardService {
         })
       );
   }
+  
+  newAccoutSpecial(name: string,surname: string) {
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    return this.http
+      .post<Account>(
+        'http://localhost:8765/api/accounts',
+        {
+          firstName: name,
+          lastName: surname,
+        },
+        requestOptions
+      )
+      .pipe(
+        tap((resData: Account) => {
+          //Quando si apre un nuovo conto, vanno aggiornati gli array contenenti i conti dell'utente loggato
+          this.getAccounts().subscribe((resData) => {
+            this.accountsList = resData;
+            //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
+            this.accountsListChanged.next(this.accountsList);
+          });
+        })
+      );
+  }
 
   closeAccount(id: number) {
     const headerDict = {
