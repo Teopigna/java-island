@@ -4,6 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -35,7 +36,7 @@ import {
   NgbDatepickerModule,
   NgbProgressbarModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppRoutingModule } from './app-routing.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { FooterComponent } from './footer/footer.component';
@@ -71,9 +72,9 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     BrowserAnimationsModule,
     FusionChartsModule,
     NgbProgressbarModule,
-    NgbTooltipModule,
     NgbDatepickerModule,
     ReactiveFormsModule,
+    MatTooltipModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,

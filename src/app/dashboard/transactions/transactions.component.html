@@ -26,7 +26,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let transaction of transactionsDisplayed">
+          <!-- aggiungere una custom class al tooltip se rimane tempo  -->
+          <tr
+            *ngFor="let transaction of transactionsDisplayed"
+            [matTooltip]="transaction.cause ? transaction.cause : ''"
+            matTooltipPosition="above"
+          >
             <td>
               <i>{{ transaction.date }}</i>
             </td>
@@ -35,7 +40,21 @@
             </td>
             <td>{{ transaction.accountNumberFrom }}</td>
             <td>{{ transaction.accountNumberTo }}</td>
-            <td>{{ transaction.type ? transaction.type : "" }}</td>
+            <td>
+              {{
+                transaction.type === 1
+                  ? "bonifico"
+                  : transaction.type === 2
+                  ? "versamento"
+                  : transaction.type === 3
+                  ? "prelievo"
+                  : transaction.type === 4
+                  ? "giroconto"
+                  : transaction.type === 5
+                  ? "ricarica"
+                  : ""
+              }}
+            </td>
           </tr>
         </tbody>
       </table>

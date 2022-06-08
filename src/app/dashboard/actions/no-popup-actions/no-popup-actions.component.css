@@ -2,6 +2,14 @@ div.container {
   margin-top: 20vh;
 }
 
+::ng-deep .mat-vertical-stepper-header {
+  pointer-events: none !important;
+}
+
+::ng-deep .mat-vertical-stepper-header {
+  pointer-events: none !important;
+}
+
 i {
   font-size: 100px;
   color: #3688ec;

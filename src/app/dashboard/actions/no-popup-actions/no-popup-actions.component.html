@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="col col-md-auto title-div">
-      <i class="fa-solid fa-circle-user fa-3x"></i>
+      <i class="fa-solid fa-money-bill-transfer"></i>
     </div>
     <div class="col col-md-auto">
       <br />
@@ -69,9 +69,7 @@
                 formControlName="amount"
                 required
               />
-              
             </mat-form-field>
-            
 
             <mat-form-field appearance="fill">
               <mat-label>Causale</mat-label>
@@ -129,9 +127,7 @@
           <div>
             <p>La tua operazione è andata a buon fine.</p>
             <div class="center-button">
-              <button mat-button matStepperPrevious type="button">
-                Indietro
-              </button>
+              <!-- non diamo la possibilità di tornare indietro se l'operazione è stata già conclusa -->
               <button
                 mat-button
                 (click)="stepper.reset()"

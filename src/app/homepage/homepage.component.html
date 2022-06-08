@@ -73,12 +73,11 @@
             />
             <!-- Messaggio errore in caso email non valida -->
             <span
-              class="error"
+              class="error help-block"
               *ngIf="
                 !loginForm.get('email')?.valid &&
                 loginForm.get('email')?.touched
               "
-              class="help-block"
               >Please enter a valid email
             </span>
             <!-- Fine messaggio errore -->
@@ -94,12 +93,11 @@
             />
             <!-- Messaggio errore in caso password non valida -->
             <span
-              class="error"
+              class="error help-block"
               *ngIf="
                 !loginForm.get('password')?.valid &&
                 loginForm.get('password')?.touched
               "
-              class="help-block"
               >Please enter password
             </span>
             <!-- Fine messaggio errore -->
@@ -141,12 +139,11 @@
             />
             <!-- Messaggio errore in caso nome non valido -->
             <span
-              class="error"
+              class="error help-block"
               *ngIf="
                 !signUpForm.get('name')?.valid &&
                 signUpForm.get('name')?.touched
               "
-              class="help-block"
               >Please enter your name
             </span>
             <!-- Fine messaggio errore -->
@@ -161,12 +158,11 @@
             />
             <!-- Messaggio errore in caso cognome non valid0 -->
             <span
-              class="error"
+              class="error help-block"
               *ngIf="
                 !signUpForm.get('surname')?.valid &&
                 signUpForm.get('surname')?.touched
               "
-              class="help-block"
               >Please enter your surname
             </span>
             <!-- Fine messaggio errore -->
@@ -200,12 +196,11 @@
 
             <!-- Messaggio errore in caso data di nascita non valida -->
             <span
-              class="error"
+              class="error help-block"
               *ngIf="
                 !signUpForm.get('birthDate')?.valid &&
                 signUpForm.get('birthDate')?.touched
               "
-              class="help-block"
               >Please enter your birth date
             </span>
             <!-- Fine messaggio errore -->
@@ -221,12 +216,11 @@
             />
             <!-- Messaggio errore in caso email non valida -->
             <span
-              class="error"
+              class="error help-block"
               *ngIf="
                 !signUpForm.get('email')?.valid &&
                 signUpForm.get('email')?.touched
               "
-              class="help-block"
               >Please enter a valid email
             </span>
             <!-- Fine messaggio errore -->
@@ -242,12 +236,11 @@
             />
             <!-- Messaggio errore in caso password non valida -->
             <span
-              class="error"
+              class="error help-block"
               *ngIf="
                 !signUpForm.get('password')?.valid &&
                 signUpForm.get('password')?.touched
               "
-              class="help-block"
               >Please enter password
             </span>
             <!-- Fine messaggio errore -->
@@ -263,12 +256,11 @@
             />
             <!-- Messaggio errore in caso conferma password vuota -->
             <span
-              class="error"
+              class="error help-block"
               *ngIf="
                 (signUpForm.get('confirmPassword')?.touched &&
                 signUpForm.errors?.['notmatched'])
               "
-              class="help-block"
               >Le password non matchano
             </span>
             <!-- Fine messaggio errore -->
