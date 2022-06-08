@@ -1,5 +1,44 @@
-<app-menu></app-menu>
-<h3>
-  il percorso selezionato non è presente all'interno di questo sito, a breve
-  verrai reindirizzato verso la homepage
-</h3>
+<div class="background one" #one></div>
+<div class="background two" #two></div>
+<div class="background three" #three></div>
+<div class="background four" #four></div>
+
+<div class="centered-vertical">
+  <div class="centered-horizontal">
+    <div>
+      <h1>
+        <span>P</span>
+        <span>a</span>
+        <span>g</span>
+        <span>e</span>
+        &nbsp;
+        <span>n</span>
+        <span>o</span>
+        <span>t</span>
+      </h1>
+      <h1>
+        <span>f</span>
+        <span>o</span>
+        <span>u</span>
+        <span>n</span>
+        <span>d</span>
+      </h1>
+      <p>
+        Non abbiamo trovato la pagina che cercavi. Clicca i link in basso per
+        essere reindirizzato.
+      </p>
+
+      <ul>
+        <div>
+          <li><a routerLink="">HomePage</a></li>
+          <li *ngIf="userIn && userRole === 'C'">
+            <a routerLink="/dashboard">Dashboard</a>
+          </li>
+          <li *ngIf="userIn && userRole === 'D'">
+            <a routerLink="/dipendente">Gestione Dipendente</a>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>

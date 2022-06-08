@@ -15,34 +15,37 @@ const appRoutes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    // canActivate: [AuthGuardC],
+    canActivate: [AuthGuardC],
   },
   {
     path: 'bonifico',
     component: NoPopupActionsComponent,
+    canActivate: [AuthGuardC],
   },
   {
     path: 'giroconto',
     component: NoPopupActionsComponent,
+    canActivate: [AuthGuardC],
   },
   {
     path: 'ricarica',
     component: NoPopupActionsComponent,
+    canActivate: [AuthGuardC],
   },
   {
     path: 'profilo',
     component: UserProfileComponent,
-    // canActivate: [AuthGuardC],
+    canActivate: [AuthGuardC],
   },
   {
     path: 'gestione-conti',
     component: AccountManagementComponent,
-    // canActivate: [AuthGuardC],
+    canActivate: [AuthGuardC],
   },
   {
     path: 'dipendente',
     component: EmployeeComponent,
-    // canActivate: [AuthGuardD],
+    canActivate: [AuthGuardD],
   },
   { path: 'error', component: ErrorPageComponent },
   { path: '**', redirectTo: 'error' }, //pagina di errore da fare dopo
