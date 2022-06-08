@@ -1,7 +1,6 @@
 import { CardService } from 'src/app/services/card-manage.service';
 import { AuthService } from './../../auth/auth.service';
-import { Account } from './../../shared/account.model';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-warning-popup',
@@ -12,20 +11,27 @@ export class WarningPopupComponent implements OnInit {
 
   @Output() onClose: EventEmitter<null> = new EventEmitter();
 
+  indexToClose?: number;
+
+  requestError = false;
+
   constructor(private authService: AuthService, private cardService: CardService) { }
 
   ngOnInit(): void {
+    this.indexToClose = this.cardService.indexToClose;
   }
 
-  onConfirm(){
-    //this.onClose.emit(null);
-    this.cardService.deleteUser().subscribe(
-      ((res)=> {
-        console.log("Eliminazione andata a buon fine, ora fare redirecting")
-      }),
-      (error => {
-        console.log("Errore durante l'eliminazione...riprovare più tardi")
-      })
+  sendCloseRequest(){
+    const id = this.cardService.indexToClose;
+    
+    this.cardService.closeAccount(id).subscribe(
+      (resData) => {
+        //console.log(resData);
+      },
+      (error) => {
+        console.log(error.error.message);
+        this.requestError = true;
+      } 
     )
   }
 
@@ -34,7 +40,8 @@ export class WarningPopupComponent implements OnInit {
   }
 
   onOK() {
-    this.authService.logout();
+    //this.authService.logout();
+    this.onClose.emit(null);
   }
 
 }

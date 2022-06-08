@@ -64,4 +64,11 @@ export class AddCardPopupComponent implements OnInit {
     this.showAlert = false;
     this.onClose.emit();
   }
+
+  onConfirm(){
+
+  }
+  onCancel(){
+    this.closeEvent();
+  }
 }

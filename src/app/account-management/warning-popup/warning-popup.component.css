@@ -119,8 +119,23 @@
   background-color: rgb(255, 94, 94);
 }
 
+::ng-deep .mat-step-header .mat-step-icon-state-edit {
+  background-color: rgb(255, 94, 94);
+}
+
+
 .stepper-but{
   background-color: rgba(255, 255, 255, 0.5);
   margin: 5px;
+}
+
+.stepper-but-alert {
+  background-color: rgba(195, 24, 24, 0.5);
+  margin: 5px;
+}
+
+mark {
+  font-weight: bold;
+  background-color: #e2a6a9;
 }
   

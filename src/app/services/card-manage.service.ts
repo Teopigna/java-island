@@ -29,6 +29,9 @@ export class CardService {
   //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
   accountsListChanged = new BehaviorSubject<Account[]>([]);
 
+  //Variabile per gestire lo stepper per la chiusura del conto da account-management / warning-popup
+  indexToClose = 0;
+
   currentIndex = 0;
   cardDisplayed = this.accountsList[this.currentIndex];
 
