@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 import { Transaction } from './../../shared/transaction.model';
 import { CardService } from '../../services/card-manage.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -24,7 +24,7 @@ export class TransactionsComponent implements OnInit {
     private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    //console.log(this.transactionsDisplayed);
+
 
     this.transactionChangeSub =
       this.transactionService.transactionsChanged.subscribe(() => {
@@ -35,7 +35,10 @@ export class TransactionsComponent implements OnInit {
     this.fileList='';
   }
 
+
+
   downloadList(){
+    this.ordine=false;
     for(let i=0; i<this.transactionsDisplayed.length;i++){
       let line: string='';
       let causale:string='';
