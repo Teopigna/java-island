@@ -82,9 +82,10 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
 
     this.transactionChangeSub =
       this.transactionService.transactionsChanged.subscribe(() => {
-        this.transactions = this.transactionService.transactions;
+        this.transactions = this.transactionService.transactions.reverse();
+        this.transactions = this.transactions.slice(0,9);
         console.log(this.transactions);
-
+        
         this.data.data = [
           {
             label: '',
@@ -93,7 +94,7 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
         ];
 
         let i = 0;
-        for (let item of this.transactions.reverse()) {
+        for (let item of this.transactions) {
           if (i <= 10) {
             this.data.data.push({
               label: item.date.toString(),
@@ -104,6 +105,7 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
           }
           i++;
         }
+        this.data.data.reverse();
       });
     // inserire la questione che si aggiorna in modo automatico anche all'inizio: la width.
   }
