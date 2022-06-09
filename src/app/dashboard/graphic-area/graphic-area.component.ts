@@ -105,7 +105,8 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
           }
           i++;
         }
-        this.data.data.reverse();
+        //this.data.data.reverse().slice(0,10);
+        this.data.data = this.data.data.reverse().slice(0,9);
       });
     // inserire la questione che si aggiorna in modo automatico anche all'inizio: la width.
   }
