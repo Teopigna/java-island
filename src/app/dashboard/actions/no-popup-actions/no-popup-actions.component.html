@@ -14,12 +14,16 @@
     </div> -->
   </div>
   <hr />
+
   <p
     style="color: red"
     *ngIf="accountTransfer.length === 0 && action === 'giroconto'; else elseDiv"
   >
     Non è possibile effettuare un giroconto: l'utente ha una sola carta attiva.
   </p>
+  <div class="center-button">
+    <button mat-button routerLink="/dashboard">Dashboard</button>
+  </div>
   <ng-template #elseDiv>
     <mat-stepper [orientation]="orientation" [linear]="isLinear" #stepper>
       <form [formGroup]="form1">
@@ -125,9 +129,21 @@
       <mat-step label="Fine">
         <div class="center-input">
           <div>
-            <p>La tua operazione è andata a buon fine.</p>
+            <div class="alert alert-danger" *ngIf="showError">
+              <p style="text-align: center">{{ errorMessage }}</p>
+            </div>
+            <p *ngIf="!showError">La tua operazione è andata a buon fine.</p>
             <div class="center-button">
               <!-- non diamo la possibilità di tornare indietro se l'operazione è stata già conclusa -->
+              <button
+                mat-button
+                matStepperPrevious
+                (click)="stepper.reset()"
+                type="button"
+                *ngIf="showError"
+              >
+                Indietro
+              </button>
               <button
                 mat-button
                 (click)="stepper.reset()"
