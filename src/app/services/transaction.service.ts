@@ -52,7 +52,7 @@ export class TransactionService {
       headers: new HttpHeaders(headerDict),
     };
 
-    this.http
+    return this.http
       .post<any>(
         'http://localhost:8765/api/transactions',
         {
@@ -61,21 +61,30 @@ export class TransactionService {
           amount: amount,
         },
         requestOptions
-      )
-      .subscribe(
-        (response) => {
-          console.log(response);
+      ).pipe(
+        tap((res) => {
           this.cardService.getAccounts().subscribe((cardsList) => {
             this.cardService.cardChanged.next(
               cardsList[this.cardService.currentIndex]
             );
           });
           this.getTransactions().subscribe();
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+        })
+      )
+      // .subscribe(
+      //   (response) => {
+      //     console.log(response);
+      //     this.cardService.getAccounts().subscribe((cardsList) => {
+      //       this.cardService.cardChanged.next(
+      //         cardsList[this.cardService.currentIndex]
+      //       );
+      //     });
+      //     this.getTransactions().subscribe();
+      //   },
+      //   (error) => {
+      //     console.log(error);
+      //   }
+      // );
   }
 
   //Chiamata per Bonifico/Giroconto

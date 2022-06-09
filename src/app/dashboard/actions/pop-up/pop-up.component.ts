@@ -23,6 +23,10 @@ export class PopUpComponent implements OnInit {
   @Input() action: string = '';
   @Output() onClose: EventEmitter<boolean> = new EventEmitter();
 
+  //Da settare true in caso ci sia un errore durante versamento / prelievo
+  showError :boolean = false;
+  errorMessage: string = '';
+
   form3: FormGroup = new FormGroup({});
 
   accountTransfer: Account[] = [];
@@ -66,12 +70,34 @@ export class PopUpComponent implements OnInit {
 
       // logica per il prelievo e il versamento: i dati aggiornati andranno poi salvati sul db(?)
       if (this.action === 'prelievo') {
-        this.traService.postTransaction(-this.form3.value.amount, 3);
+        this.traService.postTransaction(-this.form3.value.amount, 3).subscribe(
+          (response) => {
+            console.log(response);
+            this.showError = false;
+            this.errorMessage = '';
+            this.closeEvent();
+          },
+          (error) => {
+            this.showError = true;
+            this.errorMessage = error.error.message;
+          }
+        );
       } else if (this.action === 'versamento') {
-        this.traService.postTransaction(this.form3.value.amount, 2);
+        this.traService.postTransaction(this.form3.value.amount, 2).subscribe(
+          (response) => {
+            console.log(response);
+            this.showError = false;
+            this.errorMessage = '';
+            this.closeEvent();
+          },
+          (error) => {
+            this.showError = true;
+            this.errorMessage = error.error.message;
+          }
+        );
       }
     }
 
-    this.closeEvent();
+    
   }
 }
