@@ -40,42 +40,17 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
     
   }
 
-  sendCloseRequest(ind: number){
-
-    if(this.accounts.length === 1) {
-      console.log("Only one account");
-      this.showWarning = true;
-      return;
-    }
-
-    this.closureError = false;
-
-    const id = this.accounts[ind].id;
+  openCloseRequest(ind: number){
+    this.cardService.indexToClose = this.accounts[ind].id;
     
-    this.cardService.closeAccount(id).subscribe(
-      (resData) => {
-        //console.log(resData);
-      },
-      (error) => {
-        console.log(error.error.message);
-        this.errorIndex = ind;
-        this.closureError = true;
-      } 
-    )
-  }
-
-  deleteAccount(ind: number){
-
-    const id = this.accounts[ind].id;
-
-    this.cardService.deleteAccount(id).subscribe(
-      (res) => {
-
-      },
-      (error) => {
-        console.log(error.error.message);
-      }
-    )
+    if(this.accounts[ind].balance > 0){
+      this.errorIndex = ind;
+      this.closureError = true; 
+    }
+    else{
+      this.closureError = false;
+      this.showWarning = true;
+    }
   }
 
   onAddCard() {
@@ -114,7 +89,7 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
         break;
       }
       case 4: {
-        return "conto chiuso: elimina"
+        return "conto chiuso"
         break;
       } 
       default: { 

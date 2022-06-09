@@ -46,14 +46,14 @@
   
     width: 340px;
   
-    background-color: rgb(255, 94, 94);
+    background-color: #e2a6a9;     /*rgb(255, 94, 94);*/
     z-index: 3;
   
     align-self: center;
   }
 
   mat-stepper {
-    background-color: rgb(255, 94, 94);
+    background-color: #e2a6a9;
   }
   
   input,
@@ -102,7 +102,7 @@
 }
 
 .warning-text {
-    color: rgb(255, 219, 152);
+    color: rgb(0, 0, 0);
 }
 
 .btn {
@@ -113,5 +113,29 @@
 
 ::ng-deep .mat-vertical-stepper-header{
   pointer-events: none !important;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: rgb(255, 94, 94);
+}
+
+::ng-deep .mat-step-header .mat-step-icon-state-edit {
+  background-color: rgb(255, 94, 94);
+}
+
+
+.stepper-but{
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 5px;
+}
+
+.stepper-but-alert {
+  background-color: rgba(195, 24, 24, 0.5);
+  margin: 5px;
+}
+
+mark {
+  font-weight: bold;
+  background-color: #e2a6a9;
 }
   

@@ -1,7 +1,8 @@
 <div class="backdrop"></div>
 <div class="container-center-row">
   <div class="container-center-col">
-    <div class="panel popup">
+    <!-- CASO ALMENO UN ACCOUNT ATTIVO -->
+    <div class="panel popup" *ngIf="accountTransfer.length != 0">
       <button
         class="personalized-btn right-align"
         type="button"
@@ -35,7 +36,7 @@
           class="help-block"
           *ngIf="!form.get('fromIban')?.valid && form.get('fromIban')?.touched"
         >
-          Must select IBAN
+          Selezionare IBAN
         </span>
         <!-- Fine Errore  -->
         <br />
@@ -46,13 +47,14 @@
           id="amount"
           formControlName="amount"
           class="form-control"
+          appTwoDigitDecimal
         />
         <!-- Errore in caso di Amount <= 0 o vuoto -->
         <span
           class="help-block"
           *ngIf="!form.get('amount')?.valid && form.get('amount')?.touched"
         >
-          The amount must be > 0
+          L'ammontare deve essere > 0
         </span>
         <!-- Fine Errore  -->
         <br />
@@ -67,8 +69,31 @@
             >
               Conferma
             </button>
-        
-      
+          </div>
+        </div>
+      </form>
     </div>
+    <!-- CASO NO ACCOUNT ATTIVI -->
+    <div class="panel popup" *ngIf="accountTransfer.length === 0">
+      <p>Cliccando su conferma si procederà alla creazione di un nuovo conto</p>
+      <hr>
+      <button
+        class="personalized-btn text-center"
+        type="button"
+        (click)="onConfirm()"
+      >
+        Conferma
+      </button>
+
+      <button
+        class="personalized-btn text-center"
+        type="button"
+        (click)="onCancel()"
+      >
+        Annulla
+      </button>
+    </div>
+
+  </div>
  
 </div>

@@ -78,7 +78,7 @@
                 !loginForm.get('email')?.valid &&
                 loginForm.get('email')?.touched
               "
-              >Please enter a valid email
+              >Inserire una email valida
             </span>
             <!-- Fine messaggio errore -->
           </div>
@@ -98,7 +98,7 @@
                 !loginForm.get('password')?.valid &&
                 loginForm.get('password')?.touched
               "
-              >Please enter password
+              >Introdurre password
             </span>
             <!-- Fine messaggio errore -->
           </div>
@@ -130,7 +130,7 @@
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmitSignUp()">
         <div class="col-xs-12 justify-content-center">
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Nome</label>
             <input
               type="text"
               id="name"
@@ -144,12 +144,12 @@
                 !signUpForm.get('name')?.valid &&
                 signUpForm.get('name')?.touched
               "
-              >Please enter your name
+              >Inserire nome
             </span>
             <!-- Fine messaggio errore -->
           </div>
           <div class="form-group">
-            <label for="surname">Surname</label>
+            <label for="surname">Cognome</label>
             <input
               type="text"
               id="surname"
@@ -163,13 +163,13 @@
                 !signUpForm.get('surname')?.valid &&
                 signUpForm.get('surname')?.touched
               "
-              >Please enter your surname
+              >Inserire cognome
             </span>
             <!-- Fine messaggio errore -->
           </div>
 
           <div class="form-group">
-            <label for="birthDate" class="date-label">Date of birth</label>
+            <label for="birthDate" class="date-label">Data di nascita</label>
             <div class="input-group mb-2 justify-content-center">
               <input
                 data-date-format="YYYY-MM-DD"
@@ -201,7 +201,7 @@
                 !signUpForm.get('birthDate')?.valid &&
                 signUpForm.get('birthDate')?.touched
               "
-              >Please enter your birth date
+              >Inserire data valida
             </span>
             <!-- Fine messaggio errore -->
           </div>
@@ -221,7 +221,7 @@
                 !signUpForm.get('email')?.valid &&
                 signUpForm.get('email')?.touched
               "
-              >Please enter a valid email
+              >Inserire email valida
             </span>
             <!-- Fine messaggio errore -->
           </div>
@@ -241,7 +241,7 @@
                 !signUpForm.get('password')?.valid &&
                 signUpForm.get('password')?.touched
               "
-              >Please enter password
+              >Inserire password
             </span>
             <!-- Fine messaggio errore -->
           </div>
@@ -261,7 +261,7 @@
                 (signUpForm.get('confirmPassword')?.touched &&
                 signUpForm.errors?.['notmatched'])
               "
-              >Le password non matchano
+              >Le password non coincidono
             </span>
             <!-- Fine messaggio errore -->
           </div>

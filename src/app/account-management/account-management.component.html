@@ -45,18 +45,9 @@
                 class="btn btn-danger"
                 [disabled]="!(account.status === 0)"
                 style="margin-left: 10px"
-                (click)="sendCloseRequest(i)"
+                (click)="openCloseRequest(i)"
               >
                 Invia richiesta chiusura
-              </button>
-
-              <button
-                *ngIf="account.status === 4"
-                class="btn btn-danger"
-                style="margin-left: 10px"
-                (click)="deleteAccount(i)"
-              >
-                Elimina conto
               </button>
               <br />
               <span class="span-error" *ngIf="closureError && i === errorIndex"

@@ -29,6 +29,9 @@ export class CardService {
   //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
   accountsListChanged = new BehaviorSubject<Account[]>([]);
 
+  //Variabile per gestire lo stepper per la chiusura del conto da account-management / warning-popup
+  indexToClose = 0;
+
   currentIndex = 0;
   cardDisplayed = this.accountsList[this.currentIndex];
 
@@ -74,6 +77,36 @@ export class CardService {
           lastName: surname,
           accountNumber: accountNum,
           amount: amount,
+        },
+        requestOptions
+      )
+      .pipe(
+        tap((resData: Account) => {
+          //Quando si apre un nuovo conto, vanno aggiornati gli array contenenti i conti dell'utente loggato
+          this.getAccounts().subscribe((resData) => {
+            this.accountsList = resData;
+            //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
+            this.accountsListChanged.next(this.accountsList);
+          });
+        })
+      );
+  }
+  
+  newAccoutSpecial(name: string,surname: string) {
+    const headerDict = {
+      Authorization: this.authService.user.value!.token,
+    };
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    return this.http
+      .post<Account>(
+        'http://localhost:8765/api/accounts',
+        {
+          firstName: name,
+          lastName: surname,
         },
         requestOptions
       )

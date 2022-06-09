@@ -2,42 +2,30 @@
 <div class="container-center-row">
     <div class="container-center-col">
         <div class="panel popup">
-            <!-- <div class="row">
-                <div class="col">
-                    <h4 class="warning-text">Attenzione!</h4>
-                    <hr>
-                </div>
-            </div> -->
             
             <mat-stepper orientation="vertical" linear="true" #stepper>
+
+                <ng-template matStepperIcon="edit">
+                    <i class="fa-solid fa-check"></i>
+                </ng-template>
+
                 <mat-step label="Attenzione" >
                     <p class="warning-text">
-                        La chiusura dell'ultimo conto a voi associato risulterà nella perdita del
-                        saldo presente e nell'eleminazione definitiva dell'account cliente JavaIsland.
-                        Sei sicuro di voler proseguire?
+                        Cliccando su <mark>conferma</mark> verrà inviata la richiesta di chiusura del conto.
                     </p>
+                    <hr>
                     <div>
-                        <button mat-button matStepperNext>Prosegui</button>
-                        <button mat-button (click)="onCancel()">Annulla</button>
+                        <button mat-button matStepperNext class="stepper-but-alert" (click)="sendCloseRequest()">Conferma</button>
+                        <button mat-button (click)="onCancel()" class="stepper-but">Annulla</button>
                     </div>
                 </mat-step>
 
-                <mat-step label="Conferma chiusura">
+                <mat-step label="Esito">
                     <p class="warning-text">
-                       Clickando su conferma il tuo account verrà eliminato definitivamente. Il processo è irreversibile.
+                       La richiesta è stata inviata con successo.
                     </p>
                     <div>
-                        <button mat-button matStepperNext (click)="onConfirm()">Conferma</button>
-                        <button mat-button matStepperPrevious>Indietro</button>
-                    </div>
-                </mat-step>
-
-                <mat-step label="Riepilogo">
-                    <p class="warning-text">
-                       Il tuo account è stato eliminato con successo, clicka ok se non si è reindirizzati automaticamente alla homepage.
-                    </p>
-                    <div>
-                        <button mat-button (click)="onOK()">OK</button>
+                        <button mat-button (click)="onOK()" class="stepper-but">OK</button>
                     </div>
                 </mat-step>
 
