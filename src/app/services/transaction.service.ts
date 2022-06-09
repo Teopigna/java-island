@@ -1,11 +1,9 @@
 import { CardService } from './card-manage.service';
-import { FormGroup } from '@angular/forms';
-import { Account } from './../shared/account.model';
 import { Transaction } from './../shared/transaction.model';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { BehaviorSubject, from, tap } from 'rxjs';
+import { BehaviorSubject, tap, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
@@ -35,6 +33,10 @@ export class TransactionService {
         requestOptions
       )
       .pipe(
+        map((resData: Transaction[]) => {
+          resData.map( (e: Transaction) =>  {e.date = e.date.slice(0,10)})
+          return resData;
+        }),
         tap((resData) => {
           this.transactions = resData;
           this.transactions = this.transactions.reverse();

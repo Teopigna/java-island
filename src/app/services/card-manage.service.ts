@@ -48,7 +48,9 @@ export class CardService {
       .get<Account[]>('http://localhost:8765/api/accounts', requestOptions)
       .pipe(
         tap((resData) => {
-          this.accountsList = resData;
+          this.accountsList = resData.filter((card) => {
+            return card.status !== 4;
+          });
           this.accountsListChanged.next(this.accountsList);
           this.cardDisplayed = this.accountsList[this.currentIndex];
         })
@@ -91,8 +93,8 @@ export class CardService {
         })
       );
   }
-  
-  newAccoutSpecial(name: string,surname: string) {
+
+  newAccoutSpecial(name: string, surname: string) {
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -151,7 +153,7 @@ export class CardService {
       );
   }
 
-  deleteAccount(id:number){
+  deleteAccount(id: number) {
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -159,26 +161,22 @@ export class CardService {
     const requestOptions = {
       headers: new HttpHeaders(headerDict),
     };
-    
+
     return this.http
-      .delete(
-        'http://localhost:8765/api/accounts/'+id,
-        requestOptions
-      ).pipe(
+      .delete('http://localhost:8765/api/accounts/' + id, requestOptions)
+      .pipe(
         tap((resData) => {
           //Quando si elimina un conto, vanno aggiornati gli array contenenti i conti dell'utente loggato
-          this.getAccounts().subscribe(
-            (resData) => {
-              this.accountsList = resData;
-              //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
-              this.accountsListChanged.next(this.accountsList);
-            }
-          )
+          this.getAccounts().subscribe((resData) => {
+            this.accountsList = resData;
+            //Subject che notifica i vari componenti che cambiano al cambiare dell'accountList
+            this.accountsListChanged.next(this.accountsList);
+          });
         })
       );
   }
 
-  deleteUser(){
+  deleteUser() {
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -188,8 +186,8 @@ export class CardService {
     };
 
     return this.http.delete(
-      "http://localhost:8765/api/account_owners",
+      'http://localhost:8765/api/account_owners',
       requestOptions
-    )
+    );
   }
 }
