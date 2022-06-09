@@ -2,7 +2,6 @@ import { AuthService } from './../../auth/auth.service';
 import { Account } from './../../shared/account.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CardService } from './../../services/card-manage.service';
-import { Card } from '../../services/card-manage.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
