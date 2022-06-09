@@ -117,11 +117,11 @@ a:hover {
   left: 0;
 
   overflow: none;
+
+  z-index: -20;
 }
 
 .wave {
-  z-index: -10;
-
   background: url("src/assets/img/Wave-16.7s-1587px.svg");
   position: absolute;
   top: 0;
@@ -142,7 +142,7 @@ a:hover {
 .wave:nth-of-type(3) {
   background: url("src/assets/img/Wave-16.7s-1587px2.svg");
   bottom: -175px;
-  animation: swell 8s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite;
+  animation: swell 9s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite;
   /* swell 7s ease -1.25s infinite; */
   opacity: 0.5;
 }
