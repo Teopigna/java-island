@@ -12,8 +12,8 @@
       </span>
     </h3>
 
-      <button class="round-btn">
-        <a [href]="fileUrl" download="Lista operazioni"></a><i class="fa-solid fa-cloud-arrow-down"></i>
+      <button class="round-btn" title="scarica tutte le transazioni">
+        <a [href]="fileUrl" download="Lista operazioni"><i class="fa-solid fa-cloud-arrow-down"></i></a>
       </button>
 
 
@@ -26,7 +26,16 @@
         <table class="table table-hover table-striped">
           <thead>
             <tr>
-              <th>Data</th>
+              <button class="sort-btn" (click)="onReverse()">
+                <th>
+                  Data
+                  <span >
+                    <i *ngIf="ordine" class="fa-solid fa-sort-down"></i>
+                    <i *ngIf="!ordine" class="fa-solid fa-sort-up"></i>
+                  </span>
+                </th>
+              </button>
+
               <th>Importo</th>
               <th>Da</th>
               <th>A</th>

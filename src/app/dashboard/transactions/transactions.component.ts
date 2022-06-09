@@ -14,6 +14,7 @@ export class TransactionsComponent implements OnInit {
   transactions: Transaction[] = [];
   fileList:string='';
   fileUrl: any;
+  ordine: boolean=false;
 
   transactionsDisplayed: Transaction[] = [];
 
@@ -70,6 +71,11 @@ export class TransactionsComponent implements OnInit {
     else if (howMany === -1) {
       this.transactionsDisplayed = this.transactions;
     }
+  }
+
+  onReverse(){
+    this.transactionsDisplayed.reverse()
+    this.ordine=!this.ordine
   }
 
 }

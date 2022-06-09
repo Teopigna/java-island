@@ -9,6 +9,14 @@ table {
   );
 }
 
+.sort-btn{
+  border-radius: 5px;
+  color: black;
+  background-color: transparent;
+  border: transparent;
+  z-index: 1;
+}
+
 .round-btn {
   height: 40px;
   width: 40px;
@@ -110,3 +118,4 @@ table {
     width: fit-content;
   }
 }
+
