@@ -41,6 +41,9 @@ export class NoPopupActionsComponent implements OnInit {
 
   orientation: StepperOrientation = 'horizontal';
 
+  errorMessage: string = '';
+  showError: boolean = false;
+
   constructor(
     private cardService: CardService,
     private traService: TransactionService,
@@ -80,7 +83,7 @@ export class NoPopupActionsComponent implements OnInit {
       this.orientation = 'horizontal';
     }
   }
-  
+
   onSubmit() {
     console.log(this.form1);
 
@@ -103,18 +106,36 @@ export class NoPopupActionsComponent implements OnInit {
           this.form1.value.amount,
           this.form1.value.cause
         )
-        .subscribe((response) => {
-          console.log(response);
-        });
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.errorMessage = '';
+            this.showError = false;
+          },
+          (error) => {
+            this.errorMessage = error.error.message;
+            this.showError = true;
+          }
+        );
     } else if (type === 3) {
-      this.traService.postTransaction(-this.form1.value.amount, type);
+      this.traService.postTransaction(-this.form1.value.amount, type).subscribe(
+        (response) => {
+          console.log(response);
+          this.errorMessage = '';
+          this.showError = false;
+        },
+        (error) => {
+          this.errorMessage = error.error.message;
+          this.showError = true;
+        }
+      );
     }
   }
 
   onNavigate() {
-    console.log("Carta sui query params:")
+    console.log('Carta sui query params:');
     console.log(this.cardService.currentIndex + 1);
-    
+
     this.router.navigate(['dashboard'], {
       queryParams: { card: (this.cardService.currentIndex + 1).toString() },
       fragment: 'activated',
