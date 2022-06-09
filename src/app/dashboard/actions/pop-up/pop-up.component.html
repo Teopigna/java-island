@@ -5,6 +5,12 @@
       <i class="fa-solid fa-circle-xmark" (click)="closeEvent()"></i>
       <h1>{{ action }}</h1>
 
+      <!-- Pannello errore transazione -->
+      <div class="alert alert-danger" *ngIf="showError">
+        <p style="text-align: center">{{errorMessage}}</p>
+      </div>
+      <!-- Fine Pannello errore -->
+      
       <div
         class="form-group"
         *ngIf="action === 'versamento' || action === 'prelievo'"
@@ -16,6 +22,7 @@
             id="amount"
             formControlName="amount"
             class="form-control"
+            appTwoDigitDecimal
           />
           <span
             class="help-block"

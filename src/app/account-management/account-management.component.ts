@@ -12,9 +12,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class AccountManagementComponent implements OnInit, OnDestroy {
   accounts: Account[] = [];
+  closedAccounts: Account[] = [];
 
   showPopup: boolean = false;
   showWarning: boolean = false;
+  showClosed: boolean = false;
 
   closureError: boolean = false;
   errorIndex: number = 0;
@@ -28,6 +30,8 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
     this.accountListSub = this.cardService.accountsListChanged.subscribe(
       () => {
         this.accounts = this.cardService.accountsList;
+        this.closedAccounts = this.accounts.filter(p => p.status === 4);
+        this.accounts = this.accounts.filter(p => p.status != 4);
         
       }
     )
@@ -35,6 +39,8 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
     this.cardService.getAccounts().subscribe(
       (resData: any) => {
         this.accounts = resData;
+        this.closedAccounts = this.accounts.filter(p => p.status === 4);
+        this.accounts = this.accounts.filter(p =>p.status != 4);
       }
     );
     
@@ -70,8 +76,14 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
     this.cardService.getAccounts().subscribe(
       (resData: any) => {
         this.accounts = resData;
+        this.closedAccounts = this.accounts.filter(p => p.status === 4);
+        this.accounts = this.accounts.filter(p => p.status != 4);
       }
     );
+  }
+
+  onShowClosed(){
+    this.showClosed = !this.showClosed;
   }
 
   checkActivity(status: number) : string{
