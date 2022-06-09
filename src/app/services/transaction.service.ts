@@ -37,6 +37,7 @@ export class TransactionService {
       .pipe(
         tap((resData) => {
           this.transactions = resData;
+          this.transactions = this.transactions.reverse();
           this.transactionsChanged.next(this.transactions);
         })
       );
