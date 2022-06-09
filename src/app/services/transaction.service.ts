@@ -5,7 +5,7 @@ import { Transaction } from './../shared/transaction.model';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { BehaviorSubject, from, tap } from 'rxjs';
+import { BehaviorSubject, tap, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
@@ -35,6 +35,9 @@ export class TransactionService {
         requestOptions
       )
       .pipe(
+        map(resData => {
+          return resData
+        }),
         tap((resData) => {
           this.transactions = resData;
           this.transactions = this.transactions.reverse();
