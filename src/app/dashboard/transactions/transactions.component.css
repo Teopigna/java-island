@@ -19,7 +19,7 @@ table {
   right: 40px;
   top: 40px;
 
-  z-index: 3;
+  z-index: 1;
 }
 
 .round-btn:hover,
