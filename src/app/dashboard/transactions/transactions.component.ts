@@ -23,7 +23,7 @@ export class TransactionsComponent implements OnInit {
 
     this.transactionChangeSub =
       this.transactionService.transactionsChanged.subscribe(() => {
-        this.transactions = this.transactionService.transactions.reverse();
+        this.transactions = this.transactionService.transactions;
         this.transactionsDisplayed = this.transactions;
       });
   }
