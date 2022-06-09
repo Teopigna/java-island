@@ -32,7 +32,6 @@ export class AccountCardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-
     this.accountsChangeSub = this.cardService.accountsListChanged.subscribe(
       () => {
         this.arrayCards = [
@@ -46,7 +45,9 @@ export class AccountCardComponent implements OnInit, OnDestroy {
             status: 0,
             accountOwnerId: 0,
           },
-        ];
+        ].filter((card) => {
+          return card.status !== 4;
+        });
         this.cardDisplayed = this.arrayCards[this.currentIndex];
       }
     );
@@ -64,7 +65,9 @@ export class AccountCardComponent implements OnInit, OnDestroy {
           status: 0,
           accountOwnerId: 0,
         },
-      ];
+      ].filter((card) => {
+        return card.status !== 4;
+      });
       //Setta la carta attuale
       this.currentIndex = this.cardService.currentIndex;
       this.cardDisplayed = this.arrayCards[this.currentIndex];
@@ -112,7 +115,9 @@ export class AccountCardComponent implements OnInit, OnDestroy {
           status: 0,
           accountOwnerId: 0,
         },
-      ];
+      ].filter((card) => {
+        return card.status !== 4;
+      });
 
       //Refresh Card HERE
       this.cardDisplayed = this.arrayCards[this.currentIndex];
