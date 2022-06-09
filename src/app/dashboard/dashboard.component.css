@@ -99,3 +99,60 @@
 .popup p span {
   font-size: small;
 }
+
+a {
+  color: var(--menu-bg-color);
+}
+
+a:hover {
+  color: var(--menu-font-color-hover);
+}
+
+/* onde */
+.ocean {
+  height: 50vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  overflow: none;
+}
+
+.wave {
+  z-index: -10;
+
+  background: url("src/assets/img/Wave-16.7s-1587px.svg");
+  position: absolute;
+  top: 0;
+  bottom: -198px;
+  width: 100%;
+  height: 198px;
+  animation: swell 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+.wave:nth-of-type(2) {
+  background: url("src/assets/img/Wave-16.7s-1587px1.svg");
+  bottom: -175px;
+  animation: swell 8s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite;
+  /* swell 7s ease -1.25s infinite; */
+  opacity: 1;
+}
+
+.wave:nth-of-type(3) {
+  background: url("src/assets/img/Wave-16.7s-1587px2.svg");
+  bottom: -175px;
+  animation: swell 8s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite;
+  /* swell 7s ease -1.25s infinite; */
+  opacity: 0.5;
+}
+
+@keyframes swell {
+  0%,
+  100% {
+    transform: translateY(-10px) scaleY(1);
+  }
+  50% {
+    transform: translateY(-20px) scaleY(0.8);
+  }
+}
