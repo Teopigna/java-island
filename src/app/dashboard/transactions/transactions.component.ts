@@ -3,6 +3,7 @@ import { Transaction } from './../../shared/transaction.model';
 import { CardService } from '../../services/card-manage.service';
 import { Component, OnInit } from '@angular/core';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-transactions',
@@ -11,21 +12,54 @@ import { TransactionService } from 'src/app/services/transaction.service';
 })
 export class TransactionsComponent implements OnInit {
   transactions: Transaction[] = [];
+  fileList:string='';
+  fileUrl: any;
 
   transactionsDisplayed: Transaction[] = [];
 
   transactionChangeSub: Subscription = new Subscription();
 
-  constructor(private transactionService: TransactionService) {}
+  constructor(private transactionService: TransactionService,
+    private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    console.log(this.transactionsDisplayed);
+    //console.log(this.transactionsDisplayed);
 
     this.transactionChangeSub =
       this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions.reverse();
         this.transactionsDisplayed = this.transactions;
-      });
+        this.downloadList()
+      })
+    this.fileList='';
+  }
+
+  downloadList(){
+    for(let i=0; i<this.transactionsDisplayed.length;i++){
+      let line: string='';
+      let causale:string='';
+      if(String(this.transactionsDisplayed[i].cause)=='null'){
+        causale='/';
+      }else{
+        causale=String(this.transactionsDisplayed[i].cause)
+      }
+      line=(
+        'mittente:'+this.transactionsDisplayed[i].accountNumberFrom+
+        ', destinatario:'+this.transactionsDisplayed[i].accountNumberTo+
+        ', ammontare:'+this.transactionsDisplayed[i].amount+
+        ', causale:'+causale+
+        ', data:'+this.transactionsDisplayed[i].date+'\n'
+        )
+        this.fileList=this.fileList+line
+
+        const blob = new Blob(['LISTA TRANSAZIONI \n' + this.fileList], {
+          type: '.txt',
+        });
+        this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+          window.URL.createObjectURL(blob)
+        );
+    }
+
   }
 
   onShrinkArray(howMany: number) {
@@ -37,4 +71,5 @@ export class TransactionsComponent implements OnInit {
       this.transactionsDisplayed = this.transactions;
     }
   }
+
 }
