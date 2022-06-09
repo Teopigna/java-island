@@ -21,6 +21,9 @@
   >
     Non è possibile effettuare un giroconto: l'utente ha una sola carta attiva.
   </p>
+  <div class="center-button">
+    <button mat-button routerLink="/dashboard">Dashboard</button>
+  </div>
   <ng-template #elseDiv>
     <mat-stepper [orientation]="orientation" [linear]="isLinear" #stepper>
       <form [formGroup]="form1">

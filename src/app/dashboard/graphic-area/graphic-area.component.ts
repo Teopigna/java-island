@@ -83,9 +83,9 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
     this.transactionChangeSub =
       this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions.reverse();
-        this.transactions = this.transactions.slice(0,9);
+        this.transactions = this.transactions.slice(0, 9);
         console.log(this.transactions);
-        
+
         this.data.data = [
           {
             label: '',
@@ -105,8 +105,9 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
           }
           i++;
         }
-        //this.data.data.reverse().slice(0,10);
-        this.data.data = this.data.data.reverse().slice(0,9);
+        this.data.data = this.data.data
+          .reverse()
+          .slice(0, this.data.data.length - 1);
       });
     // inserire la questione che si aggiorna in modo automatico anche all'inizio: la width.
   }
