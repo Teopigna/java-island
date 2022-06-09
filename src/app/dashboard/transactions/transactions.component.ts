@@ -38,7 +38,7 @@ export class TransactionsComponent implements OnInit {
 
 
   downloadList(){
-    console.log(this.ordine)
+    this.ordine=false;
     for(let i=0; i<this.transactionsDisplayed.length;i++){
       let line: string='';
       let causale:string='';
