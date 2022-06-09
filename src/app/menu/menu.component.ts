@@ -35,8 +35,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   ],
 })
 export class MenuComponent implements OnInit {
-  menuState = 'open';
-  menu = 'open';
+  menuState = 'closed';
+  menu = 'closed';
   fileUrl: any;
   requestList: string = '';
   printList: any = [];

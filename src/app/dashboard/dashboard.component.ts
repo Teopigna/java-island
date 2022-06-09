@@ -35,9 +35,11 @@ export class DashboardComponent implements OnInit {
     // farà la richiesta get per sapere se l'account è stato accettato
 
     this.cardService.getAccounts().subscribe((accountList) => {
-      this.cardArray = [
-        ...accountList
-      ];
+      this.cardArray = [...accountList];
     });
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }
