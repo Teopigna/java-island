@@ -9,7 +9,11 @@
   }
 
   .title {
-    margin-left: 30px;
+    /* indentato, ma non allineato con card */
+    /* margin-left: 23%; */
+
+    /* indentato e allineato con card */
+    margin-left: calc(22.5vw - 150px);
   }
 }
 

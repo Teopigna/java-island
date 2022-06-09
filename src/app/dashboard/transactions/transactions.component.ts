@@ -19,14 +19,13 @@ export class TransactionsComponent implements OnInit {
   constructor(private transactionService: TransactionService) {}
 
   ngOnInit(): void {
+    console.log(this.transactionsDisplayed);
 
-    this.transactionChangeSub = this.transactionService.transactionsChanged.subscribe(
-      () => {
+    this.transactionChangeSub =
+      this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions.reverse();
         this.transactionsDisplayed = this.transactions;
-      }
-    )
-    
+      });
   }
 
   onShrinkArray(howMany: number) {

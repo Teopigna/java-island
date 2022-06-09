@@ -24,6 +24,8 @@ table {
     rgba(var(--menu-font-hover-rgb), 0.5) 80%,
     rgba(var(--menu-font-hover-rgb), 0.5) 100%
   );
+
+  border: 0;
 }
 
 span.span-error {

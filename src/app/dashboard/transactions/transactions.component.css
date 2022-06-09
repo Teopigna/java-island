@@ -18,6 +18,8 @@ table {
   position: absolute;
   right: 40px;
   top: 40px;
+
+  z-index: 3;
 }
 
 .round-btn:hover,
@@ -32,11 +34,30 @@ table {
   top: 42px;
 }
 
+.panel-container {
+  position: relative;
+}
+
+.panel-container p {
+  position: absolute;
+  top: 48%;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  color: var(--menu-bg-color);
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .panel {
   overflow-y: scroll;
   height: 220px;
 
   width: 100%;
+  margin: 0 0 20px 0;
 }
 
 .personalized-btn {

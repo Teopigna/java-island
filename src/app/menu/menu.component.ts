@@ -11,7 +11,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { DomSanitizer } from '@angular/platform-browser';
 
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -36,24 +35,24 @@ import { DomSanitizer } from '@angular/platform-browser';
   ],
 })
 export class MenuComponent implements OnInit {
-  menuState = 'closed';
-  menu = 'closed';
-  fileUrl:any;
-  requestList: string= '';
-  printList: any=[];
+  menuState = 'open';
+  menu = 'open';
+  fileUrl: any;
+  requestList: string = '';
+  printList: any = [];
 
   userRole: string | undefined = '';
 
-
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
     private http: HttpClient,
-    private sanitizer:DomSanitizer) {}
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
     if (this.authService.user.value) {
       this.userRole = this.authService.user.value?.role;
     }
-
 
     const headerDict = {
       Authorization: this.authService.user.value!.token,
@@ -69,46 +68,46 @@ export class MenuComponent implements OnInit {
         requestOptions
       )
 
-    .subscribe(
+      .subscribe(
         (resData: any) => {
-          this.printList=resData;
-          for( let i=0; i<this.printList.length;i++){
-            delete this.printList[i]['id']
-            let valore: string='';                    //dichiaro la variabile valore che uso per modificare la lunghezza della data
-            valore=this.printList[i]['birthDate']     //e poi la ricopio nel campo BirthDate
-            valore=valore.substring(0,10)
-            this.printList[i]['birthDate']=valore
-
+          this.printList = resData;
+          for (let i = 0; i < this.printList.length; i++) {
+            delete this.printList[i]['id'];
+            let valore: string = ''; //dichiaro la variabile valore che uso per modificare la lunghezza della data
+            valore = this.printList[i]['birthDate']; //e poi la ricopio nel campo BirthDate
+            valore = valore.substring(0, 10);
+            this.printList[i]['birthDate'] = valore;
           }
-          this.requestList=JSON.stringify(this.printList)
+          this.requestList = JSON.stringify(this.printList);
         },
 
         (error) => {
           console.log(error);
         }
-    );
+      );
 
+    setTimeout(() => {
+      this.requestList = this.requestList.replace(/]/g, '');
+      this.requestList = this.requestList.replace(/"/g, '');
+      this.requestList = this.requestList.replace(/},{/g, '\n');
+      this.requestList = this.requestList.replace(/,/g, ', ');
+      this.requestList = this.requestList.replace(/}/g, '');
+      this.requestList = this.requestList.replace(/{/g, '');
+      this.requestList = this.requestList.replace(/firstName/g, 'nome');
+      this.requestList = this.requestList.replace(/lastName/g, 'cognome');
+      this.requestList = this.requestList.replace(
+        /birthDate/g,
+        'data di nascita'
+      );
+      this.requestList = this.requestList.substring(1);
 
-    setTimeout(()=>{
-
-      this.requestList=this.requestList.replace(/]/g,'');
-      this.requestList=this.requestList.replace(/"/g,'');
-      this.requestList=this.requestList.replace(/},{/g,'\n');
-      this.requestList=this.requestList.replace(/,/g,', ');
-      this.requestList=this.requestList.replace(/}/g,'');
-      this.requestList=this.requestList.replace(/{/g,'');
-      this.requestList=this.requestList.replace(/firstName/g,'nome');
-      this.requestList=this.requestList.replace(/lastName/g,'cognome');
-      this.requestList=this.requestList.replace(/birthDate/g,'data di nascita');
-      this.requestList=this.requestList.substring(1)
-
-      const blob = new Blob(['LISTA DEI CORRENTISTI \n'+this.requestList], { type: '.txt' });
-      this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));}, 1000)
-
-
-
-
-
+      const blob = new Blob(['LISTA DEI CORRENTISTI \n' + this.requestList], {
+        type: '.txt',
+      });
+      this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+        window.URL.createObjectURL(blob)
+      );
+    }, 1000);
   }
 
   onLogout() {
