@@ -1,6 +1,4 @@
 import { CardService } from './card-manage.service';
-import { FormGroup } from '@angular/forms';
-import { Account } from './../shared/account.model';
 import { Transaction } from './../shared/transaction.model';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
@@ -35,8 +33,9 @@ export class TransactionService {
         requestOptions
       )
       .pipe(
-        map(resData => {
-          return resData
+        map((resData: Transaction[]) => {
+          resData.map( (e: Transaction) =>  {e.date = e.date.slice(0,10)})
+          return resData;
         }),
         tap((resData) => {
           this.transactions = resData;
