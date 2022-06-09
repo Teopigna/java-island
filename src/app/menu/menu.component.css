@@ -61,7 +61,7 @@ button {
 
 .open-menu {
   cursor: pointer;
-  color: var(--home-bg-color);
+  color: var(--menu-bg-color);
   font-size: 30px;
   margin: 0 0 10px 20px;
 
