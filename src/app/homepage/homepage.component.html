@@ -133,6 +133,7 @@
             <label for="name">Nome</label>
             <input
               type="text"
+              text
               id="name"
               formControlName="name"
               class="form-control"
@@ -144,7 +145,7 @@
                 !signUpForm.get('name')?.valid &&
                 signUpForm.get('name')?.touched
               "
-              >Inserire nome
+              >Nome invalido
             </span>
             <!-- Fine messaggio errore -->
           </div>
@@ -163,7 +164,7 @@
                 !signUpForm.get('surname')?.valid &&
                 signUpForm.get('surname')?.touched
               "
-              >Inserire cognome
+              >Cognome invalido
             </span>
             <!-- Fine messaggio errore -->
           </div>
