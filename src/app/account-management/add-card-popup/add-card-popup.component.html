@@ -11,7 +11,7 @@
         X
       </button>
 
-      <!-- Pannello errore signUp -->
+      <!-- Pannello errore amount errato -->
       <div class="alert alert-danger" *ngIf="showAlert">
         <p style="text-align: center">{{ amountError }}</p>
       </div>
@@ -73,8 +73,14 @@
         </div>
       </form>
     </div>
+
     <!-- CASO NO ACCOUNT ATTIVI -->
     <div class="panel popup" *ngIf="accountTransfer.length === 0">
+      <!-- Pannello errore amount errato -->
+      <div class="alert alert-danger" *ngIf="showAlert2">
+        <p style="text-align: center">{{ accountsError }}</p>
+      </div>
+      <!-- Fine Pannello errore -->
       <p>Cliccando su conferma si procederà alla creazione di un nuovo conto</p>
       <hr>
       <button
