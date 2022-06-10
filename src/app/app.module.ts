@@ -32,9 +32,8 @@ import * as charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
 import {
-  NgbAlert,
-  NgbDatepicker,
   NgbDatepickerModule,
+  NgbDropdownModule,
   NgbProgressbarModule,
 } from '@ng-bootstrap/ng-bootstrap';
 
@@ -75,6 +74,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     FusionChartsModule,
     NgbProgressbarModule,
     NgbDatepickerModule,
+    NgbDropdownModule,
     ReactiveFormsModule,
     MatTooltipModule,
     FormsModule,
