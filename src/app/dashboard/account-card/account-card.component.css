@@ -6,7 +6,7 @@
 .eye {
   font-size: 15px;
   cursor: pointer;
-  color: rgba(171, 240, 244, 0.863);
+  color: rgba(0, 104, 132, 0.752);
 }
 
 .eye-span {
@@ -128,7 +128,21 @@
 
 .card h3 {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.card h3 div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.balance {
+  font-size: 20px;
+
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
 }
 
 .iban-area {
