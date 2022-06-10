@@ -33,7 +33,7 @@ export class AddCardPopupComponent implements OnInit {
 
     this.form = new FormGroup({
       fromIban: new FormControl(null, [Validators.required]),
-      amount: new FormControl(null, [Validators.required, Validators.min(0.1)]),
+      amount: new FormControl(null, [Validators.required, Validators.min(0.1), Validators.max(100000)]),
     });
   }
 

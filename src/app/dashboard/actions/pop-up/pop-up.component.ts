@@ -50,6 +50,7 @@ export class PopUpComponent implements OnInit {
       amount: new FormControl(null, [
         Validators.required,
         Validators.min(0.1),
+        Validators.max(100000)
         // Validators.pattern(/^\[0-9]+(\.[0-9][0-9])?$/),
       ]),
     });
