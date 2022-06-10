@@ -42,6 +42,8 @@
   justify-content: space-around;
 
   position: relative;
+
+  border: none;
 }
 
 .error {
