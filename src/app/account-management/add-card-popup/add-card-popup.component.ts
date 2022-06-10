@@ -17,6 +17,9 @@ export class AddCardPopupComponent implements OnInit {
   amountError: string = '';
   showAlert: boolean = false;
 
+  accountsError: string = '';
+  showAlert2: boolean = false;
+
   accountTransfer: Account[] = [];
 
   constructor(
@@ -77,11 +80,14 @@ export class AddCardPopupComponent implements OnInit {
       )
       .subscribe(
         (resData) => {
-          this.showAlert = false;
+          this.showAlert2 = false;
           this.form.reset();
           this.closeEvent();
         },
-        (error) => {}
+        (error) => {
+          this.accountsError = error.error.message;
+          this.showAlert2 = true;
+        }
       );
   }
 
