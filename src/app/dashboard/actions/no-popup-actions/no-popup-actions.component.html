@@ -21,7 +21,10 @@
   >
     Non è possibile effettuare un giroconto: l'utente ha una sola carta attiva.
   </p>
-  <div class="center-button">
+  <div
+    class="center-button"
+    *ngIf="accountTransfer.length === 0 && action === 'giroconto'"
+  >
     <button mat-button routerLink="/dashboard">Dashboard</button>
   </div>
   <ng-template #elseDiv>
@@ -72,6 +75,7 @@
                 placeholder="ex. 100"
                 formControlName="amount"
                 required
+                appTwoDigitDecimal
               />
             </mat-form-field>
 

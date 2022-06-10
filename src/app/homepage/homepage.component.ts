@@ -13,15 +13,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { skip } from 'rxjs';
 
-export const passwordMatchingValidatior: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+export const passwordMatchingValidatior: ValidatorFn = (
+  control: AbstractControl
+): ValidationErrors | null => {
   const password = control.get('password');
   const confirmPassword = control.get('confirmPassword');
 
-  return password?.value === confirmPassword?.value ? null : { notmatched: true };
+  return password?.value === confirmPassword?.value
+    ? null
+    : { notmatched: true };
 };
-
-
-
 
 @Component({
   selector: 'app-homepage',
@@ -43,22 +44,24 @@ export class HomepageComponent implements OnInit {
     password: new FormControl('', Validators.required),
   });
   // Default signUpForm, vuoto
-  signUpForm: FormGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
-    surname: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    birthDate: new FormControl('', [Validators.required]),
-    password: new FormControl('', Validators.required),
-    confirmPassword: new FormControl('', [Validators.required])
-  }, { validators: passwordMatchingValidatior });
-  
-  constructor(private authService: AuthService, private dateFormatter: NgbDateParserFormatter) {}
+  signUpForm: FormGroup = new FormGroup(
+    {
+      name: new FormControl('', Validators.required),
+      surname: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      birthDate: new FormControl('', [Validators.required]),
+      password: new FormControl('', Validators.required),
+      confirmPassword: new FormControl('', [Validators.required]),
+    },
+    { validators: passwordMatchingValidatior }
+  );
 
-  ngOnInit(): void {
-    
-  }
+  constructor(
+    private authService: AuthService,
+    private dateFormatter: NgbDateParserFormatter
+  ) {}
 
- 
+  ngOnInit(): void {}
 
   onSubmitLogin() {
     if (!this.loginForm.valid) {
@@ -70,7 +73,6 @@ export class HomepageComponent implements OnInit {
 
     this.authService.login(email, password).subscribe(
       (resData) => {
-        //console.log(resData);
         this.loginErrorMessage = null;
       },
       (error) => {
@@ -90,24 +92,29 @@ export class HomepageComponent implements OnInit {
     const password = this.signUpForm.value.password;
     const name = this.signUpForm.value.name;
     const surname = this.signUpForm.value.surname;
-    const birthDate = this.dateFormatter.format(this.signUpForm.value.birthDate);
-    
-    this.authService.signUp(name, surname, email, birthDate, password).subscribe(
-      resData => {
-        this.signUpForm.reset();
-        // Se la registrazione è avvenuta con successo (no messaggi d'errore), lancia il login 
-        setTimeout(()=>{this.redirectToLogin(email, password);}, 100)
-      },
-      error => {  
-        this.signUpErrorMessage = error.error.message;
-      }
+    const birthDate = this.dateFormatter.format(
+      this.signUpForm.value.birthDate
     );
+
+    this.authService
+      .signUp(name, surname, email, birthDate, password)
+      .subscribe(
+        (resData) => {
+          this.signUpForm.reset();
+          // Se la registrazione è avvenuta con successo (no messaggi d'errore), lancia il login
+          setTimeout(() => {
+            this.redirectToLogin(email, password);
+          }, 100);
+        },
+        (error) => {
+          this.signUpErrorMessage = error.error.message;
+        }
+      );
   }
 
-  redirectToLogin(email: string, password: string){
+  redirectToLogin(email: string, password: string) {
     this.authService.login(email, password).subscribe(
       (resData) => {
-        //console.log(resData);
         this.loginErrorMessage = null;
       },
       (error) => {
