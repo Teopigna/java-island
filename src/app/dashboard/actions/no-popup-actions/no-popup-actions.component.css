@@ -73,6 +73,11 @@ ul {
     flex-direction: column;
   }
 }
+@media screen and (min-width: 992px) {
+  .alert {
+    width: 60vw;
+  }
+}
 
 mat-form-field {
   margin-left: 5px;
