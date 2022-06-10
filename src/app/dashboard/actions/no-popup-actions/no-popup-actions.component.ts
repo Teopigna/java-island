@@ -66,13 +66,35 @@ export class NoPopupActionsComponent implements OnInit {
       .join('');
 
     this.cardIsActive = this.cardService.cardDisplayed?.status;
+    
+    if(this.action === 'ricarica'){
+      this.form1 = new FormGroup({
+        to: new FormControl(null, [Validators.required, Validators.pattern("[0-9 ]{10}")]),
+        amount: new FormControl(null, [
+          Validators.required,
+          Validators.min(0.1),
+          Validators.max(100000),
+        ]),
+        // la causale non è obbligatoria
+        description: new FormControl(null, [Validators.maxLength(200)]),
+      });
+    }
+    else {
+      this.form1 = new FormGroup({
+        to: new FormControl(null, [Validators.required]),
+        amount: new FormControl(null, [
+          Validators.required,
+          Validators.min(0.1),
+          Validators.max(100000),
+        ]),
+        // la causale non è obbligatoria
+        description: new FormControl(null, [Validators.maxLength(200)]),
+      });
+    }
 
-    this.form1 = new FormGroup({
-      to: new FormControl(null, [Validators.required]),
-      amount: new FormControl(null, [Validators.required, Validators.min(0.1), Validators.max(100000)]),
-      // la causale non è obbligatoria
-      description: new FormControl(null, [Validators.maxLength(200)]),
-    });
+    
+
+    
   }
 
   @HostListener('window:resize', ['$event'])
@@ -92,7 +114,7 @@ export class NoPopupActionsComponent implements OnInit {
     } else if (this.action === 'giroconto') {
       type = 4;
     } else if (this.action === 'ricarica') {
-      type = 3; //sono un prelievo...
+      type = 5; //sono un prelievo...
     }
 
     if (type === 1 || type === 4) {
@@ -102,7 +124,7 @@ export class NoPopupActionsComponent implements OnInit {
           this.cardService.cardDisplayed.accountNumber,
           this.form1.value.to,
           this.form1.value.amount,
-          this.form1.value.cause
+          this.form1.value.description
         )
         .subscribe(
           (response) => {
@@ -114,17 +136,19 @@ export class NoPopupActionsComponent implements OnInit {
             this.showError = true;
           }
         );
-    } else if (type === 3) {
-      this.traService.postTransaction(-this.form1.value.amount, type).subscribe(
-        (response) => {
-          this.errorMessage = '';
-          this.showError = false;
-        },
-        (error) => {
-          this.errorMessage = error.error.message;
-          this.showError = true;
-        }
-      );
+    } else if (type === 5) {
+      this.traService
+        .postTransaction(-this.form1.value.amount, type, this.form1.value.to)
+        .subscribe(
+          (response) => {
+            this.errorMessage = '';
+            this.showError = false;
+          },
+          (error) => {
+            this.errorMessage = error.error.message;
+            this.showError = true;
+          }
+        );
     }
   }
 

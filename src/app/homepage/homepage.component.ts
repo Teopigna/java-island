@@ -46,8 +46,8 @@ export class HomepageComponent implements OnInit {
   // Default signUpForm, vuoto
   signUpForm: FormGroup = new FormGroup(
     {
-      name: new FormControl('', Validators.required),
-      surname: new FormControl('', Validators.required),
+      name: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]),
+      surname: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]),
       email: new FormControl('', [Validators.required, Validators.email]),
       birthDate: new FormControl('', [Validators.required]),
       password: new FormControl('', Validators.required),

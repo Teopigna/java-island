@@ -39,7 +39,8 @@ export class ErrorPageComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -58,5 +59,9 @@ export class ErrorPageComponent implements OnInit {
     this.divTwo.nativeElement.style.transform = `translateX(${-x}px) translateY(${-y}px)`;
     this.divThree.nativeElement.style.transform = `translateX(${-x}px) translateY(${y}px)`;
     this.divFour.nativeElement.style.transform = `translateX(${x}px) translateY(${-y}px)`;
+  }
+
+  onLogout() {
+    this.auth.logout();
   }
 }

@@ -47,7 +47,7 @@ export class TransactionService {
       );
   }
 
-  postTransaction(amount: number, type: number) {
+  postTransaction(amount: number, type: number, phoneNumber?: number) {
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -56,16 +56,30 @@ export class TransactionService {
       headers: new HttpHeaders(headerDict),
     };
 
+    var obj: {
+      accountNumber: string;
+      type: number;
+      amount: number;
+      cause?: string;
+    } = {
+      accountNumber: this.cardService.cardDisplayed.accountNumber,
+      type: type,
+      amount: amount,
+    };
+
+    if (type === 5) {
+      const cause = 'Ricarica telefonica al numero ' + phoneNumber?.toString();
+
+      obj = {
+        accountNumber: this.cardService.cardDisplayed.accountNumber,
+        type: type,
+        amount: amount,
+        cause: cause,
+      };
+    }
+
     return this.http
-      .post<any>(
-        'http://localhost:8765/api/transactions',
-        {
-          accountNumber: this.cardService.cardDisplayed.accountNumber,
-          type: type,
-          amount: amount,
-        },
-        requestOptions
-      )
+      .post<any>('http://localhost:8765/api/transactions', obj, requestOptions)
       .pipe(
         tap((res) => {
           this.cardService.getAccounts().subscribe((cardsList) => {
