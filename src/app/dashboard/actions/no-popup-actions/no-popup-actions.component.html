@@ -15,17 +15,22 @@
   </div>
   <hr />
 
-  <p
-    style="color: red"
-    *ngIf="accountTransfer.length === 0 && action === 'giroconto'; else elseDiv"
-  >
-    Non è possibile effettuare un giroconto: l'utente ha una sola carta attiva.
-  </p>
-  <div
-    class="center-button"
-    *ngIf="accountTransfer.length === 0 && action === 'giroconto'"
-  >
-    <button mat-button routerLink="/dashboard">Dashboard</button>
+  <div style="width: 100%; display: flex; justify-content: center">
+    <div
+      *ngIf="
+        accountTransfer.length === 0 && action === 'giroconto';
+        else elseDiv
+      "
+      class="alert alert-danger"
+    >
+      <p style="color: red; width: 100%; text-align: center">
+        Non è possibile effettuare un giroconto: l'utente ha una sola carta
+        attiva.
+      </p>
+      <div class="center-button">
+        <button mat-button routerLink="/dashboard">Dashboard</button>
+      </div>
+    </div>
   </div>
   <ng-template #elseDiv>
     <mat-stepper [orientation]="orientation" [linear]="isLinear" #stepper>
