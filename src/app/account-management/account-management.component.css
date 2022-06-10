@@ -12,20 +12,22 @@ table {
 
 .personalized-btn {
   margin: 0 5px 0 5px;
-  font-size: 20px;
+  font-size: 16px;
 
   color: var(--menu-bg-color);
   font-weight: bold;
 
-  background: rgba(var(--menu-bg-rgb), 0.5);
-  background: linear-gradient(
-    90deg,
-    rgba(var(--menu-bg-rgb), 0.5) 0%,
-    rgba(var(--menu-font-hover-rgb), 0.5) 80%,
-    rgba(var(--menu-font-hover-rgb), 0.5) 100%
-  );
+  background: #fff;
+}
 
-  border: 0;
+.personalized-btn:hover,
+.personalized-btn:active {
+  background: rgba(var(--home-bg-rgb), 0.3);
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-around;
 }
 
 span.span-error {
@@ -52,10 +54,8 @@ li {
 
 .cont-right {
   margin-top: 5px;
-  
 }
 
 .cont-left {
   border-right: 3px dashed #333;
 }
-
