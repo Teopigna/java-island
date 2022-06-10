@@ -66,17 +66,35 @@ export class NoPopupActionsComponent implements OnInit {
       .join('');
 
     this.cardIsActive = this.cardService.cardDisplayed?.status;
+    
+    if(this.action === 'ricarica'){
+      this.form1 = new FormGroup({
+        to: new FormControl(null, [Validators.required, Validators.pattern("[0-9 ]{10}")]),
+        amount: new FormControl(null, [
+          Validators.required,
+          Validators.min(0.1),
+          Validators.max(100000),
+        ]),
+        // la causale non è obbligatoria
+        description: new FormControl(null, [Validators.maxLength(200)]),
+      });
+    }
+    else {
+      this.form1 = new FormGroup({
+        to: new FormControl(null, [Validators.required]),
+        amount: new FormControl(null, [
+          Validators.required,
+          Validators.min(0.1),
+          Validators.max(100000),
+        ]),
+        // la causale non è obbligatoria
+        description: new FormControl(null, [Validators.maxLength(200)]),
+      });
+    }
 
-    this.form1 = new FormGroup({
-      to: new FormControl(null, [Validators.required]),
-      amount: new FormControl(null, [
-        Validators.required,
-        Validators.min(0.1),
-        Validators.max(100000),
-      ]),
-      // la causale non è obbligatoria
-      description: new FormControl(null, [Validators.maxLength(200)]),
-    });
+    
+
+    
   }
 
   @HostListener('window:resize', ['$event'])
