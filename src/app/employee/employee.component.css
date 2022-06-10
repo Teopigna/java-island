@@ -9,3 +9,7 @@ table {
     rgba(var(--menu-font-hover-rgb), 0.5) 100%
   );
 }
+
+button{
+  margin:5px;
+}
