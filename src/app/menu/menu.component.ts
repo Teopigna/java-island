@@ -12,7 +12,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -39,7 +38,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MenuComponent implements OnInit {
   menuState = 'closed';
   menu = 'closed';
-  menuDashboard:boolean=false;
+  menuDashboard: boolean = false;
   fileUrl: any;
   requestList: string = '';
   printList: any = [];
@@ -50,26 +49,17 @@ export class MenuComponent implements OnInit {
     private authService: AuthService,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
-    private route:ActivatedRoute
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.route.url.subscribe(
-      (data:any)=>{
-        console.log(data[0].path)
-        if(data[0].path==='dashboard'){
-          this.menuDashboard=true;
-        }else{
-          this.menuDashboard=false;
-        }
-
+    this.route.url.subscribe((data: any) => {
+      if (data[0].path === 'dashboard') {
+        this.menuDashboard = true;
+      } else {
+        this.menuDashboard = false;
       }
-
-
-
-
-
-    )
+    });
 
     if (this.authService.user.value) {
       this.userRole = this.authService.user.value?.role;

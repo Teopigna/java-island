@@ -47,11 +47,19 @@
                   : "Numero Telefonico"
               }}</mat-label>
               <input
+                *ngIf="action === 'bonifico'"
                 matInput
-                [placeholder]="
-                  action === 'bonifico' ? 'ex. IT000000000' : 'ex. 3456270000'
-                "
+                [placeholder]="'ex. IT000000000'"
                 formControlName="to"
+                required
+              />
+
+              <input
+                *ngIf="action === 'ricarica'"
+                matInput
+                [placeholder]="'ex. 3456270000'"
+                formControlName="to"
+                type="number"
                 required
               />
             </mat-form-field>
@@ -111,15 +119,15 @@
             <div>
               <h6>Queste sono le informazioni da te immesse:</h6>
               <ul>
-                <li>{{ form1.value.to }}</li>
-                <li>{{ form1.value.amount }}</li>
+                <li><b>Destinatario:</b> {{ form1.value.to }}</li>
+                <li><b>Quantità da inviare:</b> {{ form1.value.amount }}</li>
                 <li *ngIf="form1.value.amount">
-                  {{ form1.value.description }}
+                  <b>Causale:</b> {{ form1.value.description }}
                 </li>
               </ul>
               <h6>
                 Se sei sicuro di voler proseguire con l'operazione clicca
-                <b>Prosegui</b>
+                <em>Prosegui</em>
               </h6>
 
               <div class="center-button">

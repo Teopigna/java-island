@@ -69,7 +69,11 @@ export class NoPopupActionsComponent implements OnInit {
 
     this.form1 = new FormGroup({
       to: new FormControl(null, [Validators.required]),
-      amount: new FormControl(null, [Validators.required, Validators.min(0.1), Validators.max(100000)]),
+      amount: new FormControl(null, [
+        Validators.required,
+        Validators.min(0.1),
+        Validators.max(100000),
+      ]),
       // la causale non è obbligatoria
       description: new FormControl(null, [Validators.maxLength(200)]),
     });
@@ -102,7 +106,7 @@ export class NoPopupActionsComponent implements OnInit {
           this.cardService.cardDisplayed.accountNumber,
           this.form1.value.to,
           this.form1.value.amount,
-          this.form1.value.cause
+          this.form1.value.description
         )
         .subscribe(
           (response) => {
