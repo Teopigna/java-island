@@ -73,9 +73,15 @@
       </button>
     </div>
     <div class="col-2 text-center">
-      <button class="btn personalized-btn" (click)="onShowClosed()">
-        Conti chiusi
-      </button>
+      <div ngbDropdown class="d-inline-block">
+        <button type="button" class="btn personalized-btn" id="dropdownBasic1" ngbDropdownToggle>Conti chiusi</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <ul class="list-group">
+            <li class="list-group-item" *ngIf="closedAccounts.length === 0">Nessun conto chiuso</li>
+            <li  class="list-group-item" *ngFor="let account of closedAccounts"> {{account.accountNumber}} </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
   <hr>

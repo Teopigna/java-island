@@ -69,6 +69,9 @@ export class TransactionService {
       .pipe(
         tap((res) => {
           this.cardService.getAccounts().subscribe((cardsList) => {
+            cardsList = cardsList.filter((card) => {
+              return card.status !== 4;
+            });
             this.cardService.cardChanged.next(
               cardsList[this.cardService.currentIndex]
             );
