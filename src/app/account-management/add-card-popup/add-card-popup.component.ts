@@ -18,6 +18,10 @@ export class AddCardPopupComponent implements OnInit {
   amountError: string  = "";
   showAlert: boolean = false;
 
+  accountsError: string = "";
+  showAlert2: boolean = false;
+
+
   accountTransfer: Account[] =
     [];
 
@@ -68,12 +72,13 @@ export class AddCardPopupComponent implements OnInit {
     this.cardService.newAccoutSpecial(this.authService.user.value!.name, this.authService.user.value!.surname)
       .subscribe(
         (resData) => {
-          this.showAlert = false;
+          this.showAlert2 = false;
           this.form.reset();
           this.closeEvent();
         },
         (error) => {
-          console.log(error.error.message);
+          this.accountsError = error.error.message;
+          this.showAlert2 = true;
         });
   }
 
