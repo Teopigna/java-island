@@ -9,7 +9,7 @@ table {
   );
 }
 
-.sort-btn{
+.sort-btn {
   border-radius: 5px;
   color: black;
   background-color: transparent;
@@ -40,6 +40,10 @@ table {
   width: 45px;
   right: 37px;
   top: 42px;
+}
+
+.btn-blu {
+  color: var(--menu-bg-color);
 }
 
 .panel-container {
@@ -118,4 +122,3 @@ table {
     width: fit-content;
   }
 }
-

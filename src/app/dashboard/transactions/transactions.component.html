@@ -3,20 +3,20 @@
     <h3 class="title">
       <span>Transazioni</span>
       <span>
-        <button (click)="onShrinkArray(10)" class="personalized-btn">
+        <button class="btn-blu" mat-button (click)="onShrinkArray(10)">
           Ultime 10
         </button>
-        <button (click)="onShrinkArray(-1)" class="personalized-btn">
+        <button class="btn-blu" mat-button (click)="onShrinkArray(-1)">
           Tutte
         </button>
       </span>
     </h3>
 
-      <button class="round-btn" title="scarica tutte le transazioni">
-        <a [href]="fileUrl" download="Lista operazioni"><i class="fa-solid fa-cloud-arrow-down"></i></a>
-      </button>
-
-
+    <button class="round-btn" title="scarica tutte le transazioni">
+      <a [href]="fileUrl" download="Lista operazioni"
+        ><i class="fa-solid fa-cloud-arrow-down"></i
+      ></a>
+    </button>
 
     <div class="panel-container">
       <p *ngIf="transactionsDisplayed.length === 0">
@@ -29,7 +29,7 @@
               <button class="sort-btn" (click)="onReverse()">
                 <th>
                   Data
-                  <span >
+                  <span>
                     <i *ngIf="!ordine" class="fa-solid fa-sort-down"></i>
                     <i *ngIf="ordine" class="fa-solid fa-sort-up"></i>
                   </span>

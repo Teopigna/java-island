@@ -46,7 +46,7 @@ select {
 
   width: 340px;
 
-  background-color: white;
+  background-color: var(--popup-color);
   z-index: 3;
 
   align-self: center;
@@ -64,8 +64,18 @@ select {
 input,
 textarea,
 select {
-  background: rgba(var(--menu-font-hover-rgb), 0.3);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
+}
+
+input.ng-touched,
+input:active {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+label {
+  width: 100%;
+  text-align: center;
 }
 
 h1 {
@@ -73,9 +83,10 @@ h1 {
 
   background: -webkit-linear-gradient(
     45deg,
-    var(--menu-bg-color) 0%,
-    var(--menu-font-color-hover) 70%,
-    var(--menu-font-color-hover) 100%
+    rgb(0, 0, 0) 0%,
+    var(--menu-bg-color) 20%,
+    rgb(255, 255, 255) 90%,
+    rgb(255, 255, 255) 100%
   );
   background-clip: unset;
   -webkit-background-clip: text;
@@ -109,10 +120,10 @@ span {
   color: red;
 }
 
-input.ng-invalid.ng-touched{
+input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
 
-input.ng-valid.ng-touched{
+input.ng-valid.ng-touched {
   border: 1px solid #3688ec;
 }

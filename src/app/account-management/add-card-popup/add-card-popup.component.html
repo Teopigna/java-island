@@ -3,25 +3,18 @@
   <div class="container-center-col">
     <!-- CASO ALMENO UN ACCOUNT ATTIVO -->
     <div class="panel popup" *ngIf="accountTransfer.length != 0">
-      <button
-        class="personalized-btn right-align"
-        type="button"
-        (click)="closeEvent()"
-      >
-        X
-      </button>
-
       <!-- Pannello errore amount errato -->
       <div class="alert alert-danger" *ngIf="showAlert">
         <p style="text-align: center">{{ amountError }}</p>
       </div>
       <!-- Fine Pannello errore -->
 
-      
-
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <label for="fromIban">Conto<p class="small-p">(da cui prelevare importo iniziale)</p></label>
-        
+        <label for="fromIban"
+          >Conto
+          <p class="small-p">(da cui prelevare importo iniziale)</p></label
+        >
+
         <select formControlName="fromIban" class="form-control">
           <option
             *ngFor="let card of accountTransfer"
@@ -30,7 +23,7 @@
             {{ card?.accountNumber }}
           </option>
         </select>
-        
+
         <!-- Errore in caso di Iban non selezionato -->
         <span
           class="help-block"
@@ -60,15 +53,25 @@
         <br />
         <br />
         <div class="row text-center">
-          <div class="col-4"></div>
-          <div class="col-4">
-            <button
-              class="personalized-btn text-center"
-              type="submit"
-              [disabled]="!form.valid"
-            >
-              Conferma
-            </button>
+          <div>
+            <div class="btn-container">
+              <button
+                mat-button
+                class="blu-btn text-center"
+                type="button"
+                (click)="closeEvent()"
+              >
+                Annulla
+              </button>
+              <button
+                mat-button
+                class="blu-btn text-center"
+                type="submit"
+                [disabled]="!form.valid"
+              >
+                Conferma
+              </button>
+            </div>
           </div>
         </div>
       </form>
@@ -81,10 +84,14 @@
         <p style="text-align: center">{{ accountsError }}</p>
       </div>
       <!-- Fine Pannello errore -->
-      <p>Cliccando su conferma si procederà alla creazione di un nuovo conto</p>
-      <hr>
+      <p>
+        Cliccando su conferma si procederà alla creazione di un
+        <span id="new-account">nuovo conto</span>
+      </p>
+      <hr />
       <button
-        class="personalized-btn text-center"
+        mat-button
+        class="blu-btn text-center"
         type="button"
         (click)="onConfirm()"
       >
@@ -92,14 +99,13 @@
       </button>
 
       <button
-        class="personalized-btn text-center"
+        mat-button
+        class="blu-btn text-center"
         type="button"
         (click)="onCancel()"
       >
         Annulla
       </button>
     </div>
-
   </div>
- 
 </div>

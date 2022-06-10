@@ -52,6 +52,9 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     if (this.authService.user.value) {
       this.userRole = this.authService.user.value?.role;
+
+      this.menu = this.userRole === 'D' ? 'open' : 'closed';
+      this.menuState = this.userRole === 'D' ? 'open' : 'closed';
     }
 
     const headerDict = {
