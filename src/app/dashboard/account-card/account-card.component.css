@@ -75,9 +75,11 @@
 .title {
   color: var(--grey-titles);
   width: 190px;
-  text-indent: 40%;
+  text-indent: 55%;
 
   margin-top: 20px;
+
+
 }
 
 @media screen and (min-width: 700px) {

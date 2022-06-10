@@ -31,16 +31,16 @@
 
               <td>{{ listElement.balance }}$</td>
               <td>
-                <button class="btn btn-warning" (click)="onAcceptRequest(i)">
-                  accetta
-                </button>
                 <button
-                  class="btn btn-danger"
-                  style="margin-left: 10px"
-                  (click)="onDeclineRequest(i)"
-                >
-                  rifiuta
-                </button>
+                class="btn btn-danger"
+                style="margin-left: 10px"
+                (click)="onDeclineRequest(i)"
+              >
+                <i class="fa-solid fa-circle-xmark"></i>
+              </button>
+              <button class="btn btn-success" (click)="onAcceptRequest(i)" >
+                <i class="fa-solid fa-circle-check"></i>
+              </button>
               </td>
             </tr>
           </tbody>
