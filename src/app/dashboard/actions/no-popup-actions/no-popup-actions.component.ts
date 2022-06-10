@@ -96,7 +96,7 @@ export class NoPopupActionsComponent implements OnInit {
     } else if (this.action === 'giroconto') {
       type = 4;
     } else if (this.action === 'ricarica') {
-      type = 3; //sono un prelievo...
+      type = 5; //sono un prelievo...
     }
 
     if (type === 1 || type === 4) {
@@ -118,17 +118,19 @@ export class NoPopupActionsComponent implements OnInit {
             this.showError = true;
           }
         );
-    } else if (type === 3) {
-      this.traService.postTransaction(-this.form1.value.amount, type).subscribe(
-        (response) => {
-          this.errorMessage = '';
-          this.showError = false;
-        },
-        (error) => {
-          this.errorMessage = error.error.message;
-          this.showError = true;
-        }
-      );
+    } else if (type === 5) {
+      this.traService
+        .postTransaction(-this.form1.value.amount, type, this.form1.value.to)
+        .subscribe(
+          (response) => {
+            this.errorMessage = '';
+            this.showError = false;
+          },
+          (error) => {
+            this.errorMessage = error.error.message;
+            this.showError = true;
+          }
+        );
     }
   }
 
