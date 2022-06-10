@@ -6,8 +6,8 @@ import { AuthService } from './../auth/auth.service';
 export interface requestItem {
   id: number;
   accountNumber: string;
-  firstName:string;
-  lastName:string;
+  firstName: string;
+  lastName: string;
   balance: number;
   status: number;
   accountOwnerId: number;
@@ -34,7 +34,6 @@ export class EmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.query = params['request'];
-
 
       if (this.query === 'apertura') {
         this.onOpenAccount();
@@ -65,14 +64,12 @@ export class EmployeeComponent implements OnInit {
         requestOptions
       )
 
-    .subscribe(
+      .subscribe(
         (resData: any) => {
           this.requestList = resData;
         },
-        (error) => {
-          console.log(error);
-        }
-    );
+        (error) => {}
+      );
   }
 
   onCloseAccount() {
@@ -91,17 +88,12 @@ export class EmployeeComponent implements OnInit {
         requestOptions
       )
 
-    .subscribe(
+      .subscribe(
         (resData: any) => {
           this.requestList = resData;
-          console.log(this.requestList);
         },
-        (error) => {
-          console.log(error);
-        }
-    );
-
-
+        (error) => {}
+      );
   }
 
   onRegistration() {
@@ -120,19 +112,15 @@ export class EmployeeComponent implements OnInit {
         'http://localhost:8765/api/accounts/intern/registrations',
         requestOptions
       )
-    .subscribe(
+      .subscribe(
         (resData: any) => {
           this.requestList = resData;
         },
-        (error) => {
-          console.log(error);
-        }
-    );
+        (error) => {}
+      );
   }
 
-  onAcceptRequest(index:number) {
-
-
+  onAcceptRequest(index: number) {
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -141,30 +129,45 @@ export class EmployeeComponent implements OnInit {
       headers: new HttpHeaders(headerDict),
     };
 
-    switch ( this.query ) {
+    switch (this.query) {
       case 'apertura':
-        this.http.put<any>('http://localhost:8765/api/accounts/intern/validation/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
-        .subscribe((res)=>this.onOpenAccount());
-          break;
+        this.http
+          .put<any>(
+            'http://localhost:8765/api/accounts/intern/validation/' +
+              this.requestList[index].id,
+            { account_id: this.requestList[index].id },
+            requestOptions
+          )
+          .subscribe((res) => this.onOpenAccount());
+        break;
       case 'chiusura':
-        this.http.put<any>('http://localhost:8765/api/accounts/intern/rejection/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
-        .subscribe((res)=>this.onCloseAccount());
+        this.http
+          .put<any>(
+            'http://localhost:8765/api/accounts/intern/rejection/' +
+              this.requestList[index].id,
+            { account_id: this.requestList[index].id },
+            requestOptions
+          )
+          .subscribe((res) => this.onCloseAccount());
 
-          break;
+        break;
       case 'registrazione':
-        this.http.put<any>('http://localhost:8765/api/accounts/intern/validation/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
-        .subscribe((res)=>this.onRegistration());
-          break;
+        this.http
+          .put<any>(
+            'http://localhost:8765/api/accounts/intern/validation/' +
+              this.requestList[index].id,
+            { account_id: this.requestList[index].id },
+            requestOptions
+          )
+          .subscribe((res) => this.onRegistration());
+        break;
       default:
-          //
-          break;
-   }
-
-
+        //
+        break;
+    }
   }
 
-  onDeclineRequest(index:number) {
-
+  onDeclineRequest(index: number) {
     const headerDict = {
       Authorization: this.authService.user.value!.token,
     };
@@ -173,43 +176,58 @@ export class EmployeeComponent implements OnInit {
       headers: new HttpHeaders(headerDict),
     };
 
-    switch ( this.query ) {
+    switch (this.query) {
       case 'apertura':
-        this.http.put<any>('http://localhost:8765/api/accounts/intern/rejection/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
-        .subscribe((res)=>this.onOpenAccount());
-          break;
+        this.http
+          .put<any>(
+            'http://localhost:8765/api/accounts/intern/rejection/' +
+              this.requestList[index].id,
+            { account_id: this.requestList[index].id },
+            requestOptions
+          )
+          .subscribe((res) => this.onOpenAccount());
+        break;
       case 'chiusura':
-        this.http.put<any>('http://localhost:8765/api/accounts/intern/validation/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
-        .subscribe((res)=>this.onCloseAccount());
+        this.http
+          .put<any>(
+            'http://localhost:8765/api/accounts/intern/validation/' +
+              this.requestList[index].id,
+            { account_id: this.requestList[index].id },
+            requestOptions
+          )
+          .subscribe((res) => this.onCloseAccount());
 
-          break;
+        break;
       case 'registrazione':
-        this.http.put<any>('http://localhost:8765/api/accounts/intern/rejection/'+ this.requestList[index].id,{account_id: this.requestList[index].id} ,requestOptions)
-        .subscribe((res)=>this.onRegistration());
-          break;
+        this.http
+          .put<any>(
+            'http://localhost:8765/api/accounts/intern/rejection/' +
+              this.requestList[index].id,
+            { account_id: this.requestList[index].id },
+            requestOptions
+          )
+          .subscribe((res) => this.onRegistration());
+        break;
       default:
-          //
-          break;
-   }
-
-
-
+        //
+        break;
+    }
   }
 
-  onRefresh(){
-    switch ( this.query ) {
+  onRefresh() {
+    switch (this.query) {
       case 'apertura':
-          this.onOpenAccount()
-          break;
+        this.onOpenAccount();
+        break;
       case 'chiusura':
-          this.onCloseAccount()
-          break;
+        this.onCloseAccount();
+        break;
       case 'registrazione':
-          this.onRegistration()
-          break;
+        this.onRegistration();
+        break;
       default:
-          //
-          break;
-   }
+        //
+        break;
+    }
   }
 }

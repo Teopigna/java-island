@@ -84,7 +84,6 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
       this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions.reverse();
         this.transactions = this.transactions.slice(0, 9);
-        console.log(this.transactions);
 
         this.data.data = [
           {

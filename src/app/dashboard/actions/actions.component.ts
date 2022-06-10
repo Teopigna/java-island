@@ -42,24 +42,16 @@ export class ActionsComponent implements OnInit, OnDestroy {
         this.currentCard = this.cardService.accountsList[this.cardNumber - 1];
       }
     });
-    
+
     setTimeout(() => {
       if (!this.cardNumber) {
         this.currentCard = this.cardService.accountsList[0];
-        console.log(
-          'CurrentCard (action component): ' + this.cardService.accountsList[0]
-        );
       }
     }, 200);
 
     this.accountListSub = this.cardService.accountsListChanged.subscribe(() => {
       this.currentCard = this.cardService.accountsList[this.cardNumber - 1];
     });
-
-    // this.cardService.cardChanged.subscribe((card) => {
-    //   this.currentCard = card;
-    //   console.log(this.currentCard);
-    // });
   }
 
   onClosePopUp(close: boolean) {

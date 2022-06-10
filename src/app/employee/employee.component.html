@@ -3,54 +3,52 @@
   <div class="row">
     <div class="col-1"></div>
     <div class="col-10">
-      <div *ngIf="this.query==undefined; else menu">
-        <h2>
-          Selezionare una lista dal menu
-        </h2>
+      <div *ngIf="this.query == undefined; else menu">
+        <h2>Selezionare una lista dal menu</h2>
       </div>
 
       <ng-template #menu>
         <h2>Richieste {{ title }}</h2>
-      <table class="table table-hover table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Richiedente</th>
-            <th scope="col">numero di conto</th>
-            <th scope="col">saldo</th>
-            <th scope="col">selezione</th>
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Richiedente</th>
+              <th scope="col">numero di conto</th>
+              <th scope="col">saldo</th>
+              <th scope="col">selezione</th>
 
-            <!--<th scope="col">stato</th> ahswjsj-->
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let listElement of requestList; index as i">
-            <th scope="row" aria-disabled="sent">{{ i + 1 }}</th>
-            <td>
-              {{ listElement.firstName+' '+ listElement.lastName }}
-            </td>
-            <td>{{ listElement.accountNumber }}</td>
+              <!--<th scope="col">stato</th> ahswjsj-->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let listElement of requestList; index as i">
+              <th scope="row" aria-disabled="sent">{{ i + 1 }}</th>
+              <td>
+                {{ listElement.firstName + " " + listElement.lastName }}
+              </td>
+              <td>{{ listElement.accountNumber }}</td>
 
-            <td>{{ listElement.balance }}$</td>
-            <td>
-              <button class="btn btn-warning" (click)="onAcceptRequest(i)" >
-                accetta
-              </button>
-              <button
-                class="btn btn-danger"
-                style="margin-left: 10px"
-                (click)="onDeclineRequest(i)"
-              >
-                rifiuta
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <button (click)="onRefresh()"><i class="fa-solid fa-arrows-rotate"></i></button>
-
+              <td>{{ listElement.balance }}$</td>
+              <td>
+                <button class="btn btn-warning" (click)="onAcceptRequest(i)">
+                  accetta
+                </button>
+                <button
+                  class="btn btn-danger"
+                  style="margin-left: 10px"
+                  (click)="onDeclineRequest(i)"
+                >
+                  rifiuta
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="round-btn" (click)="onRefresh()">
+          <i class="fa-solid fa-arrows-rotate"></i>
+        </button>
       </ng-template>
-
     </div>
   </div>
 </div>

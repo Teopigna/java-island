@@ -5,7 +5,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CardService } from '../../services/card-manage.service';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { waitForAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-account-card',

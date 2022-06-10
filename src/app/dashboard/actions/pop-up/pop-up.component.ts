@@ -24,7 +24,7 @@ export class PopUpComponent implements OnInit {
   @Output() onClose: EventEmitter<boolean> = new EventEmitter();
 
   //Da settare true in caso ci sia un errore durante versamento / prelievo
-  showError :boolean = false;
+  showError: boolean = false;
   errorMessage: string = '';
 
   form3: FormGroup = new FormGroup({});
@@ -45,20 +45,16 @@ export class PopUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.cardIsActive = this.cardService.cardDisplayed?.status;
-    console.log('card is active:', this.cardIsActive);
-    console.log('current card index: ' + this.cardService.currentIndex);
-
-    // console.log(this.accountTransfer[0].iban);
 
     this.form3 = new FormGroup({
       amount: new FormControl(null, [
         Validators.required,
-        Validators.min(0.1)
+        Validators.min(0.1),
         // Validators.pattern(/^\[0-9]+(\.[0-9][0-9])?$/),
       ]),
     });
   }
-  
+
   closeEvent() {
     this.onClose.emit(true);
   }
@@ -66,13 +62,10 @@ export class PopUpComponent implements OnInit {
   onSubmit() {
     // da implementare il bonifico
     if (this.form3.valid) {
-      console.log(this.form3);
-
       // logica per il prelievo e il versamento: i dati aggiornati andranno poi salvati sul db(?)
       if (this.action === 'prelievo') {
         this.traService.postTransaction(-this.form3.value.amount, 3).subscribe(
           (response) => {
-            console.log(response);
             this.showError = false;
             this.errorMessage = '';
             this.closeEvent();
@@ -85,7 +78,6 @@ export class PopUpComponent implements OnInit {
       } else if (this.action === 'versamento') {
         this.traService.postTransaction(this.form3.value.amount, 2).subscribe(
           (response) => {
-            console.log(response);
             this.showError = false;
             this.errorMessage = '';
             this.closeEvent();
@@ -97,7 +89,5 @@ export class PopUpComponent implements OnInit {
         );
       }
     }
-
-    
   }
 }
