@@ -30,7 +30,7 @@
 
       <ul>
         <div>
-          <li><a routerLink="">HomePage</a></li>
+          <li (click)="onLogout()"><a style="cursor: pointer">HomePage</a></li>
           <li *ngIf="userIn && userRole === 'C'">
             <a routerLink="/dashboard">Dashboard</a>
           </li>
