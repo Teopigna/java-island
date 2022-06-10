@@ -85,8 +85,6 @@ export class NoPopupActionsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form1);
-
     let type: number = 0;
 
     if (this.action === 'bonifico') {
@@ -108,7 +106,6 @@ export class NoPopupActionsComponent implements OnInit {
         )
         .subscribe(
           (response) => {
-            console.log(response);
             this.errorMessage = '';
             this.showError = false;
           },
@@ -120,7 +117,6 @@ export class NoPopupActionsComponent implements OnInit {
     } else if (type === 3) {
       this.traService.postTransaction(-this.form1.value.amount, type).subscribe(
         (response) => {
-          console.log(response);
           this.errorMessage = '';
           this.showError = false;
         },
@@ -133,9 +129,6 @@ export class NoPopupActionsComponent implements OnInit {
   }
 
   onNavigate() {
-    console.log('Carta sui query params:');
-    console.log(this.cardService.currentIndex + 1);
-
     this.router.navigate(['dashboard'], {
       queryParams: { card: (this.cardService.currentIndex + 1).toString() },
       fragment: 'activated',

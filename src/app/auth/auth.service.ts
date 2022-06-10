@@ -84,8 +84,6 @@ export class AuthService {
     //Salva l'utente nel localStorage per la funzione di AutoLogin
     localStorage.setItem('user', JSON.stringify(user));
 
-    console.log('Role = ' + role);
-
     if (role === 'C') {
       this.router.navigate(['/dashboard']);
     } else {

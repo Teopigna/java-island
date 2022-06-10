@@ -5,37 +5,36 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-warning-popup',
   templateUrl: './warning-popup.component.html',
-  styleUrls: ['./warning-popup.component.css']
+  styleUrls: ['./warning-popup.component.css'],
 })
 export class WarningPopupComponent implements OnInit {
-
   @Output() onClose: EventEmitter<null> = new EventEmitter();
 
   indexToClose?: number;
 
   requestError = false;
 
-  constructor(private authService: AuthService, private cardService: CardService) { }
+  constructor(
+    private authService: AuthService,
+    private cardService: CardService
+  ) {}
 
   ngOnInit(): void {
     this.indexToClose = this.cardService.indexToClose;
   }
 
-  sendCloseRequest(){
+  sendCloseRequest() {
     const id = this.cardService.indexToClose;
-    
+
     this.cardService.closeAccount(id).subscribe(
-      (resData) => {
-        //console.log(resData);
-      },
+      (resData) => {},
       (error) => {
-        console.log(error.error.message);
         this.requestError = true;
-      } 
-    )
+      }
+    );
   }
 
-  onCancel(){
+  onCancel() {
     this.onClose.emit(null);
   }
 
@@ -43,5 +42,4 @@ export class WarningPopupComponent implements OnInit {
     //this.authService.logout();
     this.onClose.emit(null);
   }
-
 }

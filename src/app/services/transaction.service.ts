@@ -34,7 +34,9 @@ export class TransactionService {
       )
       .pipe(
         map((resData: Transaction[]) => {
-          resData.map( (e: Transaction) =>  {e.date = e.date.slice(0,10)})
+          resData.map((e: Transaction) => {
+            e.date = e.date.slice(0, 10);
+          });
           return resData;
         }),
         tap((resData) => {
@@ -63,7 +65,8 @@ export class TransactionService {
           amount: amount,
         },
         requestOptions
-      ).pipe(
+      )
+      .pipe(
         tap((res) => {
           this.cardService.getAccounts().subscribe((cardsList) => {
             this.cardService.cardChanged.next(
@@ -72,21 +75,7 @@ export class TransactionService {
           });
           this.getTransactions().subscribe();
         })
-      )
-      // .subscribe(
-      //   (response) => {
-      //     console.log(response);
-      //     this.cardService.getAccounts().subscribe((cardsList) => {
-      //       this.cardService.cardChanged.next(
-      //         cardsList[this.cardService.currentIndex]
-      //       );
-      //     });
-      //     this.getTransactions().subscribe();
-      //   },
-      //   (error) => {
-      //     console.log(error);
-      //   }
-      // );
+      );
   }
 
   //Chiamata per Bonifico/Giroconto
