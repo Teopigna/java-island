@@ -4,14 +4,11 @@ import {
   FormControl,
   FormGroup,
   Validators,
-  ReactiveFormsModule,
   ValidatorFn,
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { skip } from 'rxjs';
 
 export const passwordMatchingValidatior: ValidatorFn = (
   control: AbstractControl
