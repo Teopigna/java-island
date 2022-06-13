@@ -52,6 +52,8 @@ button.btn-outline-success:hover {
 
   width: fit-content;
   padding: 20px;
+
+  margin: 0;
 }
 
 @media screen and (min-width: 700px) {
