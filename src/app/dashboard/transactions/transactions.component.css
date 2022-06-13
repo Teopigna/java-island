@@ -25,9 +25,19 @@ table {
 
   position: absolute;
   right: 40px;
-  top: 40px;
+  top: 30px;
 
   z-index: 1;
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 15px !important;
+
+  background: rgba(84, 127, 154, 0.9);
+}
+
+td {
+  cursor: pointer;
 }
 
 .round-btn:hover,
