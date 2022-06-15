@@ -133,12 +133,6 @@
             <div class="form-group">
               <label for="name">Nome</label>
               <input
-                ngbDatepicker
-                #d="ngbDatepicker"
-                [minDate]="{ year: 1920, month: 1, day: 1 }"
-                [maxDate]="{ year: 2022, month: 1, day: 1 }"
-                placeholder="dd-mm-yyyy"
-                date="dd-mm-yyyy"
                 type="text"
                 text
                 id="name"
@@ -180,12 +174,12 @@
               <label for="birthDate" class="date-label">Data di nascita</label>
               <div class="input-group mb-2 justify-content-center">
                 <input
-                  data-date-format="YYYY-MM-DD"
                   ngbDatepicker
                   #d="ngbDatepicker"
                   [minDate]="{ year: 1920, month: 1, day: 1 }"
                   [maxDate]="{ year: 2022, month: 1, day: 1 }"
-                  placeholder="yyyy-mm-dd"
+                  placeholder="dd-mm-yyyy"
+                  date="dd-mm-yyyy"
                   type="text"
                   id="birthDate"
                   formControlName="birthDate"
