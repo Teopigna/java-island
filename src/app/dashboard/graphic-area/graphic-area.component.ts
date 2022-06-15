@@ -14,7 +14,7 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   data = {
     chart: {
       caption: 'Grafico delle <b>tue</b> transazioni',
-      yaxisname: 'Ammontare',
+      yaxisname: 'Importo',
       anchorradius: '5',
       plottooltext: '$label: <b>$dataValue</b>',
       showhovereffect: '1',
@@ -36,7 +36,6 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   // per il momento, o se non si riesce a fare, mettiamo una grandezza che va bene
   // per ogni tipo di device
 
-  // da provare altro: più responsive
   width: any = '40%';
   height = '170';
   type = 'spline';
@@ -46,7 +45,6 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   // per la progress bar:
   progressAnimation = '0';
   maxprogress = '60';
-  subscription: Subscription = new Subscription();
 
   //Per le transazioni
   transactionChangeSub: Subscription = new Subscription();
@@ -72,13 +70,6 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // per la progress bar
-    // this.subscription = interval(100).subscribe(() => {
-    //   this.changeWidth();
-    //   if (+this.progressAnimation >= +this.maxprogress) {
-    //     this.subscription?.unsubscribe();
-    //   }
-    // });
 
     this.transactionChangeSub =
       this.transactionService.transactionsChanged.subscribe(() => {
@@ -108,7 +99,6 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
           .reverse()
           .slice(0, this.data.data.length - 1);
       });
-    // inserire la questione che si aggiorna in modo automatico anche all'inizio: la width.
   }
 
   private changeWidth() {
@@ -116,8 +106,6 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-
     this.transactionChangeSub.unsubscribe();
   }
 }

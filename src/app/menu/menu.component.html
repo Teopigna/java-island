@@ -1,15 +1,6 @@
-<div *ngIf="menuDashboard" (click)="onSlideMenu()" class="open-menu-dash">
-  <i class="fa-solid fa-bars"></i>
-</div>
-<div *ngIf="!menuDashboard"(click)="onSlideMenu()" class="open-menu">
-  <i class="fa-solid fa-bars"></i>
-</div>
-<div [@menu]="menuState" class="menu-container" *ngIf="menu === 'open'">
-  <div *ngIf="userRole === 'C'">
-    <div class="nav-menu">
-      <button (click)="onSlideMenu()"><i class="fa-solid fa-bars"></i></button>
-    </div>
-    <ul class="nav-links">
+<div *ngIf="desktopMenu" class="flex-div">
+  <div *ngIf="userRole === 'C'" class="desktop-menu">
+    <ul class="nav-links dark-text">
       <li>
         <a routerLink="/dashboard"
           ><i class="fa-solid fa-house"></i> Dashboard</a
@@ -23,17 +14,16 @@
           ><i class="fa-solid fa-money-check-dollar"></i> Gestione Conti</a
         >
       </li>
+      <li>
+        <a style="cursor: pointer" (click)="onLogout()">
+          Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </a>
+      </li>
     </ul>
   </div>
 
-  <div *ngIf="userRole === 'D'">
-    <div class="nav-menu">
-      <button routerLink="/dipendente">
-        <i class="fa-solid fa-house"></i>
-      </button>
-      <button (click)="onSlideMenu()"><i class="fa-solid fa-bars"></i></button>
-    </div>
-    <ul class="nav-links">
+  <div *ngIf="userRole === 'D'" class="desktop-menu">
+    <ul class="nav-links dark-text">
       <li>
         Richieste:
         <ul class="nav-links">
@@ -61,18 +51,102 @@
             >
           </li>
           <li>
-            <a style="cursor: pointer" [href]="fileUrl" download="Lista Correntisti"
+            <a
+              style="cursor: pointer"
+              [href]="fileUrl"
+              download="Lista Correntisti"
               >Scarica file lista correntisti</a
             >
           </li>
         </ul>
       </li>
-
     </ul>
   </div>
-  <div class="logout-btn">
-    <button type="button" (click)="onLogout()">
-      Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
-    </button>
+</div>
+
+<div *ngIf="!desktopMenu">
+  <div *ngIf="menuDashboard" (click)="onSlideMenu()" class="open-menu-dash">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+  <div *ngIf="!menuDashboard" (click)="onSlideMenu()" class="open-menu">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+  <div [@menu]="menuState" class="menu-container" *ngIf="menu === 'open'">
+    <div *ngIf="userRole === 'C'">
+      <div class="nav-menu">
+        <button (click)="onSlideMenu()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a routerLink="/dashboard"
+            ><i class="fa-solid fa-house"></i> Dashboard</a
+          >
+        </li>
+        <li>
+          <a routerLink="/profilo"><i class="fa-solid fa-user"></i> Profilo</a>
+        </li>
+        <li>
+          <a routerLink="/gestione-conti"
+            ><i class="fa-solid fa-money-check-dollar"></i> Gestione Conti</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="userRole === 'D'">
+      <div class="nav-menu">
+        <button routerLink="/dipendente">
+          <i class="fa-solid fa-house"></i>
+        </button>
+        <button (click)="onSlideMenu()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+      <ul class="nav-links">
+        <li>
+          Richieste:
+          <ul class="nav-links">
+            <li>
+              <a
+                [routerLink]="['/dipendente']"
+                [queryParams]="{ request: 'apertura' }"
+                ><i class="fa-solid fa-credit-card" style="color: green"></i>
+                Aperture Conti</a
+              >
+            </li>
+            <li>
+              <a
+                [routerLink]="['/dipendente']"
+                [queryParams]="{ request: 'chiusura' }"
+                ><i class="fa-solid fa-credit-card" style="color: red"></i>
+                Chiusure Conti</a
+              >
+            </li>
+            <li>
+              <a
+                [routerLink]="['/dipendente']"
+                [queryParams]="{ request: 'registrazione' }"
+                ><i class="fa-solid fa-user-plus"></i> Registrazione Utenti</a
+              >
+            </li>
+            <li>
+              <a
+                style="cursor: pointer"
+                [href]="fileUrl"
+                download="Lista Correntisti"
+                >Scarica file lista correntisti</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="logout-btn">
+      <button type="button" (click)="onLogout()">
+        Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      </button>
+    </div>
   </div>
 </div>

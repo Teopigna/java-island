@@ -1,7 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Transaction } from './../../shared/transaction.model';
-import { CardService } from '../../services/card-manage.service';
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Sort } from '@angular/material/sort';
@@ -14,7 +13,7 @@ import { Sort } from '@angular/material/sort';
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.css'],
 })
-export class TransactionsComponent implements OnInit {
+export class TransactionsComponent implements OnInit, OnDestroy {
   transactions: Transaction[] = [];
   fileList:string='';
   fileUrl: any;
@@ -34,7 +33,6 @@ export class TransactionsComponent implements OnInit {
 
   ngOnInit(): void {
 
-
     this.transactionChangeSub =
       this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions;
@@ -43,6 +41,7 @@ export class TransactionsComponent implements OnInit {
         this.downloadList()
       })
     this.fileList='';
+    
   }
 
   sortData(sort: Sort) {
@@ -110,6 +109,9 @@ export class TransactionsComponent implements OnInit {
 
 
 
+  ngOnDestroy(): void {
+      this.transactionChangeSub.unsubscribe();
+  }
 }
 
 

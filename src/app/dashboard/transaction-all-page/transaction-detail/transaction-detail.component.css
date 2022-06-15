@@ -1,0 +1,17 @@
+ul {
+  list-style-type: none;
+}
+
+.main-container {
+  background-color: rgba(var(--home-bg-rgb), 0.4);
+  padding: 30px;
+  border-radius: 15px;
+
+  margin-bottom: 20px;
+}
+
+li {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

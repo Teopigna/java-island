@@ -6,14 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+
 
 @Component({
   selector: 'app-error-page',
@@ -39,7 +32,6 @@ export class ErrorPageComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: ActivatedRoute,
     private auth: AuthService
   ) {}
 

@@ -33,7 +33,7 @@
             <td>
               {{ account.accountNumber }}
             </td>
-            <td>{{ account.balance | number }} €</td>
+            <td>€ {{ account.balance | number }} </td>
             <td [ngStyle]="{ color: account.status === 0 ? 'green' : 'red' }">
               {{
                 account.status === 0 ? "attivo" : checkActivity(account.status)
