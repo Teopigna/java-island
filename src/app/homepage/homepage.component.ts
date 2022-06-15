@@ -1,5 +1,6 @@
+
 import { AuthService } from './../auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,7 +9,9 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 export const passwordMatchingValidatior: ValidatorFn = (
   control: AbstractControl
@@ -21,12 +24,16 @@ export const passwordMatchingValidatior: ValidatorFn = (
     : { notmatched: true };
 };
 
+
+
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent implements OnInit {
+
+  
   // Used to manage wich panel to show: signUp or login
   login: boolean = false;
   signUp: boolean = false;
@@ -89,12 +96,23 @@ export class HomepageComponent implements OnInit {
     const password = this.signUpForm.value.password;
     const name = this.signUpForm.value.name;
     const surname = this.signUpForm.value.surname;
-    const birthDate = this.dateFormatter.format(
-      this.signUpForm.value.birthDate
-    );
+
+    // Formattazione stringa, che nel form è dd-mm-yyyy : deve diventare yyyy-mm-dd
+    let d = '';
+    let m = '';
+
+    if(this.signUpForm.value.birthDate.day < 10 ) {d='0'}
+    if(this.signUpForm.value.birthDate.month < 10 ) {m='0'}
+    //Ricostruisco la data nel formato yyyy-mm-dd
+    const validDate = 
+      this.signUpForm.value.birthDate.year + "-" 
+      + m +this.signUpForm.value.birthDate.month + "-" 
+      + d + this.signUpForm.value.birthDate.day 
+    
+
 
     this.authService
-      .signUp(name, surname, email, birthDate, password)
+      .signUp(name, surname, email, validDate, password)
       .subscribe(
         (resData) => {
           this.signUpForm.reset();
@@ -138,4 +156,56 @@ export class HomepageComponent implements OnInit {
     this.signUp = true;
     this.loginErrorMessage = null;
   }
+}
+
+@Injectable()
+export class NgbDateCustomParserFormatter extends NgbDateParserFormatter {
+
+  DELIMITER = '-';
+
+  
+
+  parse(value: string): NgbDateStruct {
+    const dateParts = value.trim().split("/");
+      
+    return {
+      day: toInteger(dateParts[0]),
+      month: toInteger(dateParts[1]),
+      year: toInteger(dateParts[2])
+    };
+  }
+
+  format(date: NgbDateStruct): string {
+    return date
+      ? `${isNumber(date.day) ? padNumber(date.day) : ""}-${isNumber(date.month) ? padNumber(date.month) : ""}-${
+          date.year
+        }`
+      : "";
+  }
+
+  getValidFormat(date: NgbDateStruct) : string {
+    return date
+      ? `${date.year}-${isNumber(date.month) ? padNumber(date.month) : ""}-${
+         isNumber(date.year) ? padNumber(date.year) : ""
+        }`
+      : "";
+  }
+}
+
+
+export function toInteger(value: any): number {
+  return parseInt(`${value}`, 10);
+}
+
+export function isNumber(value: any): value is number {
+  return !isNaN(toInteger(value));
+}
+
+export function padNumber(value: number) {
+  if (isNumber(value)) {
+    return `0${value}`.slice(-2);
+  } else {
+    return "";
+  }
+
 }

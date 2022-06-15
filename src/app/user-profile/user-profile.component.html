@@ -25,7 +25,7 @@
     <div class="birth">
       <div class="field-container">
         <h5>Data di nascita</h5>
-        <h5 class="field">{{ birthDate!.slice(0, 10) }}</h5>
+        <h5 class="field">{{ birthDate!.slice(0, 10) | date: 'dd/MM/yyyy'}}</h5>
       </div>
     </div>
     <div class="email-container">
