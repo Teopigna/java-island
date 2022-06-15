@@ -1,0 +1,72 @@
+<app-menu></app-menu>
+
+<div class="row d-flex text-center">
+  <h1>Le tue transazioni</h1>
+</div>
+
+<div class="center">
+  <router-outlet></router-outlet>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <button class="sort-btn" (click)="onReverse()">
+              <th>
+                Data
+                <span>
+                  <i *ngIf="!ordine" class="fa-solid fa-sort-down"></i>
+                  <i *ngIf="ordine" class="fa-solid fa-sort-up"></i>
+                </span>
+              </th>
+            </button>
+
+            <th>Importo</th>
+            <th>Da</th>
+            <th>A</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- aggiungere una custom class al tooltip se rimane tempo  -->
+          <tr
+            *ngFor="let transaction of transactions"
+            [matTooltip]="
+              transaction.cause ? 'Causale: ' + transaction.cause : ''
+            "
+            matTooltipPosition="above"
+            [routerLink]="['/transazioni', transaction.id]"
+            (click)="onChangeTransaction(transaction)"
+          >
+            <td>
+              <i>{{ transaction.date | date: "dd/MM/yyyy" }}</i>
+            </td>
+            <td>
+              <b>€ {{ transaction.amount }}</b>
+            </td>
+            <td>{{ transaction.accountNumberFrom }}</td>
+            <td>{{ transaction.accountNumberTo }}</td>
+            <td>
+              {{
+                transaction.type === 1
+                  ? "bonifico"
+                  : transaction.type === 2
+                  ? "versamento"
+                  : transaction.type === 3
+                  ? "prelievo"
+                  : transaction.type === 4
+                  ? "giroconto"
+                  : transaction.type === 5
+                  ? "ricarica"
+                  : ""
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

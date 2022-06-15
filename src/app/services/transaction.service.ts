@@ -10,6 +10,19 @@ export class TransactionService {
   transactions: Transaction[] = [];
   transactionsChanged = new BehaviorSubject<Transaction[]>([]);
 
+  currentTransaction: Transaction = {
+    accountNumberFrom: '',
+    accountNumberTo: null,
+    accountOwnerId: 0,
+    amount: 0,
+    cause: null,
+    date: '',
+    id: 0,
+  };
+  currentTransactionChanged = new BehaviorSubject<Transaction>(
+    this.currentTransaction
+  );
+
   constructor(
     private authService: AuthService,
     private http: HttpClient,

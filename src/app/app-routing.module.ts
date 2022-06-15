@@ -1,3 +1,5 @@
+import { TransactionDetailComponent } from './dashboard/transaction-all-page/transaction-detail/transaction-detail.component';
+import { TransactionAllPageComponent } from './dashboard/transaction-all-page/transaction-all-page.component';
 import { NoPopupActionsComponent } from './dashboard/actions/no-popup-actions/no-popup-actions.component';
 import { AuthGuardD } from './auth/authD.guard';
 import { AuthGuardC } from './auth/authC.guard';
@@ -16,6 +18,11 @@ const appRoutes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuardC],
+  },
+  {
+    path: 'transazioni',
+    component: TransactionAllPageComponent,
+    children: [{ path: ':id', component: TransactionDetailComponent }],
   },
   {
     path: 'bonifico',

@@ -118,62 +118,21 @@
 <!-- SIGNUP PANEL -->
 
 <div class="container" *ngIf="signUp">
-  <div class="panel panel-default col-md-2 signup-panel">
-    <div class="panel-title text-center"><h3>JavaIsland</h3></div>
-    <br />
-    <!-- Pannello errore signUp -->
-    <div class="alert alert-danger" *ngIf="signUpErrorMessage">
-      <p style="text-align: center">{{ signUpErrorMessage }}</p>
-    </div>
-    <!-- Fine Pannello errore -->
-    <div class="panel-body text-center">
-      <form [formGroup]="signUpForm" (ngSubmit)="onSubmitSignUp()">
-        <div class="col-xs-12 justify-content-center">
-          <div class="form-group">
-            <label for="name">Nome</label>
-            <input
-              type="text"
-              text
-              id="name"
-              formControlName="name"
-              class="form-control"
-            />
-            <!-- Messaggio errore in caso nome non valido -->
-            <span
-              class="error help-block"
-              *ngIf="
-                !signUpForm.get('name')?.valid &&
-                signUpForm.get('name')?.touched
-              "
-              >Nome invalido
-            </span>
-            <!-- Fine messaggio errore -->
-          </div>
-          <div class="form-group">
-            <label for="surname">Cognome</label>
-            <input
-              type="text"
-              id="surname"
-              formControlName="surname"
-              class="form-control"
-            />
-            <!-- Messaggio errore in caso cognome non valid0 -->
-            <span
-              class="error help-block"
-              *ngIf="
-                !signUpForm.get('surname')?.valid &&
-                signUpForm.get('surname')?.touched
-              "
-              >Cognome invalido
-            </span>
-            <!-- Fine messaggio errore -->
-          </div>
-
-          <div class="form-group">
-            <label for="birthDate" class="date-label">Data di nascita</label>
-            <div class="input-group mb-2 justify-content-center">
+  <div class="vertical-center">
+    <div class="panel panel-default col-md-2">
+      <div class="panel-title text-center"><h3>JavaIsland</h3></div>
+      <br />
+      <!-- Pannello errore signUp -->
+      <div class="alert alert-danger" *ngIf="signUpErrorMessage">
+        <p style="text-align: center">{{ signUpErrorMessage }}</p>
+      </div>
+      <!-- Fine Pannello errore -->
+      <div class="panel-body text-center">
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmitSignUp()">
+          <div class="col-xs-12 justify-content-center">
+            <div class="form-group">
+              <label for="name">Nome</label>
               <input
-                
                 ngbDatepicker
                 #d="ngbDatepicker"
                 [minDate]="{ year: 1920, month: 1, day: 1 }"
@@ -181,101 +140,149 @@
                 placeholder="dd-mm-yyyy"
                 date="dd-mm-yyyy"
                 type="text"
-                id="birthDate"
-                formControlName="birthDate"
-                class="form-control custom-date"
-                (click)="d.toggle()"
+                text
+                id="name"
+                formControlName="name"
+                class="form-control"
               />
+              <!-- Messaggio errore in caso nome non valido -->
               <span
-                class="error"
-                class="input-group-text"
-                id="basic-addon2"
-                (click)="d.toggle()"
-              >
-                <i class="fa-solid fa-calendar-days"></i>
+                class="error help-block"
+                *ngIf="
+                  !signUpForm.get('name')?.valid &&
+                  signUpForm.get('name')?.touched
+                "
+                >Nome invalido
               </span>
+              <!-- Fine messaggio errore -->
+            </div>
+            <div class="form-group">
+              <label for="surname">Cognome</label>
+              <input
+                type="text"
+                id="surname"
+                formControlName="surname"
+                class="form-control"
+              />
+              <!-- Messaggio errore in caso cognome non valid0 -->
+              <span
+                class="error help-block"
+                *ngIf="
+                  !signUpForm.get('surname')?.valid &&
+                  signUpForm.get('surname')?.touched
+                "
+                >Cognome invalido
+              </span>
+              <!-- Fine messaggio errore -->
             </div>
 
-            <!-- Messaggio errore in caso data di nascita non valida -->
-            <span
-              class="error help-block"
-              *ngIf="
-                !signUpForm.get('birthDate')?.valid &&
-                signUpForm.get('birthDate')?.touched
-              "
-              >Inserire data valida
-            </span>
-            <!-- Fine messaggio errore -->
-          </div>
+            <div class="form-group">
+              <label for="birthDate" class="date-label">Data di nascita</label>
+              <div class="input-group mb-2 justify-content-center">
+                <input
+                  data-date-format="YYYY-MM-DD"
+                  ngbDatepicker
+                  #d="ngbDatepicker"
+                  [minDate]="{ year: 1920, month: 1, day: 1 }"
+                  [maxDate]="{ year: 2022, month: 1, day: 1 }"
+                  placeholder="yyyy-mm-dd"
+                  type="text"
+                  id="birthDate"
+                  formControlName="birthDate"
+                  class="form-control custom-date"
+                  (click)="d.toggle()"
+                />
+                <span
+                  class="error"
+                  class="input-group-text"
+                  id="basic-addon2"
+                  (click)="d.toggle()"
+                >
+                  <i class="fa-solid fa-calendar-days"></i>
+                </span>
+              </div>
 
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input
-              type="text"
-              id="email"
-              formControlName="email"
-              class="form-control"
-            />
-            <!-- Messaggio errore in caso email non valida -->
-            <span
-              class="error help-block"
-              *ngIf="
-                !signUpForm.get('email')?.valid &&
-                signUpForm.get('email')?.touched
-              "
-              >Inserire email valida
-            </span>
-            <!-- Fine messaggio errore -->
+              <!-- Messaggio errore in caso data di nascita non valida -->
+              <span
+                class="error help-block"
+                *ngIf="
+                  !signUpForm.get('birthDate')?.valid &&
+                  signUpForm.get('birthDate')?.touched
+                "
+                >Inserire data valida
+              </span>
+              <!-- Fine messaggio errore -->
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="text"
+                id="email"
+                formControlName="email"
+                class="form-control"
+              />
+              <!-- Messaggio errore in caso email non valida -->
+              <span
+                class="error help-block"
+                *ngIf="
+                  !signUpForm.get('email')?.valid &&
+                  signUpForm.get('email')?.touched
+                "
+                >Inserire email valida
+              </span>
+              <!-- Fine messaggio errore -->
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                formControlName="password"
+                class="form-control"
+                password
+              />
+              <!-- Messaggio errore in caso password non valida -->
+              <span
+                class="error help-block"
+                *ngIf="
+                  !signUpForm.get('password')?.valid &&
+                  signUpForm.get('password')?.touched
+                "
+                >Inserire password
+              </span>
+              <!-- Fine messaggio errore -->
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Conferma password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                formControlName="confirmPassword"
+                class="form-control"
+                password
+              />
+              <!-- Messaggio errore in caso conferma password vuota -->
+              <span
+                class="error help-block"
+                *ngIf="
+                  (signUpForm.get('confirmPassword')?.touched &&
+                  signUpForm.errors?.['notmatched'])
+                "
+                >Le password non coincidono
+              </span>
+              <!-- Fine messaggio errore -->
+            </div>
+            <button
+              type="submit"
+              class="btn btn-outline-success"
+              [disabled]="!signUpForm.valid"
+            >
+              SignUp
+            </button>
           </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              formControlName="password"
-              class="form-control"
-              password
-            />
-            <!-- Messaggio errore in caso password non valida -->
-            <span
-              class="error help-block"
-              *ngIf="
-                !signUpForm.get('password')?.valid &&
-                signUpForm.get('password')?.touched
-              "
-              >Inserire password
-            </span>
-            <!-- Fine messaggio errore -->
-          </div>
-          <div class="form-group">
-            <label for="confirmPassword">Conferma password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              formControlName="confirmPassword"
-              class="form-control"
-              password
-            />
-            <!-- Messaggio errore in caso conferma password vuota -->
-            <span
-              class="error help-block"
-              *ngIf="
-                (signUpForm.get('confirmPassword')?.touched &&
-                signUpForm.errors?.['notmatched'])
-              "
-              >Le password non coincidono
-            </span>
-            <!-- Fine messaggio errore -->
-          </div>
-          <button
-            type="submit"
-            class="btn btn-outline-success"
-            [disabled]="!signUpForm.valid"
-          >
-            SignUp
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>

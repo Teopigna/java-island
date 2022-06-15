@@ -23,7 +23,10 @@ import { GraphicAreaComponent } from './dashboard/graphic-area/graphic-area.comp
 import { ActionsComponent } from './dashboard/actions/actions.component';
 import { TransactionsComponent } from './dashboard/transactions/transactions.component';
 import { PopUpComponent } from './dashboard/actions/pop-up/pop-up.component';
-import { HomepageComponent, NgbDateCustomParserFormatter } from './homepage/homepage.component';
+import {
+  HomepageComponent,
+  NgbDateCustomParserFormatter,
+} from './homepage/homepage.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { FusionChartsModule } from 'angular-fusioncharts';
@@ -47,6 +50,8 @@ import { ProgressBarsComponent } from './dashboard/progress-bars/progress-bars.c
 import { AddCardPopupComponent } from './account-management/add-card-popup/add-card-popup.component';
 import { WarningPopupComponent } from './account-management/warning-popup/warning-popup.component';
 import { NoPopupActionsComponent } from './dashboard/actions/no-popup-actions/no-popup-actions.component';
+import { TransactionAllPageComponent } from './dashboard/transaction-all-page/transaction-all-page.component';
+import { TransactionDetailComponent } from './dashboard/transaction-all-page/transaction-detail/transaction-detail.component';
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
@@ -70,7 +75,9 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     WarningPopupComponent,
     NoPopupActionsComponent,
     TwoDigitDecimalDirective,
-    TwoDigitDecimalDirectiveMat
+    TransactionAllPageComponent,
+    TransactionDetailComponent,
+    TwoDigitDecimalDirectiveMat,
   ],
   imports: [
     BrowserModule,
@@ -89,9 +96,10 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    
   ],
-  providers: [{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}],
+  providers: [
+    { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

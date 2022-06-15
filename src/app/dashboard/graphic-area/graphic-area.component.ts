@@ -14,7 +14,7 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   data = {
     chart: {
       caption: 'Grafico delle <b>tue</b> transazioni',
-      yaxisname: 'Ammontare',
+      yaxisname: 'Importo',
       anchorradius: '5',
       plottooltext: '$label: <b>$dataValue</b>',
       showhovereffect: '1',
