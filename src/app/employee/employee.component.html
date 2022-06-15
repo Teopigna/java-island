@@ -4,11 +4,11 @@
     <div class="col-1"></div>
     <div class="col-10">
       <div *ngIf="this.query == undefined; else menu">
-        <h2>Selezionare una lista dal menu</h2>
+        <h1>Selezionare una lista dal menu</h1>
       </div>
 
       <ng-template #menu>
-        <h2>Richieste {{ title }}</h2>
+        <h1>Richieste {{ title }}</h1>
         <table class="table table-hover table-striped">
           <thead>
             <tr>

@@ -58,6 +58,7 @@ td {
 
 .panel-container {
   position: relative;
+
 }
 
 .panel-container p {
@@ -112,6 +113,7 @@ td {
 
 .container-actions {
   position: relative;
+  max-width: 95%;
 }
 
 @media screen and (min-width: 435px) {
