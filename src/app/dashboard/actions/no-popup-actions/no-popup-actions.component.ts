@@ -1,18 +1,14 @@
-import { Observable } from 'rxjs';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { Location } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import {
   Component,
   EventEmitter,
   HostListener,
-  Input,
   OnInit,
   Output,
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
 import { CardService } from 'src/app/services/card-manage.service';
 import { Account } from 'src/app/shared/account.model';
 import { StepperOrientation } from '@angular/cdk/stepper';
@@ -90,11 +86,7 @@ export class NoPopupActionsComponent implements OnInit {
         // la causale non è obbligatoria
         description: new FormControl(null, [Validators.maxLength(200)]),
       });
-    }
-
-    
-
-    
+    }  
   }
 
   @HostListener('window:resize', ['$event'])

@@ -1,6 +1,6 @@
 import { CardService } from 'src/app/services/card-manage.service';
 import { AuthService } from './../../auth/auth.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-warning-popup',
@@ -39,7 +39,6 @@ export class WarningPopupComponent implements OnInit {
   }
 
   onOK() {
-    //this.authService.logout();
     this.onClose.emit(null);
   }
 }

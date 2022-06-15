@@ -1,7 +1,5 @@
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Account } from './../shared/account.model';
-import { Card } from '../services/card-manage.service';
-
 import { CardService } from './../services/card-manage.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 

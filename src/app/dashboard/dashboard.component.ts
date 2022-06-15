@@ -1,4 +1,4 @@
-import { TransactionService } from 'src/app/services/transaction.service';
+
 import { Account } from './../shared/account.model';
 import { AuthService } from './../auth/auth.service';
 import { CardService } from '../services/card-manage.service';
@@ -17,8 +17,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private cardService: CardService,
-    private authService: AuthService,
-    private transactionService: TransactionService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {

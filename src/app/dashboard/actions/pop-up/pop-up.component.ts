@@ -1,18 +1,15 @@
 import { TransactionService } from 'src/app/services/transaction.service';
-import { AuthService } from './../../../auth/auth.service';
 import { Account } from './../../../shared/account.model';
 import { CardService } from '../../../services/card-manage.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {
   Component,
   Input,
   OnInit,
-  OnDestroy,
   Output,
   EventEmitter,
 } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-pop-up',
