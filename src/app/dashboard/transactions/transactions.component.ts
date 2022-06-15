@@ -4,6 +4,10 @@ import { CardService } from '../../services/card-manage.service';
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Sort } from '@angular/material/sort';
+
+
+
 
 @Component({
   selector: 'app-transactions',
@@ -15,13 +19,18 @@ export class TransactionsComponent implements OnInit {
   fileList:string='';
   fileUrl: any;
   ordine: boolean=false;
+  sortedList:Transaction[]=[];
 
   transactionsDisplayed: Transaction[] = [];
 
   transactionChangeSub: Subscription = new Subscription();
 
   constructor(private transactionService: TransactionService,
-    private sanitizer: DomSanitizer) {}
+              private sanitizer: DomSanitizer,
+
+              ) {
+
+              }
 
   ngOnInit(): void {
 
@@ -30,12 +39,33 @@ export class TransactionsComponent implements OnInit {
       this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions;
         this.transactionsDisplayed = this.transactions;
+
         this.downloadList()
       })
     this.fileList='';
   }
 
+  sortData(sort: Sort) {
+    const data = this.transactionsDisplayed.slice();
+    if (!sort.active || sort.direction == '') {
+      this.transactionsDisplayed = data;
+      return;
+    }
 
+    this.transactionsDisplayed = data.sort((a, b) => {
+      let isAsc = sort.direction == 'asc';
+      switch (sort.active) {
+        case 'date': return this.compare(a.date, b.date, isAsc);
+        case 'amount': return this.compare(+a.amount, +b.amount, isAsc);
+        case 'type': return this.compare(+a.type!, +b.type!, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
+  compare(a:  number | string, b:  number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
 
   downloadList(){
     this.ordine=false;
@@ -76,9 +106,10 @@ export class TransactionsComponent implements OnInit {
     }
   }
 
-  onReverse(){
-    this.transactionsDisplayed.reverse()
-    this.ordine=!this.ordine
-  }
+
+
+
 
 }
+
+

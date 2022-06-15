@@ -22,23 +22,14 @@
         Nessuna transazione effettuata.
       </p>
       <div class="panel">
-        <table class="table table-hover table-striped">
+        <table matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="date" class="table table-hover table-striped">
           <thead>
             <tr>
-              <button class="sort-btn" (click)="onReverse()">
-                <th>
-                  Data
-                  <span>
-                    <i *ngIf="!ordine" class="fa-solid fa-sort-down"></i>
-                    <i *ngIf="ordine" class="fa-solid fa-sort-up"></i>
-                  </span>
-                </th>
-              </button>
-
-              <th>Importo</th>
+              <th mat-sort-header="date">Data</th>
+              <th mat-sort-header="amount">Importo</th>
               <th>Da</th>
               <th>A</th>
-              <th>Tipo</th>
+              <th mat-sort-header="type">Tipo</th>
             </tr>
           </thead>
           <tbody>
