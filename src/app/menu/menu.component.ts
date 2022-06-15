@@ -6,7 +6,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { DomSanitizer } from '@angular/platform-browser';
@@ -45,6 +45,10 @@ export class MenuComponent implements OnInit {
 
   userRole: string | undefined = '';
 
+  // se è vero: ho il menu da desktop
+  // altrimenti ho l'hamburger
+  desktopMenu: boolean = false;
+
   constructor(
     private authService: AuthService,
     private http: HttpClient,
@@ -53,6 +57,8 @@ export class MenuComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.onResize();
+
     this.route.url.subscribe((data: any) => {
       if (data[0].path === 'dashboard') {
         this.menuDashboard = true;
@@ -120,6 +126,16 @@ export class MenuComponent implements OnInit {
         window.URL.createObjectURL(blob)
       );
     }, 1000);
+  }
+
+  // resize della pagina cambia il tipo di menu che si visualizza
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: any) {
+    if (window.innerWidth < 900) {
+      this.desktopMenu = false;
+    } else {
+      this.desktopMenu = true;
+    }
   }
 
   onLogout() {

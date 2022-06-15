@@ -39,6 +39,18 @@ button.btn-outline-success:hover {
   background-color: #cefffc;
 }
 
+.vertical-center {
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.container {
+  height: 100%;
+}
+
 .container .panel {
   position: absolute;
   top: 50%;
