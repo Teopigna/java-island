@@ -44,6 +44,8 @@ import { ProgressBarsComponent } from './dashboard/progress-bars/progress-bars.c
 import { AddCardPopupComponent } from './account-management/add-card-popup/add-card-popup.component';
 import { WarningPopupComponent } from './account-management/warning-popup/warning-popup.component';
 import { NoPopupActionsComponent } from './dashboard/actions/no-popup-actions/no-popup-actions.component';
+import { TransactionAllPageComponent } from './dashboard/transaction-all-page/transaction-all-page.component';
+import { TransactionDetailComponent } from './dashboard/transaction-all-page/transaction-detail/transaction-detail.component';
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
@@ -66,7 +68,9 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     AddCardPopupComponent,
     WarningPopupComponent,
     NoPopupActionsComponent,
-    TwoDigitDecimalDirective
+    TwoDigitDecimalDirective,
+    TransactionAllPageComponent,
+    TransactionDetailComponent
   ],
   imports: [
     BrowserModule,

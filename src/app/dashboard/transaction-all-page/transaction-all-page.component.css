@@ -1,0 +1,28 @@
+table {
+  border-radius: 10px;
+  background: rgba(var(--menu-bg-rgb), 0.5);
+  background: linear-gradient(
+    90deg,
+    rgba(var(--menu-bg-rgb), 0.5) 0%,
+    rgba(var(--menu-font-hover-rgb), 0.5) 80%,
+    rgba(var(--menu-font-hover-rgb), 0.5) 100%
+  );
+}
+
+.text-center {
+  font-variant: small-caps;
+}
+
+.center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.sort-btn {
+  border-radius: 5px;
+  color: black;
+  background-color: transparent;
+  border: transparent;
+  z-index: 1;
+}

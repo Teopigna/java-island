@@ -3,11 +3,8 @@
     <h3 class="title">
       <span>Transazioni</span>
       <span>
-        <button class="btn-blu" mat-button (click)="onShrinkArray(10)">
-          Ultime 10
-        </button>
-        <button class="btn-blu" mat-button (click)="onShrinkArray(-1)">
-          Tutte
+        <button class="btn-blu" mat-button routerLink="/transazioni">
+          Vedi tutte
         </button>
       </span>
     </h3>
@@ -51,7 +48,7 @@
               matTooltipPosition="above"
             >
               <td>
-                <i>{{ transaction.date | date: 'dd/MM/yyyy' }}</i>
+                <i>{{ transaction.date | date: "dd/MM/yyyy" }}</i>
               </td>
               <td>
                 <b>€ {{ transaction.amount }}</b>
