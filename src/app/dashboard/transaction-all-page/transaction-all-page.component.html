@@ -34,10 +34,6 @@
           <!-- aggiungere una custom class al tooltip se rimane tempo  -->
           <tr
             *ngFor="let transaction of transactions"
-            [matTooltip]="
-              transaction.cause ? 'Causale: ' + transaction.cause : ''
-            "
-            matTooltipPosition="above"
             [routerLink]="['/transazioni', transaction.id]"
             (click)="onChangeTransaction(transaction)"
           >
