@@ -18,18 +18,13 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   fileList:string='';
   fileUrl: any;
   ordine: boolean=false;
-  sortedList:Transaction[]=[];
 
   transactionsDisplayed: Transaction[] = [];
 
   transactionChangeSub: Subscription = new Subscription();
 
   constructor(private transactionService: TransactionService,
-              private sanitizer: DomSanitizer,
-
-              ) {
-
-              }
+              private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
 
@@ -41,7 +36,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         this.downloadList()
       })
     this.fileList='';
-    
+
   }
 
   sortData(sort: Sort) {
