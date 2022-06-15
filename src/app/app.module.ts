@@ -1,3 +1,4 @@
+import { TwoDigitDecimalDirectiveMat } from './shared/directives/two-digit-decimal-mat.directive';
 import { TwoDigitDecimalDirective } from './shared/directives/two-digit-decimal.directive';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,7 +23,10 @@ import { GraphicAreaComponent } from './dashboard/graphic-area/graphic-area.comp
 import { ActionsComponent } from './dashboard/actions/actions.component';
 import { TransactionsComponent } from './dashboard/transactions/transactions.component';
 import { PopUpComponent } from './dashboard/actions/pop-up/pop-up.component';
-import { HomepageComponent } from './homepage/homepage.component';
+import {
+  HomepageComponent,
+  NgbDateCustomParserFormatter,
+} from './homepage/homepage.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { FusionChartsModule } from 'angular-fusioncharts';
@@ -32,6 +36,8 @@ import * as charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
 import {
+  NgbDateAdapter,
+  NgbDateParserFormatter,
   NgbDatepickerModule,
   NgbDropdownModule,
   NgbProgressbarModule,
@@ -70,7 +76,8 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     NoPopupActionsComponent,
     TwoDigitDecimalDirective,
     TransactionAllPageComponent,
-    TransactionDetailComponent
+    TransactionDetailComponent,
+    TwoDigitDecimalDirectiveMat,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +97,9 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     MatSelectModule,
     MatButtonModule,
   ],
-  providers: [],
+  providers: [
+    { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

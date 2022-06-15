@@ -133,6 +133,12 @@
             <div class="form-group">
               <label for="name">Nome</label>
               <input
+                ngbDatepicker
+                #d="ngbDatepicker"
+                [minDate]="{ year: 1920, month: 1, day: 1 }"
+                [maxDate]="{ year: 2022, month: 1, day: 1 }"
+                placeholder="dd-mm-yyyy"
+                date="dd-mm-yyyy"
                 type="text"
                 text
                 id="name"

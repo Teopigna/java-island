@@ -20,6 +20,7 @@ export class UserProfileComponent implements OnInit {
     this.surname = this.authService.user.value?.surname;
     this.email = this.authService.user.value?.email;
     this.birthDate = this.authService.user.value?.birthDate;
+    
   }
 
 }
