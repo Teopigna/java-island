@@ -7,7 +7,6 @@ import {
   ViewChild,
 } from '@angular/core';
 
-
 @Component({
   selector: 'app-error-page',
   templateUrl: './error-page.component.html',
@@ -30,10 +29,7 @@ export class ErrorPageComponent implements OnInit {
   userRole = '';
   userIn: boolean = false;
 
-  constructor(
-    private authService: AuthService,
-    private auth: AuthService
-  ) {}
+  constructor(private authService: AuthService, private auth: AuthService) {}
 
   ngOnInit(): void {
     if (this.authService.user.value) {
@@ -42,7 +38,7 @@ export class ErrorPageComponent implements OnInit {
     }
   }
 
-  @HostListener('mouseover', ['$event'])
+  @HostListener('mousemove', ['$event'])
   moveDivs(event: MouseEvent) {
     const x = (window.innerWidth - event.pageX) / 20;
     const y = (window.innerHeight - event.pageY) / 20;

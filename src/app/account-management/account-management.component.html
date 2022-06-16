@@ -1,5 +1,11 @@
 <app-menu></app-menu>
 
+<div class="ocean">
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+</div>
+
 <app-add-card-popup
   *ngIf="showPopup"
   (onClose)="onClosePopUp()"
@@ -10,108 +16,121 @@
   (onClose)="onCloseWarning()"
 ></app-warning-popup>
 
-<div class="row d-flex text-center">
-  <h1>I tuoi conti</h1>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">IBAN</th>
-            <th scope="col">Saldo</th>
-            <th scope="col">Stato</th>
-            <th scope="col">Gestione</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let account of accounts; index as i">
-            <th scope="row">{{ i + 1 }}</th>
-            <td>
-              {{ account.accountNumber }}
-            </td>
-            <td>€ {{ account.balance | number:'1.2-2':'it' }} </td>
-            <td [ngStyle]="{ color: account.status === 0 ? 'green' : 'red' }">
-              {{
-                account.status === 0 ? "attivo" : checkActivity(account.status)
-              }}
-            </td>
-            <td>
-              <button
-                *ngIf="account.status != 4"
-                class="btn btn-danger"
-                [disabled]="!(account.status === 0)"
-                style="margin-left: 10px"
-                (click)="openCloseRequest(i)"
-              >
-                Invia richiesta chiusura
-              </button>
-              <br />
-              <span class="span-error" *ngIf="closureError && i === errorIndex"
-                >Il saldo deve essere pari a 0</span
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div style="margin-top: 50px">
+  <div class="row d-flex text-center">
+    <h1>I tuoi conti</h1>
   </div>
 
-  <div class="btn-container">
-    <div class="text-center">
-      <button class="btn personalized-btn" (click)="onUpdate()">
-        Aggiorna
-      </button>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">IBAN</th>
+              <th scope="col">Saldo</th>
+              <th scope="col">Stato</th>
+              <th scope="col">Gestione</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let account of accounts; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                {{ account.accountNumber }}
+              </td>
+              <td>€ {{ account.balance | number: "1.2-2":"it" }}</td>
+              <td
+                [ngStyle]="{
+                  color: account.status === 0 ? 'green' : 'red'
+                }"
+              >
+                {{
+                  account.status === 0
+                    ? "attivo"
+                    : checkActivity(account.status)
+                }}
+              </td>
+              <td>
+                <button
+                  *ngIf="account.status != 4"
+                  class="btn btn-danger"
+                  [disabled]="!(account.status === 0)"
+                  style="margin-left: 10px"
+                  (click)="openCloseRequest(i)"
+                >
+                  Invia richiesta chiusura
+                </button>
+                <br />
+                <span
+                  class="span-error"
+                  *ngIf="closureError && i === errorIndex"
+                  >Il saldo deve essere pari a 0</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="text-center">
-      <button class="btn personalized-btn" (click)="onAddCard()">
-        Crea nuovo conto
-      </button>
-    </div>
-    <div class="text-center">
-      <div ngbDropdown class="d-inline-block">
-        <button
-          type="button"
-          class="btn personalized-btn"
-          id="dropdownBasic1"
-          ngbDropdownToggle
-        >
-          Conti chiusi
+
+    <div class="btn-container">
+      <div class="text-center">
+        <button class="btn personalized-btn" (click)="onUpdate()">
+          Aggiorna
         </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <ul class="list-group">
-            <li class="list-group-item" *ngIf="closedAccounts.length === 0">
-              Nessun conto chiuso
-            </li>
-            <li class="list-group-item" *ngFor="let account of closedAccounts">
-              {{ account.accountNumber }}
-            </li>
-          </ul>
+      </div>
+      <div class="text-center">
+        <button class="btn personalized-btn" (click)="onAddCard()">
+          Crea nuovo conto
+        </button>
+      </div>
+      <div class="text-center">
+        <div ngbDropdown class="d-inline-block">
+          <button
+            type="button"
+            class="btn personalized-btn"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            Conti chiusi
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <ul class="list-group">
+              <li class="list-group-item" *ngIf="closedAccounts.length === 0">
+                Nessun conto chiuso
+              </li>
+              <li
+                class="list-group-item"
+                *ngFor="let account of closedAccounts"
+              >
+                {{ account.accountNumber }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
+    <hr />
   </div>
-  <hr />
-</div>
 
-<!-- PARTE CONTI CHIUSI -->
-<div class="container" *ngIf="showClosed">
-  <div class="row d-flex text-center">
-    <h3>Conti chiusi</h3>
-    <div class="col-5"></div>
-    <div class="col">
-      <ul class="list-group">
-        <li class="list-group-item" *ngIf="closedAccounts.length === 0">
-          Nessun conto chiuso
-        </li>
-        <li class="list-group-item" *ngFor="let account of closedAccounts">
-          {{ account.accountNumber }}
-        </li>
-      </ul>
+  <!-- PARTE CONTI CHIUSI -->
+  <div class="container" *ngIf="showClosed">
+    <div class="row d-flex text-center">
+      <h3>Conti chiusi</h3>
+      <div class="col-5"></div>
+      <div class="col">
+        <ul class="list-group">
+          <li class="list-group-item" *ngIf="closedAccounts.length === 0">
+            Nessun conto chiuso
+          </li>
+          <li class="list-group-item" *ngFor="let account of closedAccounts">
+            {{ account.accountNumber }}
+          </li>
+        </ul>
+      </div>
+      <div class="col-5"></div>
     </div>
-    <div class="col-5"></div>
   </div>
 </div>

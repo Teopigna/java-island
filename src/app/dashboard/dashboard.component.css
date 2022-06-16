@@ -78,18 +78,6 @@
   align-self: center;
 }
 
-/* .popup h3 {
-  background: -webkit-linear-gradient(
-    45deg,
-    var(--menu-bg-color) 0%,
-    var(--menu-font-color-hover) 70%,
-    var(--menu-font-color-hover) 100%
-  );
-  background-clip: unset;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-} */
-
 h3 {
   text-transform: capitalize;
 

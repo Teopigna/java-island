@@ -56,7 +56,7 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   onResize(event?: any) {
-    if (window.innerWidth <= 900) {
+    if (window.innerWidth < 900) {
       this.width = window.innerWidth * 0.9;
     } else {
       this.width = window.innerWidth * 0.4;
@@ -70,7 +70,6 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.transactionChangeSub =
       this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions.reverse();
