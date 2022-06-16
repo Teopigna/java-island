@@ -26,6 +26,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   constructor(private transactionService: TransactionService,
               private sanitizer: DomSanitizer) {}
 
+
   ngOnInit(): void {
 
     this.transactionChangeSub =
@@ -33,7 +34,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         this.transactions = this.transactionService.transactions;
         this.transactionsDisplayed = this.transactions;
 
-        this.downloadList()
+        this.transactionService.getTransactions().subscribe((traList) => {
+          this.transactions = traList;
+          this.downloadList()
+        });
+
+
       })
     this.fileList='';
 
@@ -81,7 +87,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         this.fileList=this.fileList+line
 
         const blob = new Blob(['LISTA TRANSAZIONI \n' + this.fileList], {
-          type: '.txt',
+          type: 'text',
         });
         this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
           window.URL.createObjectURL(blob)

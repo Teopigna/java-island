@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { TransactionService } from './../../services/transaction.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Sort } from '@angular/material/sort';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-transaction-all-page',
@@ -13,11 +14,13 @@ import { Sort } from '@angular/material/sort';
 export class TransactionAllPageComponent implements OnInit, OnDestroy {
   transactionChangeSub: Subscription = new Subscription();
   transactions: Transaction[] = [];
-  ordine: boolean = false;
+  fileList:string='';
+  downloadFileUrl: any;
 
   constructor(
     private transactionService: TransactionService,
-    private cardService: CardService
+    private cardService: CardService,
+    private sanitizer:DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -26,8 +29,38 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
       this.cardService.cardDisplayed = cards[this.cardService.currentIndex];
       this.transactionService.getTransactions().subscribe((traList) => {
         this.transactions = traList;
+        this.downloadList()
       });
     });
+  }
+
+  downloadList(){
+    for(let i=0; i<this.transactions.length;i++){
+      let line: string='';
+      let causale:string='';
+      if(String(this.transactions[i].cause)=='null'){
+        causale='/';
+      }else{
+        causale=String(this.transactions[i].cause)
+      }
+      line=(
+        'mittente:'+this.transactions[i].accountNumberFrom+
+        ', destinatario:'+this.transactions[i].accountNumberTo+
+        ', ammontare:'+this.transactions[i].amount+
+        ', causale:'+causale+
+        ', data:'+this.transactions[i].date+'\n'
+        )
+        this.fileList=this.fileList+line
+        console.log(this.fileList)
+
+        const blob = new Blob(['LISTA TRANSAZIONI \n' + this.fileList], {
+          type: '.txt',
+        });
+        this.downloadFileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+          window.URL.createObjectURL(blob)
+        );
+    }
+
   }
 
   sortData(sort: Sort) {
@@ -52,10 +85,6 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
-  onReverse() {
-    this.transactions.reverse();
-    this.ordine = !this.ordine;
-  }
 
   onChangeTransaction(transaction: Transaction) {
     this.transactionService.currentTransactionChanged.next(transaction);
