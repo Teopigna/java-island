@@ -26,12 +26,13 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private router: Router
   ) {}
-
+    
   ngOnInit(): void {
     this.transactionChangeSub =
       this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions;
-        this.transactionsDisplayed = this.transactions;
+        // Mostriamo solo le ultime 10 
+        this.transactionsDisplayed = this.transactions.slice(0, 10);
 
         this.downloadList();
       });
@@ -101,16 +102,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
         window.URL.createObjectURL(blob)
       );
-    }
-  }
-
-  onShrinkArray(howMany: number) {
-    if (howMany === 10) {
-      this.transactionsDisplayed = this.transactions.slice(0, 10);
-    }
-    // -1 lo uso come caso limite per indicare TUTTE le transazioni
-    else if (howMany === -1) {
-      this.transactionsDisplayed = this.transactions;
     }
   }
 
