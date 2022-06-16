@@ -86,7 +86,7 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
         for (let item of this.transactions) {
           if (i <= 10) {
             this.data.data.push({
-              label: item.date.toString(),
+              label: this.formatDate(item.date),
               value: item.amount,
             });
           } else {
@@ -106,5 +106,14 @@ export class GraphicAreaComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.transactionChangeSub.unsubscribe();
+  }
+
+  formatDate (data: string) {
+    let datePart = data.match(/\d+/g);
+    let year = datePart![0].substring(2); // get only two digits
+    let month = datePart![1];
+    let day = datePart![2];
+  
+    return day+'/'+month+'/'+year;
   }
 }
