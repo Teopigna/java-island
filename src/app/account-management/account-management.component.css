@@ -48,8 +48,9 @@ h3 {
 
 li {
   text-align: center;
-  color: red;
-  background-color: #d4d4d47a;
+  color: black;
+  background-color: var(--error-color);
+  font-weight: bold;
 }
 
 .cont-right {
