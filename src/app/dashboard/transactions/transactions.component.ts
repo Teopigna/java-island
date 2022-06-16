@@ -25,15 +25,21 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer
   ) {}
 
+
   ngOnInit(): void {
     this.transactionChangeSub =
       this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions;
         this.transactionsDisplayed = this.transactions;
 
-        this.downloadList();
-      });
-    this.fileList = '';
+        this.transactionService.getTransactions().subscribe((traList) => {
+          this.transactions = traList;
+          this.downloadList()
+        });
+
+
+      })
+    this.fileList='';
   }
 
   onChangeTransaction(transaction: Transaction) {
@@ -90,12 +96,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         '\n';
       this.fileList = this.fileList + line;
 
-      const blob = new Blob(['LISTA TRANSAZIONI \n' + this.fileList], {
-        type: '.txt',
-      });
-      this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-        window.URL.createObjectURL(blob)
-      );
+        const blob = new Blob(['LISTA TRANSAZIONI \n' + this.fileList], {
+          type: 'text',
+        });
+        this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+          window.URL.createObjectURL(blob)
+        );
     }
   }
 
