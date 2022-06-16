@@ -2,10 +2,10 @@
   <h3>Dettagli della transazione:</h3>
   <ul>
     <li>
-      <span><b>Data</b>:</span> <span>{{ transaction?.date }}</span>
+      <span><b>Data</b>:</span> <span>{{ transaction?.date | date: "dd/MM/yyyy" }}</span>
     </li>
     <li>
-      <span><b>Importo</b>:</span> <span>€ {{ transaction?.amount }}</span>
+      <span><b>Importo</b>:</span> <span>€ {{ transaction?.amount | number:'1.2-2':'it' }}</span>
     </li>
     <li>
       <span><b>Conto mittente</b>:</span>

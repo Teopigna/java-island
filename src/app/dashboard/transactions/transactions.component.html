@@ -22,7 +22,13 @@
         Nessuna transazione effettuata.
       </p>
       <div class="panel">
-        <table matSort (matSortChange)="sortData($event)" matSortDisableClear matSortActive="date" class="table table-hover table-striped">
+        <table
+          matSort
+          (matSortChange)="sortData($event)"
+          matSortDisableClear
+          matSortActive="date"
+          class="table table-hover table-striped"
+        >
           <thead>
             <tr>
               <th mat-sort-header="date">Data</th>
@@ -36,16 +42,14 @@
             <!-- aggiungere una custom class al tooltip se rimane tempo  -->
             <tr
               *ngFor="let transaction of transactionsDisplayed"
-              [matTooltip]="
-                transaction.cause ? 'Causale: ' + transaction.cause : ''
-              "
-              matTooltipPosition="above"
+              [routerLink]="['/transazioni', transaction.id]"
+              (click)="onChangeTransaction(transaction)"
             >
               <td>
                 <i>{{ transaction.date | date: "dd/MM/yyyy" }}</i>
               </td>
               <td>
-                <b>€ {{ transaction.amount }}</b>
+                <b>€ {{ transaction.amount | number:'1.2-2':'it' }}</b>
               </td>
               <td>{{ transaction.accountNumberFrom }}</td>
               <td>{{ transaction.accountNumberTo }}</td>
