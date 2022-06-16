@@ -43,7 +43,7 @@
                 <div>
                   <span class="balance"> Saldo: </span>
                   <span *ngIf="balanceDisplay"
-                    >€ {{ cardDisplayed?.balance }}
+                    >€ {{ cardDisplayed?.balance | number:'1.2-2':'it' }}
                     <span class="eye-span"
                       ><i
                         *ngIf="!balanceDisplay"

@@ -53,6 +53,10 @@ import { NoPopupActionsComponent } from './dashboard/actions/no-popup-actions/no
 import { TransactionAllPageComponent } from './dashboard/transaction-all-page/transaction-all-page.component';
 import { TransactionDetailComponent } from './dashboard/transaction-all-page/transaction-detail/transaction-detail.component';
 
+import localeIt from '@angular/common/locales/it';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeIt);
+
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
