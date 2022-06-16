@@ -4,18 +4,19 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
   selector: '[appTwoDigitDecimalMat]',
 })
 export class TwoDigitDecimalDirectiveMat {
-  private regex: RegExp = new RegExp(/^\d*\.?\d{0,2}$/g);
+  private regex: RegExp = new RegExp(/^\d*\,?\d{0,2}$/g);
+  private regex2: RegExp = new RegExp(/^\d*\.?\d{0,2}$/g);
   private specialKeys: Array<string> = [
     'Backspace',
     'Tab',
     'End',
     'Home',
-    '-',
     'ArrowLeft',
     'ArrowRight',
     'Del',
     'Delete',
     '.',
+    ','
   ];
 
   constructor(private el: ElementRef) {}
@@ -33,7 +34,7 @@ export class TwoDigitDecimalDirectiveMat {
       event.key == 'Decimal' ? '.' : event.key,
       current.slice(position),
     ].join('');
-    if (next && !String(next).match(this.regex)) {
+    if (next && !String(next).match(this.regex) && !String(next).match(this.regex2)) {
       event.preventDefault();
     }
   }

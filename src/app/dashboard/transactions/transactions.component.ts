@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Transaction } from './../../shared/transaction.model';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, LOCALE_ID } from '@angular/core';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Sort } from '@angular/material/sort';
