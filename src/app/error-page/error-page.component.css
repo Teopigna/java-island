@@ -58,11 +58,6 @@ h1 {
   }
 }
 
-h1 span {
-  width: fit-content;
-  height: fit-content;
-}
-
 h1 span:hover {
   transform: scale(-1, 1);
   transition: 1s;

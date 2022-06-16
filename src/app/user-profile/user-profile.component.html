@@ -1,5 +1,11 @@
 <app-menu></app-menu>
 
+<div class="ocean">
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col col-md-auto title-div">
@@ -17,6 +23,8 @@
         <h5>Nome</h5>
         <h5 class="field">{{ name }}</h5>
       </div>
+    </div>
+    <div class="name">
       <div>
         <h5>Cognome</h5>
         <h5 class="field">{{ surname }}</h5>
@@ -25,7 +33,9 @@
     <div class="birth">
       <div class="field-container">
         <h5>Data di nascita</h5>
-        <h5 class="field">{{ birthDate!.slice(0, 10) | date: 'dd/MM/yyyy'}}</h5>
+        <h5 class="field">
+          {{ birthDate!.slice(0, 10) | date: "dd/MM/yyyy" }}
+        </h5>
       </div>
     </div>
     <div class="email-container">
