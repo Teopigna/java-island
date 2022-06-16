@@ -31,13 +31,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions;
         this.transactionsDisplayed = this.transactions;
-
-        this.transactionService.getTransactions().subscribe((traList) => {
-          this.transactions = traList;
-          this.downloadList()
-        });
-
-
       })
     this.fileList='';
   }
