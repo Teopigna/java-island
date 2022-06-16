@@ -87,7 +87,8 @@
                 placeholder="ex. 100"
                 formControlName="amount"
                 required
-                appTwoDigitDecimalMat
+                appTwoDigitDecimal
+                type="number"
               />
             </mat-form-field>
 
@@ -119,7 +120,7 @@
               <h6>Queste sono le informazioni da te immesse:</h6>
               <ul>
                 <li><b>Destinatario:</b> {{ form1.value.to }}</li>
-                <li><b>Quantità da inviare:</b> {{ form1.value.amount }}</li>
+                <li><b>Quantità da inviare:</b> {{ form1.value.amount | number:'1.2-2':'it' }}</li>
                 <li *ngIf="form1.value.description">
                   <b>Causale:</b> {{ form1.value.description }}
                 </li>

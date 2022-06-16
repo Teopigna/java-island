@@ -37,7 +37,6 @@ import * as charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
 import {
-  NgbDateAdapter,
   NgbDateParserFormatter,
   NgbDatepickerModule,
   NgbDropdownModule,
@@ -53,6 +52,11 @@ import { WarningPopupComponent } from './account-management/warning-popup/warnin
 import { NoPopupActionsComponent } from './dashboard/actions/no-popup-actions/no-popup-actions.component';
 import { TransactionAllPageComponent } from './dashboard/transaction-all-page/transaction-all-page.component';
 import { TransactionDetailComponent } from './dashboard/transaction-all-page/transaction-detail/transaction-detail.component';
+
+import localeIt from '@angular/common/locales/it';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeIt);
+
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 @NgModule({
@@ -100,7 +104,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     MatSortModule
   ],
   providers: [
-    { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter },
+    { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter }
   ],
   bootstrap: [AppComponent],
 })

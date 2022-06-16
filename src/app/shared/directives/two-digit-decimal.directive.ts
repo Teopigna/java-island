@@ -10,12 +10,12 @@ export class TwoDigitDecimalDirective {
     'Tab',
     'End',
     'Home',
-    '-',
     'ArrowLeft',
     'ArrowRight',
     'Del',
     'Delete',
     '.',
+    ','
   ];
 
   constructor(private el: ElementRef) {}
