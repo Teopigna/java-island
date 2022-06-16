@@ -9,6 +9,10 @@ table {
   );
 }
 
+.container {
+  margin-top: 15px;
+}
+
 .text-center {
   font-variant: small-caps;
   width: 100%;
@@ -26,6 +30,35 @@ table {
   background-color: transparent;
   border: transparent;
   z-index: 1;
+}
+
+.col {
+  position: relative;
+}
+
+.round-btn {
+  height: 40px;
+  width: 40px;
+
+  background-color: white;
+
+  position: absolute;
+  right: 40px;
+  top: -20px;
+
+  z-index: 1;
+}
+
+.round-btn:hover,
+.round-btn:active {
+  background-color: var(--menu-font-color);
+}
+
+.round-btn:active {
+  height: 35px;
+  width: 45px;
+  right: 37px;
+  top: -18px;
 }
 
 /* onde */
