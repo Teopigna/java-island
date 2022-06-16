@@ -12,24 +12,29 @@
     <div class="container-center-col">
       <div class="panel popup">
         <h3>Attendere prego...</h3>
-        <p>
+        <span>
           La tua richiesta di registrazione è in attesa di approvazione. <br />
           <br />
-          <span
-            >Cliccare il tasto refresh per aggiornare la pagina, o logout per
-            uscire.</span
-          >
-        </p>
-        <div>
-          <button class="round-btn" (click)="onRefreshPage()">
-            <i class="fa-solid fa-arrow-rotate-right"></i>
+          <p>Cliccare il tasto refresh per aggiornare la pagina, o logout per
+            uscire.</p>
+          </span>
+        <div style="width: 100%; display: flex; justify-content: center">
+          <div>
+          <button class="btn personalized-btn" mat-button (click)="onRefreshPage()">
+            Aggiorna <i class="fa-solid fa-arrow-rotate-right"></i>
           </button>
+
         </div>
         <div>
+
           <a routerLink="" (click)="onLogout()">
-            Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <button class="btn personalized-btn" mat-button>
+              Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
           </a>
         </div>
+        </div>
+
       </div>
     </div>
   </div>

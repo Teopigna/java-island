@@ -8,6 +8,15 @@
   <router-outlet></router-outlet>
 </div>
 
+<a [href]="downloadFileUrl" download="Lista operazioni">
+  <button
+    class="round-btn"
+    title="scarica le transazioni di tutte le tue carte"
+  >
+    <i class="fa-solid fa-cloud-arrow-down"></i>
+  </button>
+</a>
+
 <div class="container">
   <div class="row">
     <div class="col">
