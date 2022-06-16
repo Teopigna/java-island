@@ -8,7 +8,11 @@
 
 <div style="margin-top: 50px">
   <div class="row d-flex text-center">
-    <h1>Le tue transazioni</h1>
+    <h1>Transazioni della carta {{ card?.accountNumber }}</h1>
+  </div>
+
+  <div class="center">
+    <router-outlet></router-outlet>
   </div>
 
   <a [href]="downloadFileUrl" download="Lista operazioni">

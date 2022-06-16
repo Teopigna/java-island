@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Transaction } from './../../shared/transaction.model';
 import { Component, OnInit, OnDestroy, LOCALE_ID } from '@angular/core';
@@ -22,9 +23,9 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   constructor(
     private transactionService: TransactionService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) {}
-
 
   ngOnInit(): void {
     this.transactionChangeSub =
@@ -32,18 +33,16 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         this.transactions = this.transactionService.transactions;
         this.transactionsDisplayed = this.transactions;
 
-        this.transactionService.getTransactions().subscribe((traList) => {
-          this.transactions = traList;
-          this.downloadList()
-        });
-
-
-      })
-    this.fileList='';
+        this.downloadList();
+      });
+    this.fileList = '';
   }
 
   onChangeTransaction(transaction: Transaction) {
     this.transactionService.currentTransactionChanged.next(transaction);
+    this.router.navigate(['/transazioni', transaction.id]);
+
+    console.log('culo');
   }
 
   sortData(sort: Sort) {
@@ -96,12 +95,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         '\n';
       this.fileList = this.fileList + line;
 
-        const blob = new Blob(['LISTA TRANSAZIONI \n' + this.fileList], {
-          type: 'text',
-        });
-        this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-          window.URL.createObjectURL(blob)
-        );
+      const blob = new Blob(['LISTA TRANSAZIONI \n' + this.fileList], {
+        type: 'text',
+      });
+      this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+        window.URL.createObjectURL(blob)
+      );
     }
   }
 
