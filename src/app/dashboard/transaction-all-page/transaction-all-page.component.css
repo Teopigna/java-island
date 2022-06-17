@@ -22,6 +22,10 @@ table {
   width: 100%;
 }
 
+.mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+}
 
 .sort-btn {
   border-radius: 5px;

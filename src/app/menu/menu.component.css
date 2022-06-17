@@ -93,10 +93,14 @@ button {
 
 .desktop-menu ul,
 .desktop-menu-dip ul {
-  width: 80%;
+  width: 600px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+.dark-text li {
+  margin-top: 0;
 }
 
 .dark-text li a {
@@ -130,4 +134,18 @@ button {
   width: 100%;
   height: 100%;
   background-color: transparent;
+}
+
+.flex-div {
+  background-color: rgba(255, 255, 255, 0.696);
+  margin-bottom: 20px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.brand-name {
+  color: rgb(23, 145, 216);
+  margin-right: 15px;
+  font-family: "Libre Baskerville", serif;
 }

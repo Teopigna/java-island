@@ -145,8 +145,13 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
             this.transactionsDisplayed.push(item);
           }
         }
+
         break;
     }
+  }
+
+  onCancelSearch() {
+    this.causeValue = '';
   }
 
   showAll() {
