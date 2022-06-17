@@ -139,12 +139,18 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
           break;
         }
       case 'cause':
-        this.transactionsDisplayed = [];
-        for (let item of this.transactions) {
-          if (item.cause?.includes(this.causeValue)) {
-            this.transactionsDisplayed.push(item);
+        if(this.causeValue === ''){
+          this.transactionsDisplayed = this.transactions;
+        }
+        else {
+          this.transactionsDisplayed = [];
+          for (let item of this.transactions) {
+            if (item.cause?.toLowerCase().includes(this.causeValue.toLowerCase())) {
+              this.transactionsDisplayed.push(item);
+            }
           }
         }
+        
         break;
     }
   }
