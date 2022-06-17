@@ -21,25 +21,40 @@
       <h5>Filtra: </h5>
     </div>
     <div class="col-2">
-      
-      <button class="btn btn-success" (click)="onShow()"> Apri Calendario </button>
-      <button class="btn btn-success" (click)="showAll()"> Mostra tutte </button>
-      <div *ngIf="showCalendar">
-        <ngb-datepicker 
-          
-          #d = "ngbDatepicker"
-          (dateSelect)="onDateSelection($event)" 
-          [displayMonths]="2" 
-          [dayTemplate]="t" 
-          outsideDays="hidden"
-          [minDate]="{ year: 2022, month: 1, day: 1 }"
-          [maxDate]="{ year: 2022, month: 12, day: 31 }"
-        >
-      
-        </ngb-datepicker>
 
-        <button class="btn btn-success" (click)="filter()"> Filtra </button>
-      </div>
+      <div ngbDropdown class="d-inline-block">
+        <button
+          type="button"
+          class="btn personalized-btn"
+          id="dropdownBasic1"
+          ngbDropdownToggle
+        >
+          Per Data
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <div >   
+            <!-- *ngIf="showCalendar" -->
+            <ngb-datepicker 
+              
+              #d = "ngbDatepicker"
+              (dateSelect)="onDateSelection($event)" 
+              [displayMonths]="2" 
+              [dayTemplate]="t" 
+              outsideDays="hidden"
+              [minDate]="{ year: 2022, month: 1, day: 1 }"
+              [maxDate]="{ year: 2022, month: 12, day: 31 }"
+            >
+          
+            </ngb-datepicker>
+    
+            
+          </div>
+        </div>
+      
+      <!-- <button class="btn btn-success" (click)="onShow()"> Apri Calendario </button> -->
+      <button class="btn btn-success" (click)="filter()"> Filtra </button>
+      <button class="btn btn-success" (click)="showAll()"> Mostra tutte </button>
+      
       
       
       <ng-template #t let-date let-focused="focused">
