@@ -1,11 +1,12 @@
 import { Account } from './../../shared/account.model';
 import { CardService } from './../../services/card-manage.service';
 import { Transaction } from './../../shared/transaction.model';
-import { Subscription } from 'rxjs';
+import { from, Subscription } from 'rxjs';
 import { TransactionService } from './../../services/transaction.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-transaction-all-page',
@@ -13,13 +14,22 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./transaction-all-page.component.css'],
 })
 export class TransactionAllPageComponent implements OnInit, OnDestroy {
+
   transactionChangeSub: Subscription = new Subscription();
   transactions: Transaction[] = [];
+  transactionsN: Transaction[] = [];
 
   card: Account | undefined;
 
   fileList: string = '';
   downloadFileUrl: any;
+
+  // Date filter
+  hoveredDate: NgbDate | null = null;
+  fromDate: NgbDate | null = null;
+  toDate: NgbDate | null = null;
+
+  showCalendar : boolean = false;
 
   constructor(
     private transactionService: TransactionService,
@@ -36,9 +46,83 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
 
       this.transactionService.getTransactions().subscribe((traList) => {
         this.transactions = traList;
+        this.transactionsN = this.transactions;
         this.downloadList();
       });
     });
+  }
+
+  onDateSelection(date: NgbDate) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+  }
+
+  getDate(date: NgbDate ) : string {
+    //return date.day + '/' + date.month + '/' + date.year
+    let d = '';
+    let m = '';
+
+    if(date.day < 10) {
+      d = '0'
+    }
+
+    if(date.month < 10) {
+      m = '0'
+    }
+    return date.year + '-' + m + date.month + '-' + d + date.day  
+  }
+
+  getDate2(date: string) : string {
+    return date.slice(0,10);
+  }
+
+  isHovered(date: NgbDate) {
+    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+  }
+
+  isInside(date: NgbDate) {
+    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
+  }
+
+  isRange(date: NgbDate) {
+    return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
+  }
+
+  onShow(){
+    this.showCalendar = !this.showCalendar;
+  }
+
+  filter(){
+    if(this.fromDate != null && this.toDate != null) {
+      let fromD = this.getDate(this.fromDate);
+      let toD = this.getDate(this.toDate);
+
+      let dFrom = Date.parse(fromD);
+      let dTo = Date.parse(toD);
+
+      this.transactionsN = this.transactions.filter((item: any) => {
+
+        if(Date.parse(this.getDate2(item.date)) <= dTo && Date.parse(this.getDate2(item.date)) >= dFrom) {
+          console.log("Ha senso");
+        }
+
+        return ( Date.parse(this.getDate2(item.date)) <= dTo &&
+          Date.parse(this.getDate2(item.date)) >= dFrom)
+      });
+    }
+    else{
+      this.transactionsN = this.transactions;
+    }
+  }
+
+  showAll(){
+    this.transactionsN = this.transactions;
   }
 
   downloadList() {
@@ -74,7 +158,7 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  sortData(sort: Sort) {
+  sortData(sort: Sort ) {
     const data = this.transactions.slice();
     if (!sort.active || sort.direction == '') {
       this.transactions = data;

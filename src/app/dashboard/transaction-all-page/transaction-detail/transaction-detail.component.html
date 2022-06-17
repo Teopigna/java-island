@@ -2,7 +2,7 @@
   <h3>Dettagli della transazione:</h3>
   <ul>
     <li>
-      <span><b>Data</b>:</span> <span>{{ transaction?.date | date: "dd/MM/yyyy" }}</span>
+      <span><b>Data</b>:</span> <span>{{ transaction?.date | date: "dd/MM/yyyy HH:mm" }}</span>
     </li>
     <li>
       <span><b>Importo</b>:</span> <span>€ {{ transaction?.amount | number:'1.2-2':'it' }}</span>
