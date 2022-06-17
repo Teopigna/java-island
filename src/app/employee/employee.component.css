@@ -12,6 +12,7 @@ table {
 
 button{
   margin:5px;
+  border-radius: 5px;
 }
 
 
@@ -21,3 +22,16 @@ h1{
   text-align: center;
 }
 
+.decline{
+color: red;
+background-color: transparent;
+border:solid 1px;
+border-color:red;
+}
+
+.accept{
+color: green;
+background-color: white;
+border:solid 1px;
+border-color:green;
+}

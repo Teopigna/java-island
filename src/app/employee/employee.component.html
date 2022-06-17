@@ -29,16 +29,16 @@
               </td>
               <td>{{ listElement.accountNumber }}</td>
 
-              <td>{{ listElement.balance | number:'1.2-2':'it' }}€</td>
+              <td>€{{ listElement.balance | number:'1.2-2':'it' }}</td>
               <td>
                 <button
-                class="btn btn-danger"
+                class="decline"
                 style="margin-left: 10px"
                 (click)="onDeclineRequest(i)"
               >
                 <i class="fa-solid fa-circle-xmark"></i>
               </button>
-              <button class="btn btn-success" (click)="onAcceptRequest(i)" >
+              <button class="accept" (click)="onAcceptRequest(i)" >
                 <i class="fa-solid fa-circle-check"></i>
               </button>
               </td>
