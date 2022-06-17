@@ -155,6 +155,10 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  onCancelSearch() {
+    this.causeValue = '';
+  }
+
   showAll() {
     this.transactionsDisplayed = this.transactions;
   }

@@ -99,6 +99,7 @@
             <div class="input-field">
               <input type="text" [(ngModel)]="causeValue" /><i
                 class="fa-solid fa-circle-xmark"
+                (click)="onCancelSearch()"
               ></i>
             </div>
             <button mat-button class="blu-btn" (click)="filter('cause')">
@@ -139,18 +140,17 @@
       </div>
     </div>
 
-    <a [href]="downloadFileUrl" download="Lista operazioni">
-      <button
-        class="round-btn"
-        title="scarica le transazioni di tutte le tue carte"
-      >
-        <i class="fa-solid fa-cloud-arrow-down"></i>
-      </button>
-    </a>
-
     <div class="container">
       <div class="row">
         <div class="col">
+          <a [href]="downloadFileUrl" download="Lista operazioni">
+            <button
+              class="round-btn"
+              title="scarica le transazioni di tutte le tue carte"
+            >
+              <i class="fa-solid fa-cloud-arrow-down"></i>
+            </button>
+          </a>
           <table
             matSort
             (matSortChange)="sortData($event)"
@@ -160,10 +160,10 @@
           >
             <thead>
               <tr>
-                <th class="center" mat-sort-header="date">Data</th>
-                <th mat-sort-header="amount">Importo</th>
-                <th>Da</th>
-                <th>A</th>
+                <th  mat-sort-header="date">Data</th>
+                <th  mat-sort-header="amount">Importo</th>
+                <th >Da</th>
+                <th >A</th>
                 <th mat-sort-header="type">Tipo</th>
               </tr>
             </thead>
@@ -177,8 +177,8 @@
                 <td>
                   <i>{{ transaction.date | date: "dd/MM/yyyy" }}</i>
                 </td>
-                <td>
-                  <b>€ {{ transaction.amount | number: "1.2-2":"it" }}</b>
+                <td class="center">
+                  <b >€ {{ transaction.amount | number: "1.2-2":"it" }}</b>
                 </td>
                 <td>{{ transaction.accountNumberFrom }}</td>
                 <td>{{ transaction.accountNumberTo }}</td>
