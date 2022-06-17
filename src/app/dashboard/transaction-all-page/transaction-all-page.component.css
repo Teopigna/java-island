@@ -8,6 +8,10 @@ table {
     rgba(var(--menu-font-hover-rgb), 0.5) 100%
   );
 }
+.center{
+ text-align: center;
+
+}
 
 .container {
   margin-top: 15px;
