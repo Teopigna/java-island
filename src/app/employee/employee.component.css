@@ -23,15 +23,14 @@ h1{
 }
 
 .decline{
-color: red;
+
 background-color: transparent;
-border:solid 1px;
-border-color:red;
+color: #eb444c;
+border: 1px solid #eb444c;
 }
 
 .accept{
-color: green;
-background-color: white;
-border:solid 1px;
-border-color:green;
+color: rgb(72, 151, 72);
+background-color: transparent;
+border:solid 1px rgb(72, 151, 72);
 }
