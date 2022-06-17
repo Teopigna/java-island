@@ -166,6 +166,10 @@ table {
   background-color: rgba(2, 117, 216, 0.5);
 }
 
+h4.no-trans {
+  text-align: center;
+}
+
 @keyframes swell {
   0%,
   100% {
