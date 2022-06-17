@@ -48,6 +48,7 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
       this.transactionService.getTransactions().subscribe((traList) => {
         this.transactions = traList;
         this.transactionsDisplayed = this.transactions;
+        this.transactionsDisplayed.reverse();
         this.downloadList();
       });
     });
