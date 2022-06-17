@@ -19,7 +19,9 @@
   height: 100px;
   width: 100px;
 
-  background-color: var(--error-color);
+  /* border-radius: 50%; */
+
+  background-color: var(--home-bg-color);
 
   z-index: 0;
 }
@@ -32,11 +34,15 @@
 .two {
   right: 3%;
   top: 10%;
+
+  background-color: var(--menu-bg-color);
 }
 
 .three {
   left: 20%;
   bottom: 60%;
+
+  background-color: var(--menu-bg-color);
 }
 
 .four {
@@ -60,6 +66,7 @@ h1 {
 
 h1 span:hover {
   transform: scale(-1, 1);
+  color: #e9474f;
   transition: 1s;
   cursor: pointer;
 }

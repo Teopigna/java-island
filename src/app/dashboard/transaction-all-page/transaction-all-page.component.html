@@ -99,6 +99,7 @@
             <div class="input-field">
               <input type="text" [(ngModel)]="causeValue" /><i
                 class="fa-solid fa-circle-xmark"
+                (click)="onCancelSearch()"
               ></i>
             </div>
             <button mat-button class="blu-btn" (click)="filter('cause')">
@@ -139,18 +140,17 @@
       </div>
     </div>
 
-    <a [href]="downloadFileUrl" download="Lista operazioni">
-      <button
-        class="round-btn"
-        title="scarica le transazioni di tutte le tue carte"
-      >
-        <i class="fa-solid fa-cloud-arrow-down"></i>
-      </button>
-    </a>
-
     <div class="container">
       <div class="row">
         <div class="col">
+          <a [href]="downloadFileUrl" download="Lista operazioni">
+            <button
+              class="round-btn"
+              title="scarica le transazioni di tutte le tue carte"
+            >
+              <i class="fa-solid fa-cloud-arrow-down"></i>
+            </button>
+          </a>
           <table
             matSort
             (matSortChange)="sortData($event)"
