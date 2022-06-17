@@ -1,5 +1,11 @@
 <app-menu></app-menu>
 
+<div class="ocean">
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col col-md-auto title-div">
@@ -120,7 +126,10 @@
               <h6>Queste sono le informazioni da te immesse:</h6>
               <ul>
                 <li><b>Destinatario:</b> {{ form1.value.to }}</li>
-                <li><b>Quantità da inviare:</b> {{ form1.value.amount | number:'1.2-2':'it' }}</li>
+                <li>
+                  <b>Quantità da inviare:</b>
+                  {{ form1.value.amount | number: "1.2-2":"it" }}
+                </li>
                 <li *ngIf="form1.value.description">
                   <b>Causale:</b> {{ form1.value.description }}
                 </li>

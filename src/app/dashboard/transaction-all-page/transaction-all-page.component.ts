@@ -14,7 +14,6 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./transaction-all-page.component.css'],
 })
 export class TransactionAllPageComponent implements OnInit, OnDestroy {
-
   transactionChangeSub: Subscription = new Subscription();
   transactions: Transaction[] = [];
   transactionsDisplayed: Transaction[] = [];
@@ -29,7 +28,9 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
   fromDate: NgbDate | null = null;
   toDate: NgbDate | null = null;
 
-  showCalendar : boolean = false;
+  showCalendar: boolean = false;
+
+  causeValue: string = '';
 
   constructor(
     private transactionService: TransactionService,
@@ -63,27 +64,33 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  getDate(date: NgbDate ) : string {
+  getDate(date: NgbDate): string {
     //return date.day + '/' + date.month + '/' + date.year
     let d = '';
     let m = '';
 
-    if(date.day < 10) {
-      d = '0'
+    if (date.day < 10) {
+      d = '0';
     }
 
-    if(date.month < 10) {
-      m = '0'
+    if (date.month < 10) {
+      m = '0';
     }
-    return date.year + '-' + m + date.month + '-' + d + date.day
+    return date.year + '-' + m + date.month + '-' + d + date.day;
   }
 
-  getDate2(date: string) : string {
-    return date.slice(0,10);
+  getDate2(date: string): string {
+    return date.slice(0, 10);
   }
 
   isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+    return (
+      this.fromDate &&
+      !this.toDate &&
+      this.hoveredDate &&
+      date.after(this.fromDate) &&
+      date.before(this.hoveredDate)
+    );
   }
 
   isInside(date: NgbDate) {
@@ -91,37 +98,58 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
   }
 
   isRange(date: NgbDate) {
-    return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
+    return (
+      date.equals(this.fromDate) ||
+      (this.toDate && date.equals(this.toDate)) ||
+      this.isInside(date) ||
+      this.isHovered(date)
+    );
   }
 
-  onShow(){
+  onShow() {
     this.showCalendar = !this.showCalendar;
   }
 
-  filter(){
-    if(this.fromDate != null && this.toDate != null) {
-      let fromD = this.getDate(this.fromDate);
-      let toD = this.getDate(this.toDate);
+  filter(type: string) {
+    switch (type) {
+      case 'date':
+        if (this.fromDate != null && this.toDate != null) {
+          let fromD = this.getDate(this.fromDate);
+          let toD = this.getDate(this.toDate);
 
-      let dFrom = Date.parse(fromD);
-      let dTo = Date.parse(toD);
+          let dFrom = Date.parse(fromD);
+          let dTo = Date.parse(toD);
 
-      this.transactionsDisplayed = this.transactions.filter((item: any) => {
+          this.transactionsDisplayed = this.transactions.filter((item: any) => {
+            if (
+              Date.parse(this.getDate2(item.date)) <= dTo &&
+              Date.parse(this.getDate2(item.date)) >= dFrom
+            ) {
+              console.log('Ha senso');
+            }
 
-        if(Date.parse(this.getDate2(item.date)) <= dTo && Date.parse(this.getDate2(item.date)) >= dFrom) {
-          console.log("Ha senso");
+            return (
+              Date.parse(this.getDate2(item.date)) <= dTo &&
+              Date.parse(this.getDate2(item.date)) >= dFrom
+            );
+          });
+          break;
+        } else {
+          this.transactionsDisplayed = this.transactions;
+          break;
         }
-
-        return ( Date.parse(this.getDate2(item.date)) <= dTo &&
-          Date.parse(this.getDate2(item.date)) >= dFrom)
-      });
-    }
-    else{
-      this.transactionsDisplayed = this.transactions;
+      case 'cause':
+        this.transactionsDisplayed = [];
+        for (let item of this.transactions) {
+          if (item.cause?.includes(this.causeValue)) {
+            this.transactionsDisplayed.push(item);
+          }
+        }
+        break;
     }
   }
 
-  showAll(){
+  showAll() {
     this.transactionsDisplayed = this.transactions;
   }
 
@@ -158,7 +186,7 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  sortData(sort: Sort ) {
+  sortData(sort: Sort) {
     const data = this.transactionsDisplayed.slice();
     if (!sort.active || sort.direction == '') {
       this.transactionsDisplayed = data;
