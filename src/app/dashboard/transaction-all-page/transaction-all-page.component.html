@@ -52,8 +52,8 @@
           {{ date.day }}
         </span>
       </ng-template>
-      <pre>From: {{ fromDate != null ? (getDate(fromDate) ) : ""  }} </pre>
-      <pre>To: {{ toDate != null ? (getDate(toDate) ) : "" }} </pre>
+      <pre>From: {{ fromDate != null ? (getDate(fromDate) | date: "dd/MM/yyyy" ) : ""  }} </pre>
+      <pre>To: {{ toDate != null ? (getDate(toDate) | date: "dd/MM/yyyy" ) : "" }} </pre>
     </div>
     
     
