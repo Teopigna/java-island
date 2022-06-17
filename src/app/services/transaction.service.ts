@@ -48,7 +48,7 @@ export class TransactionService {
       .pipe(
         map((resData: Transaction[]) => {
           resData.map((e: Transaction) => {
-            //e.date = e.date.slice(0, 10);
+
           });
           return resData;
         }),

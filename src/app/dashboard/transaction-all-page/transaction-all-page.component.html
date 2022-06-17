@@ -70,8 +70,8 @@
       <pre>From: {{ fromDate != null ? (getDate(fromDate) | date: "dd/MM/yyyy" ) : ""  }} </pre>
       <pre>To: {{ toDate != null ? (getDate(toDate) | date: "dd/MM/yyyy" ) : "" }} </pre>
     </div>
-    
-    
+
+
   </div>
 
   <a [href]="downloadFileUrl" download="Lista operazioni">
@@ -95,7 +95,7 @@
         >
           <thead>
             <tr>
-              <th mat-sort-header="date">Data</th>
+              <th class="center" mat-sort-header="date">Data</th>
               <th mat-sort-header="amount">Importo</th>
               <th>Da</th>
               <th>A</th>
@@ -105,7 +105,7 @@
           <tbody>
             <!-- aggiungere una custom class al tooltip se rimane tempo  -->
             <tr
-              *ngFor="let transaction of transactionsN"
+              *ngFor="let transaction of transactionsDisplayed"
               [routerLink]="['/transazioni', transaction.id]"
               (click)="onChangeTransaction(transaction)"
             >

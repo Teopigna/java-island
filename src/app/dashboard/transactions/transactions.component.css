@@ -40,6 +40,10 @@ td {
   cursor: pointer;
 }
 
+.right{
+  text-align: right;
+}
+
 .round-btn:hover,
 .round-btn:active {
   background-color: var(--menu-font-color);

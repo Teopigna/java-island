@@ -26,12 +26,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private router: Router
   ) {}
-    
+
   ngOnInit(): void {
     this.transactionChangeSub =
       this.transactionService.transactionsChanged.subscribe(() => {
         this.transactions = this.transactionService.transactions;
-        // Mostriamo solo le ultime 10 
+        // Mostriamo solo le ultime 10
         this.transactionsDisplayed = this.transactions.slice(0, 10);
 
         this.downloadList();
