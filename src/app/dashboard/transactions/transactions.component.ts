@@ -42,7 +42,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   onChangeTransaction(transaction: Transaction) {
     this.transactionService.currentTransactionChanged.next(transaction);
     this.router.navigate(['/transazioni', transaction.id]);
-
   }
 
   sortData(sort: Sort) {

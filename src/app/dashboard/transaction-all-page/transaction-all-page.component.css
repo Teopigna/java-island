@@ -9,6 +9,10 @@ table {
   );
 }
 
+.container {
+  margin-top: 15px;
+}
+
 .text-center {
   font-variant: small-caps;
   width: 100%;
@@ -26,6 +30,73 @@ table {
   background-color: transparent;
   border: transparent;
   z-index: 1;
+}
+
+.col {
+  position: relative;
+}
+
+.round-btn {
+  height: 40px;
+  width: 40px;
+
+  background-color: white;
+
+  position: absolute;
+  right: 40px;
+  top: -20px;
+
+  z-index: 1;
+}
+
+.round-btn:hover,
+.round-btn:active {
+  background-color: var(--menu-font-color);
+}
+
+.round-btn:active {
+  height: 35px;
+  width: 45px;
+  right: 37px;
+  top: -18px;
+}
+
+.blu-btn {
+  color: var(--menu-bg-color);
+}
+
+.date-picker {
+  width: 100%;
+  text-align: center;
+
+  background-color: rgba(var(--home-bg-rgb), 0.8);
+}
+
+.input-field {
+  margin: 10px;
+  border: 2px solid rgba(var(--menu-bg-rgb), 0.5);
+  border-radius: 15px;
+
+  display: flex;
+  position: relative;
+}
+
+.input-field input {
+  border: none;
+  border-radius: 15px;
+}
+
+.input-field i {
+  align-self: flex-end;
+
+  color: rgba(var(--menu-bg-rgb), 1);
+
+  position: absolute;
+  right: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  cursor: pointer;
 }
 
 /* onde */
@@ -83,7 +154,8 @@ table {
 .custom-day.focused {
   background-color: #e6e6e6;
 }
-.custom-day.range, .custom-day:hover {
+.custom-day.range,
+.custom-day:hover {
   background-color: rgb(2, 117, 216);
   color: white;
 }

@@ -15,126 +15,192 @@
     <router-outlet></router-outlet>
   </div>
 
-  <div class="row">
-    <div class="col-1"></div>
-    <div class="col-1">
-      <h5>Filtra: </h5>
-    </div>
-    <div class="col-2">
-
-      <div ngbDropdown class="d-inline-block">
-        <button
-          type="button"
-          class="btn personalized-btn"
-          id="dropdownBasic1"
-          ngbDropdownToggle
-        >
-          Per Data
-        </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <div >   
-            <!-- *ngIf="showCalendar" -->
-            <ngb-datepicker 
-              
-              #d = "ngbDatepicker"
-              (dateSelect)="onDateSelection($event)" 
-              [displayMonths]="2" 
-              [dayTemplate]="t" 
-              outsideDays="hidden"
-              [minDate]="{ year: 2022, month: 1, day: 1 }"
-              [maxDate]="{ year: 2022, month: 12, day: 31 }"
-            >
-          
-            </ngb-datepicker>
-    
-            
-          </div>
-        </div>
-      
-      <!-- <button class="btn btn-success" (click)="onShow()"> Apri Calendario </button> -->
-      <button class="btn btn-success" (click)="filter()"> Filtra </button>
-      <button class="btn btn-success" (click)="showAll()"> Mostra tutte </button>
-      
-      
-      
-      <ng-template #t let-date let-focused="focused">
-        <span class="custom-day"
-              [class.focused]="focused"
-              [class.range]="isRange(date)"
-              [class.faded]="isHovered(date) || isInside(date)"
-              (mouseenter)="hoveredDate = date"
-              (mouseleave)="hoveredDate = null">
-          {{ date.day }}
-        </span>
-      </ng-template>
-      <pre>From: {{ fromDate != null ? (getDate(fromDate) | date: "dd/MM/yyyy" ) : ""  }} </pre>
-      <pre>To: {{ toDate != null ? (getDate(toDate) | date: "dd/MM/yyyy" ) : "" }} </pre>
-    </div>
-
-
-  </div>
-
-  <a [href]="downloadFileUrl" download="Lista operazioni">
-    <button
-      class="round-btn"
-      title="scarica le transazioni di tutte le tue carte"
-    >
-      <i class="fa-solid fa-cloud-arrow-down"></i>
-    </button>
-  </a>
-
   <div class="container">
-    <div class="row">
-      <div class="col">
-        <table
-          matSort
-          (matSortChange)="sortData($event)"
-          matSortDisableClear
-          matSortActive="date"
-          class="table table-hover table-striped"
-        >
-          <thead>
-            <tr>
-              <th class="center" mat-sort-header="date">Data</th>
-              <th mat-sort-header="amount">Importo</th>
-              <th>Da</th>
-              <th>A</th>
-              <th mat-sort-header="type">Tipo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- aggiungere una custom class al tooltip se rimane tempo  -->
-            <tr
-              *ngFor="let transaction of transactionsDisplayed"
-              [routerLink]="['/transazioni', transaction.id]"
-              (click)="onChangeTransaction(transaction)"
+    <div>
+      <h5>Filtra:</h5>
+    </div>
+    <div style="display: flex; justify-content: space-between">
+      <div>
+        <div ngbDropdown class="d-inline-block">
+          <div>
+            <button
+              type="button"
+              mat-button
+              class="blu-btn"
+              id="dropdownBasic1"
+              ngbDropdownToggle
             >
-              <td>
-                <i>{{ transaction.date | date: "dd/MM/yyyy" }}</i>
-              </td>
-              <td>
-                <b>€ {{ transaction.amount | number: "1.2-2":"it" }}</b>
-              </td>
-              <td>{{ transaction.accountNumberFrom }}</td>
-              <td>{{ transaction.accountNumberTo }}</td>
-              <td>
+              Per Data
+            </button>
+          </div>
+
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <div>
+              <!-- *ngIf="showCalendar" -->
+              <ngb-datepicker
+                #d="ngbDatepicker"
+                (dateSelect)="onDateSelection($event)"
+                [displayMonths]="2"
+                [dayTemplate]="t"
+                outsideDays="hidden"
+                [minDate]="{ year: 2022, month: 1, day: 1 }"
+                [maxDate]="{ year: 2022, month: 12, day: 31 }"
+              >
+              </ngb-datepicker
+              ><ng-template #t let-date let-focused="focused">
+                <span
+                  class="custom-day"
+                  [class.focused]="focused"
+                  [class.range]="isRange(date)"
+                  [class.faded]="isHovered(date) || isInside(date)"
+                  (mouseenter)="hoveredDate = date"
+                  (mouseleave)="hoveredDate = null"
+                >
+                  {{ date.day }}
+                </span>
+              </ng-template>
+              <p class="date-picker">
+                From:
                 {{
-                  transaction.type === 1
-                    ? "bonifico"
-                    : transaction.type === 2
-                    ? "versamento"
-                    : transaction.type === 3
-                    ? "prelievo"
-                    : transaction.type === 4
-                    ? "giroconto"
-                    : transaction.type === 5
-                    ? "ricarica"
+                  fromDate != null
+                    ? (getDate(fromDate) | date: "dd/MM/yyyy")
                     : ""
                 }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              </p>
+              <p class="date-picker">
+                To:
+                {{
+                  toDate != null ? (getDate(toDate) | date: "dd/MM/yyyy") : ""
+                }}
+              </p>
+            </div>
+            <button mat-button class="blu-btn" (click)="filter('cause')">
+              Filtra
+            </button>
+          </div>
+
+          <!-- <button class="btn btn-success" (click)="onShow()"> Apri Calendario </button> -->
+        </div>
+
+        <div ngbDropdown class="d-inline-block">
+          <!-- ricerca array causale -->
+          <div>
+            <button
+              type="button"
+              mat-button
+              class="blu-btn"
+              id="dropdownBasic2"
+              ngbDropdownToggle
+            >
+              Per Causale
+            </button>
+          </div>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+            <div class="input-field">
+              <input type="text" [(ngModel)]="causeValue" /><i
+                class="fa-solid fa-circle-xmark"
+              ></i>
+            </div>
+            <button mat-button class="blu-btn" (click)="filter('cause')">
+              Filtra
+            </button>
+          </div>
+        </div>
+        <!-- <div ngbDropdown class="d-inline-block">
+          ricerca array iban (sia destinatario che mittente)
+          <div>
+            <button
+              type="button"
+              mat-button
+              class="blu-btn"
+              id="dropdownBasic3"
+              ngbDropdownToggle
+            >
+              Per Iban
+            </button>
+          </div>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic3">
+            <div class="input-field">
+              <input type="text" [(ngModel)]="causeValue" /><i
+                class="fa-solid fa-circle-xmark"
+              ></i>
+            </div>
+            <button mat-button class="blu-btn" (click)="filter('cause')">
+              Filtra
+            </button>
+          </div>
+        </div> -->
+      </div>
+
+      <div>
+        <button mat-button class="blu-btn" (click)="showAll()">
+          Mostra tutte
+        </button>
+      </div>
+    </div>
+
+    <a [href]="downloadFileUrl" download="Lista operazioni">
+      <button
+        class="round-btn"
+        title="scarica le transazioni di tutte le tue carte"
+      >
+        <i class="fa-solid fa-cloud-arrow-down"></i>
+      </button>
+    </a>
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <table
+            matSort
+            (matSortChange)="sortData($event)"
+            matSortDisableClear
+            matSortActive="date"
+            class="table table-hover table-striped"
+          >
+            <thead>
+              <tr>
+                <th class="center" mat-sort-header="date">Data</th>
+                <th mat-sort-header="amount">Importo</th>
+                <th>Da</th>
+                <th>A</th>
+                <th mat-sort-header="type">Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- aggiungere una custom class al tooltip se rimane tempo  -->
+              <tr
+                *ngFor="let transaction of transactionsDisplayed"
+                [routerLink]="['/transazioni', transaction.id]"
+                (click)="onChangeTransaction(transaction)"
+              >
+                <td>
+                  <i>{{ transaction.date | date: "dd/MM/yyyy" }}</i>
+                </td>
+                <td>
+                  <b>€ {{ transaction.amount | number: "1.2-2":"it" }}</b>
+                </td>
+                <td>{{ transaction.accountNumberFrom }}</td>
+                <td>{{ transaction.accountNumberTo }}</td>
+                <td>
+                  {{
+                    transaction.type === 1
+                      ? "bonifico"
+                      : transaction.type === 2
+                      ? "versamento"
+                      : transaction.type === 3
+                      ? "prelievo"
+                      : transaction.type === 4
+                      ? "giroconto"
+                      : transaction.type === 5
+                      ? "ricarica"
+                      : ""
+                  }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
