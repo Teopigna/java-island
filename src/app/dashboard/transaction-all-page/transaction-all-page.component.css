@@ -65,6 +65,40 @@ table {
   color: var(--menu-bg-color);
 }
 
+.date-picker {
+  width: 100%;
+  text-align: center;
+
+  background-color: rgba(var(--home-bg-rgb), 0.8);
+}
+
+.input-field {
+  margin: 10px;
+  border: 2px solid rgba(var(--menu-bg-rgb), 0.5);
+  border-radius: 15px;
+
+  display: flex;
+  position: relative;
+}
+
+.input-field input {
+  border: none;
+  border-radius: 15px;
+}
+
+.input-field i {
+  align-self: flex-end;
+
+  color: rgba(var(--menu-bg-rgb), 1);
+
+  position: absolute;
+  right: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  cursor: pointer;
+}
+
 /* onde */
 .ocean {
   height: 50vh;
