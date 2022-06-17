@@ -17,7 +17,7 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
 
   transactionChangeSub: Subscription = new Subscription();
   transactions: Transaction[] = [];
-  transactionsN: Transaction[] = [];
+  transactionsDisplayed: Transaction[] = [];
 
   card: Account | undefined;
 
@@ -46,7 +46,7 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
 
       this.transactionService.getTransactions().subscribe((traList) => {
         this.transactions = traList;
-        this.transactionsN = this.transactions;
+        this.transactionsDisplayed = this.transactions;
         this.downloadList();
       });
     });
@@ -75,7 +75,7 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
     if(date.month < 10) {
       m = '0'
     }
-    return date.year + '-' + m + date.month + '-' + d + date.day  
+    return date.year + '-' + m + date.month + '-' + d + date.day
   }
 
   getDate2(date: string) : string {
@@ -106,7 +106,7 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
       let dFrom = Date.parse(fromD);
       let dTo = Date.parse(toD);
 
-      this.transactionsN = this.transactions.filter((item: any) => {
+      this.transactionsDisplayed = this.transactions.filter((item: any) => {
 
         if(Date.parse(this.getDate2(item.date)) <= dTo && Date.parse(this.getDate2(item.date)) >= dFrom) {
           console.log("Ha senso");
@@ -117,12 +117,12 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
       });
     }
     else{
-      this.transactionsN = this.transactions;
+      this.transactionsDisplayed = this.transactions;
     }
   }
 
   showAll(){
-    this.transactionsN = this.transactions;
+    this.transactionsDisplayed = this.transactions;
   }
 
   downloadList() {
@@ -159,13 +159,13 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
   }
 
   sortData(sort: Sort ) {
-    const data = this.transactions.slice();
+    const data = this.transactionsDisplayed.slice();
     if (!sort.active || sort.direction == '') {
-      this.transactions = data;
+      this.transactionsDisplayed = data;
       return;
     }
 
-    this.transactions = data.sort((a, b) => {
+    this.transactionsDisplayed = data.sort((a, b) => {
       let isAsc = sort.direction == 'asc';
       switch (sort.active) {
         case 'date':
