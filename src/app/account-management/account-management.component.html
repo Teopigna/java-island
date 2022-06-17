@@ -41,7 +41,9 @@
                 <td>
                   {{ account.accountNumber }}
                 </td>
-                <td>€ {{ account.balance | number: "1.2-2":"it" }}</td>
+                <td class="money">
+                  € {{ account.balance | number: "1.2-2":"it" }}
+                </td>
                 <td
                   [ngStyle]="{
                     color: account.status === 0 ? 'green' : 'red'
@@ -56,7 +58,8 @@
                 <td>
                   <button
                     *ngIf="account.status != 4"
-                    class="btn btn-danger"
+                    class="red-btn"
+                    mat-button
                     [disabled]="!(account.status === 0)"
                     style="margin-left: 10px"
                     (click)="openCloseRequest(i)"
