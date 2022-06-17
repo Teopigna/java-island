@@ -31,10 +31,10 @@
         >
           <thead>
             <tr>
-              <th mat-sort-header="date">Data</th>
-              <th mat-sort-header="amount">Importo</th>
-              <th>Da</th>
-              <th>A</th>
+              <th  mat-sort-header="date">Data</th>
+              <th  mat-sort-header="amount">Importo</th>
+              <th >Da</th>
+              <th >A</th>
               <th mat-sort-header="type">Tipo</th>
             </tr>
           </thead>
@@ -47,7 +47,7 @@
               <td>
                 <i>{{ transaction.date | date: "dd/MM/yyyy" }}</i>
               </td>
-              <td>
+              <td class="right">
                 <b>€ {{ transaction.amount | number: "1.2-2":"it" }}</b>
               </td>
               <td>{{ transaction.accountNumberFrom }}</td>
