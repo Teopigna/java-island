@@ -59,24 +59,28 @@
                   {{ date.day }}
                 </span>
               </ng-template>
-              <p class="date-picker">
-                From:
-                {{
-                  fromDate != null
-                    ? (getDate(fromDate) | date: "dd/MM/yyyy")
-                    : ""
-                }}
-              </p>
-              <p class="date-picker">
-                To:
-                {{
-                  toDate != null ? (getDate(toDate) | date: "dd/MM/yyyy") : ""
-                }}
-              </p>
+              <div style="display: flex; justify-content: space-between">
+                <p class="date-picker">
+                  From:
+                  {{
+                    fromDate != null
+                      ? (getDate(fromDate) | date: "dd/MM/yyyy")
+                      : ""
+                  }}
+                </p>
+                <p class="date-picker">
+                  To:
+                  {{
+                    toDate != null ? (getDate(toDate) | date: "dd/MM/yyyy") : ""
+                  }}
+                </p>
+              </div>
             </div>
-            <button mat-button class="blu-btn" (click)="filter('date')">
-              Filtra
-            </button>
+            <div class="filter">
+              <button mat-button class="blu-btn" (click)="filter('date')">
+                Filtra
+              </button>
+            </div>
           </div>
 
           <!-- <button class="btn btn-success" (click)="onShow()"> Apri Calendario </button> -->
@@ -102,9 +106,11 @@
                 (click)="onCancelSearch()"
               ></i>
             </div>
-            <button mat-button class="blu-btn" (click)="filter('cause')">
-              Filtra
-            </button>
+            <div class="filter">
+              <button mat-button class="blu-btn" (click)="filter('cause')">
+                Filtra
+              </button>
+            </div>
           </div>
         </div>
         <div ngbDropdown class="d-inline-block">
@@ -127,9 +133,11 @@
                 (click)="onCancelSearch()"
               ></i>
             </div>
-            <button mat-button class="blu-btn" (click)="filter('iban')">
-              Filtra
-            </button>
+            <div class="filter">
+              <button mat-button class="blu-btn" (click)="filter('iban')">
+                Filtra
+              </button>
+            </div>
           </div>
         </div>
       </div>

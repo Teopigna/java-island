@@ -8,9 +8,18 @@ table {
     rgba(var(--menu-font-hover-rgb), 0.5) 100%
   );
 }
-.center{
- text-align: center;
+.center {
+  text-align: center;
+}
 
+.filter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.filter button {
+  font-size: 16px;
 }
 
 .container {
