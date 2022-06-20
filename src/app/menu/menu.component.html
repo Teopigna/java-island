@@ -1,6 +1,6 @@
-<div *ngIf="desktopMenu" class="flex-div">
+<div *ngIf="desktopMenu && userRole === 'C'" class="flex-div">
   <h1 class="brand-name">JB</h1>
-  <div *ngIf="userRole === 'C'" class="desktop-menu">
+  <div class="desktop-menu">
     <ul class="nav-links dark-text">
       <li>
         <a routerLink="/dashboard"
@@ -23,7 +23,7 @@
     </ul>
   </div>
 
-  <div *ngIf="userRole === 'D'" class="desktop-menu-dip">
+  <!-- <div *ngIf="userRole === 'D'" class="desktop-menu-dip">
     <ul class="nav-links dark-text">
       <li>
         <a
@@ -60,10 +60,10 @@
         </a>
       </li>
     </ul>
-  </div>
+  </div> -->
 </div>
 
-<div *ngIf="!desktopMenu">
+<div *ngIf="!desktopMenu && userRole === 'C'">
   <div *ngIf="menu === 'open'" (click)="onSlideMenu()" class="dropdown"></div>
 
   <div>
@@ -99,7 +99,27 @@
         </ul>
       </div>
 
-      <div *ngIf="userRole === 'D'">
+      <div class="logout-btn">
+        <button type="button" (click)="onLogout()">
+          Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="userRole === 'D'">
+  <div *ngIf="menu === 'open'" (click)="onSlideMenu()" class="dropdown"></div>
+
+  <div>
+    <div *ngIf="menuDashboard" (click)="onSlideMenu()" class="open-menu-dash">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    <div *ngIf="!menuDashboard" (click)="onSlideMenu()" class="open-menu">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    <div [@menu]="menuState" class="menu-container" *ngIf="menu === 'open'">
+      <div>
         <div class="nav-menu">
           <button routerLink="/dipendente">
             <i class="fa-solid fa-house"></i>
