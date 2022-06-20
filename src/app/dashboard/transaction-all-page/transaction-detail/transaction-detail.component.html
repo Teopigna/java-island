@@ -1,47 +1,50 @@
-<div style="background: #fff; border-radius: 15px">
-  <div class="main-container" *ngIf="transaction?.accountNumberFrom !== ''">
-    <h3>Dettagli della transazione:</h3>
-    <ul>
-      <li>
-        <span><b>Data</b>:</span>
-        <span>{{ transaction?.date | date: "dd/MM/yyyy HH:mm" }}</span>
-      </li>
-      <li>
-        <span><b>Importo</b>:</span>
-        <span>€ {{ transaction?.amount | number: "1.2-2":"it" }}</span>
-      </li>
-      <li>
-        <span><b>Conto mittente</b>:</span>
-        <span>{{ transaction?.accountNumberFrom }}</span>
-      </li>
-      <li *ngIf="transaction?.accountNumberTo">
-        <span><b>Conto destinatario</b>:</span>
-        <span>{{ transaction?.accountNumberTo }}</span>
-      </li>
-      <li>
-        <span><b>Tipologia</b>:</span>
-        <span>{{
-          transaction?.type === 1
-            ? "bonifico"
-            : transaction?.type === 2
-            ? "versamento"
-            : transaction?.type === 3
-            ? "prelievo"
-            : transaction?.type === 4
-            ? "giroconto"
-            : transaction?.type === 5
-            ? "ricarica"
-            : ""
-        }}</span>
-      </li>
-      <li *ngIf="transaction?.cause">
-        <span><b>Causale</b>:</span> <span>{{ transaction?.cause }}</span>
-      </li>
-    </ul>
-    <div style="width: 100%; display: flex; justify-content: center">
-      <button mat-button type="button" routerLink="/transazioni">
-        Chiudi dettagli
-      </button>
+<div class="container">
+  <div class="container-white">
+    <div class="main-container" *ngIf="transaction?.accountNumberFrom !== ''">
+      <h3>Dettagli della transazione:</h3>
+      <ul>
+        <li>
+          <span><b>Data</b>:</span>
+          <span>{{ transaction?.date | date: "dd/MM/yyyy HH:mm" }}</span>
+        </li>
+        <li>
+          <span><b>Importo</b>:</span>
+          <span>€ {{ transaction?.amount | number: "1.2-2":"it" }}</span>
+        </li>
+        <li>
+          <span><b>Conto mittente</b>:</span>
+          <span>{{ transaction?.accountNumberFrom }}</span>
+        </li>
+        <li *ngIf="transaction?.accountNumberTo">
+          <span><b>Conto destinatario</b>:</span>
+          <span>{{ transaction?.accountNumberTo }}</span>
+        </li>
+        <li>
+          <span><b>Tipologia</b>:</span>
+          <span>{{
+            transaction?.type === 1
+              ? "bonifico"
+              : transaction?.type === 2
+              ? "versamento"
+              : transaction?.type === 3
+              ? "prelievo"
+              : transaction?.type === 4
+              ? "giroconto"
+              : transaction?.type === 5
+              ? "ricarica"
+              : ""
+          }}</span>
+        </li>
+        <li *ngIf="transaction?.cause">
+          <span><b>Causale</b>:</span>
+          <span class="cause">{{ transaction?.cause }}</span>
+        </li>
+      </ul>
+      <div style="width: 100%; display: flex; justify-content: center">
+        <button mat-button type="button" routerLink="/transazioni">
+          Chiudi dettagli
+        </button>
+      </div>
     </div>
   </div>
 </div>

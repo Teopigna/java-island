@@ -107,8 +107,8 @@
             </button>
           </div>
         </div>
-        <!-- <div ngbDropdown class="d-inline-block">
-          ricerca array iban (sia destinatario che mittente)
+        <div ngbDropdown class="d-inline-block">
+          <!-- ricerca array iban (sia destinatario che mittente) -->
           <div>
             <button
               type="button"
@@ -122,15 +122,16 @@
           </div>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic3">
             <div class="input-field">
-              <input type="text" [(ngModel)]="causeValue" /><i
+              <input type="text" [(ngModel)]="ibanValue" /><i
                 class="fa-solid fa-circle-xmark"
+                (click)="onCancelSearch()"
               ></i>
             </div>
-            <button mat-button class="blu-btn" (click)="filter('cause')">
+            <button mat-button class="blu-btn" (click)="filter('iban')">
               Filtra
             </button>
           </div>
-        </div> -->
+        </div>
       </div>
 
       <div>
@@ -160,10 +161,10 @@
           >
             <thead>
               <tr>
-                <th  mat-sort-header="date">Data</th>
-                <th  mat-sort-header="amount">Importo</th>
-                <th >Da</th>
-                <th >A</th>
+                <th mat-sort-header="date">Data</th>
+                <th mat-sort-header="amount">Importo</th>
+                <th>Da</th>
+                <th>A</th>
                 <th mat-sort-header="type">Tipo</th>
               </tr>
             </thead>
@@ -178,7 +179,7 @@
                   <i>{{ transaction.date | date: "dd/MM/yyyy" }}</i>
                 </td>
                 <td class="center">
-                  <b >€ {{ transaction.amount | number: "1.2-2":"it" }}</b>
+                  <b>€ {{ transaction.amount | number: "1.2-2":"it" }}</b>
                 </td>
                 <td>{{ transaction.accountNumberFrom }}</td>
                 <td>{{ transaction.accountNumberTo }}</td>
@@ -200,7 +201,7 @@
               </tr>
             </tbody>
           </table>
-          <h4 class='no-trans' *ngIf="transactionsDisplayed.length === 0">
+          <h4 class="no-trans" *ngIf="transactionsDisplayed.length === 0">
             Nessuna transazione da visualizzare.
           </h4>
         </div>
