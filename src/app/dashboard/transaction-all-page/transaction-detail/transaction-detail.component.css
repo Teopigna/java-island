@@ -8,10 +8,29 @@ ul {
   border-radius: 15px;
 
   margin-bottom: 20px;
+  width: fit-content;
+  max-width: 400px;
+}
+
+.container-white {
+  width: fit-content;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 li {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.cause {
+  overflow-wrap: anywhere;
+  text-align: right;
 }
