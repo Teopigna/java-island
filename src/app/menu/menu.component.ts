@@ -60,10 +60,10 @@ export class MenuComponent implements OnInit {
     this.onResize();
 
     this.route.url.subscribe((data: any) => {
-      if (data[0].path === 'dashboard') {
-        this.menuDashboard = true;
-      } else {
+      if (data[0].path === 'dipendent') {
         this.menuDashboard = false;
+      } else {
+        this.menuDashboard = true;
       }
     });
 
