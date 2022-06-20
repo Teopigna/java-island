@@ -31,6 +31,7 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
   showCalendar: boolean = false;
 
   causeValue: string = '';
+  ibanValue: string = '';
 
   constructor(
     private transactionService: TransactionService,
@@ -140,24 +141,47 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
           break;
         }
       case 'cause':
-        if(this.causeValue === ''){
+        if (this.causeValue === '') {
           this.transactionsDisplayed = this.transactions;
-        }
-        else {
+        } else {
           this.transactionsDisplayed = [];
           for (let item of this.transactions) {
-            if (item.cause?.toLowerCase().includes(this.causeValue.toLowerCase())) {
+            if (
+              item.cause?.toLowerCase().includes(this.causeValue.toLowerCase())
+            ) {
               this.transactionsDisplayed.push(item);
             }
           }
         }
-        
+
+        break;
+
+      case 'iban':
+        if (this.ibanValue === '') {
+          this.transactionsDisplayed = this.transactions;
+        } else {
+          this.transactionsDisplayed = [];
+          for (let item of this.transactions) {
+            if (
+              item.accountNumberFrom
+                ?.toLowerCase()
+                .includes(this.ibanValue.toLowerCase()) ||
+              item.accountNumberTo
+                ?.toLowerCase()
+                .includes(this.ibanValue.toLowerCase())
+            ) {
+              this.transactionsDisplayed.push(item);
+            }
+          }
+        }
+
         break;
     }
   }
 
   onCancelSearch() {
     this.causeValue = '';
+    this.ibanValue = '';
   }
 
   showAll() {
