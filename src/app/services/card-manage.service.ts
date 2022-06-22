@@ -1,7 +1,7 @@
 import { Account } from './../shared/account.model';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { AuthService } from './../auth/auth.service';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, map, Subject, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 export interface Card {
@@ -34,6 +34,8 @@ export class CardService {
 
   currentIndex = 0;
   cardDisplayed = this.accountsList[this.currentIndex];
+
+  addCard = new Subject<boolean>();
 
   getAccounts() {
     const headerDict = {
@@ -190,4 +192,9 @@ export class CardService {
       requestOptions
     );
   }
+
+  setAddCard(bol: boolean){
+    this.addCard.next(bol);
+  }
+  
 }

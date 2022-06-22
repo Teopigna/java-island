@@ -1,3 +1,4 @@
+
 import { TransactionDetailComponent } from './dashboard/transaction-all-page/transaction-detail/transaction-detail.component';
 import { TransactionAllPageComponent } from './dashboard/transaction-all-page/transaction-all-page.component';
 import { NoPopupActionsComponent } from './dashboard/actions/no-popup-actions/no-popup-actions.component';
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
     path: 'transazioni',
     component: TransactionAllPageComponent,
     children: [{ path: ':id', component: TransactionDetailComponent }],
+    canActivate: [AuthGuardC]
   },
   {
     path: 'bonifico',

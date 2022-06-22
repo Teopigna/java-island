@@ -20,7 +20,7 @@ export class AuthGuardD implements CanActivate {
                             return true;
                         }
                     }
-                    return this.router.createUrlTree(['']);
+                    return this.router.createUrlTree(['/error']);
                 }
             )
         )

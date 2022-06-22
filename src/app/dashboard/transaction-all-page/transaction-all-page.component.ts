@@ -40,10 +40,8 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.cardService.getAccounts().subscribe((cards) => {
-      this.cardService.accountsList = [...cards];
-      this.cardService.cardDisplayed = cards[this.cardService.currentIndex];
-
+    this.cardService.getAccounts().subscribe(() => {
+      
       this.card = this.cardService.cardDisplayed;
 
       this.transactionService.getTransactions().subscribe((traList) => {
@@ -123,12 +121,12 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
           let dTo = Date.parse(toD);
 
           this.transactionsDisplayed = this.transactions.filter((item: any) => {
-            if (
-              Date.parse(this.getDate2(item.date)) <= dTo &&
-              Date.parse(this.getDate2(item.date)) >= dFrom
-            ) {
-              console.log('Ha senso');
-            }
+            // if (
+            //   Date.parse(this.getDate2(item.date)) <= dTo &&
+            //   Date.parse(this.getDate2(item.date)) >= dFrom
+            // ) {
+            //   console.log('Ha senso');
+            // }
 
             return (
               Date.parse(this.getDate2(item.date)) <= dTo &&
@@ -210,7 +208,7 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
         this.transactions[i].date +
         '\n';
       this.fileList = this.fileList + line;
-      console.log(this.fileList);
+      
 
       const blob = new Blob(['LISTA TRANSAZIONI \n' + this.fileList], {
         type: '.txt',

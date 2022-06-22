@@ -1,3 +1,4 @@
+import { CardService } from 'src/app/services/card-manage.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Transaction } from './../../shared/transaction.model';
@@ -20,8 +21,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   transactionsDisplayed: Transaction[] = [];
 
   transactionChangeSub: Subscription = new Subscription();
+  addCardChangeSub: Subscription = new Subscription();
+
+  addCard : boolean = false;
 
   constructor(
+    private cardService: CardService,
     private transactionService: TransactionService,
     private sanitizer: DomSanitizer,
     private router: Router
@@ -37,6 +42,13 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         this.downloadList();
       });
     this.fileList = '';
+    
+    this.addCardChangeSub =
+      this.cardService.addCard.subscribe(
+        ((val) => {
+          this.addCard = val;
+        })
+      )
   }
 
   onChangeTransaction(transaction: Transaction) {
@@ -105,5 +117,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.transactionChangeSub.unsubscribe();
+    this.addCardChangeSub.unsubscribe();
   }
 }

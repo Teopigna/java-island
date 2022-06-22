@@ -139,6 +139,7 @@ export class AccountCardComponent implements OnInit, OnDestroy {
       //Update transactions on refresh
       this.transService.getTransactions().subscribe((trList) => {});
     });
+    this.checkCard();
   }
   // Naviga in gestione conti al click di aggiungi carta
   onAddCard() {
@@ -172,6 +173,7 @@ export class AccountCardComponent implements OnInit, OnDestroy {
     }
     //Update transactions when changhing card
     this.transService.getTransactions().subscribe((trList) => {});
+    this.checkCard();
   }
 
   // Aggiorna la carta mostrata al click della freccia destra
@@ -203,10 +205,20 @@ export class AccountCardComponent implements OnInit, OnDestroy {
 
     //Update transactions when changhing card
     this.transService.getTransactions().subscribe((trList) => {});
+    this.checkCard();
   }
 
   ngOnDestroy(): void {
     this.cardChangeSub.unsubscribe();
     this.accountsChangeSub.unsubscribe();
+  }
+
+  checkCard(){
+    if(this.cardDisplayed?.accountNumber === ''){
+      this.cardService.setAddCard(true);
+    }
+    else {
+      this.cardService.setAddCard(false);
+    }
   }
 }
