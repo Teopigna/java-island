@@ -78,6 +78,10 @@ label {
   text-align: center;
 }
 
+.blu-btn {
+  color: var(--menu-bg-color);
+}
+
 h1 {
   text-transform: capitalize;
 
