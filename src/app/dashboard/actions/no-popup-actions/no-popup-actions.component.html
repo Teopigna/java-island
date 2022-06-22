@@ -128,7 +128,7 @@
                 <li><b>Destinatario:</b> {{ form1.value.to }}</li>
                 <li>
                   <b>Quantità da inviare:</b>
-                  {{ form1.value.amount | number: "1.2-2":"it" }}
+                  € {{ form1.value.amount | number: "1.2-2":"it" }}
                 </li>
                 <li *ngIf="form1.value.description">
                   <b>Causale:</b> {{ form1.value.description }}
