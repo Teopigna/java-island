@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/auth/auth.service';
 import { Account } from './../../shared/account.model';
 import { CardService } from './../../services/card-manage.service';
 import { Transaction } from './../../shared/transaction.model';
@@ -19,6 +20,7 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
   transactionsDisplayed: Transaction[] = [];
 
   card: Account | undefined;
+  cardArray: Account[] = [];
 
   fileList: string = '';
   downloadFileUrl: any;
@@ -36,12 +38,13 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
   constructor(
     private transactionService: TransactionService,
     private cardService: CardService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.cardService.getAccounts().subscribe(() => {
-      
+    this.cardService.getAccounts().subscribe((cards) => {
+      this.cardArray = [...cards];
       this.card = this.cardService.cardDisplayed;
 
       this.transactionService.getTransactions().subscribe((traList) => {
@@ -208,7 +211,6 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
         this.transactions[i].date +
         '\n';
       this.fileList = this.fileList + line;
-      
 
       const blob = new Blob(['LISTA TRANSAZIONI \n' + this.fileList], {
         type: '.txt',
@@ -247,6 +249,18 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
 
   onChangeTransaction(transaction: Transaction) {
     this.transactionService.currentTransactionChanged.next(transaction);
+  }
+
+  onRefreshPage() {
+    // farà la richiesta get per sapere se l'account è stato accettato
+
+    this.cardService.getAccounts().subscribe((accountList) => {
+      this.cardArray = [...accountList];
+    });
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 
   ngOnDestroy(): void {

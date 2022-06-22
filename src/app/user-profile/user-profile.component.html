@@ -6,6 +6,68 @@
   <div class="wave"></div>
 </div>
 
+<div *ngIf="cardArray.length === 1 && cardArray[0]?.status === 1">
+  <div class="backdrop"></div>
+  <div class="container-center-row">
+    <div class="container-center-col">
+      <div class="panel popup">
+        <h3>Attendere prego...</h3>
+        <span>
+          La tua richiesta di registrazione è in attesa di approvazione. <br />
+          <br />
+          <p>
+            Cliccare il tasto refresh per aggiornare la pagina, o logout per
+            uscire.
+          </p>
+        </span>
+        <div style="width: 100%; display: flex; justify-content: center">
+          <div>
+            <button
+              class="btn personalized-btn"
+              mat-button
+              (click)="onRefreshPage()"
+            >
+              Aggiorna <i class="fa-solid fa-arrow-rotate-right"></i>
+            </button>
+          </div>
+          <div>
+            <a routerLink="" (click)="onLogout()">
+              <button class="btn personalized-btn" mat-button>
+                Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="cardArray.length === 1 && cardArray[0]?.status === 5">
+  <div class="backdrop"></div>
+  <div class="container-center-row">
+    <div class="container-center-col">
+      <div class="panel popup">
+        <h3>Attendere prego...</h3>
+        <span>
+          La tua richiesta di registrazione è stata rifiutata. <br />
+          <br />
+          <p>Cliccare il tasto Logout per uscire.</p>
+        </span>
+        <div style="width: 100%; display: flex; justify-content: center">
+          <div>
+            <a routerLink="" (click)="onLogout()">
+              <button class="btn personalized-btn" mat-button>
+                Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col col-md-auto title-div">
