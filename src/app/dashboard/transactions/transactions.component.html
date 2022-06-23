@@ -3,7 +3,12 @@
     <h3 class="title">
       <span>Transazioni</span>
       <span>
-        <button [disabled]="addCard" class="btn-blu" mat-button routerLink="/transazioni">
+        <button
+          [disabled]="addCard"
+          class="btn-blu"
+          mat-button
+          routerLink="/transazioni"
+        >
           Vedi tutte
         </button>
       </span>
@@ -31,10 +36,10 @@
         >
           <thead>
             <tr>
-              <th  mat-sort-header="date">Data</th>
-              <th  mat-sort-header="amount">Importo</th>
-              <th >Da</th>
-              <th >A</th>
+              <th mat-sort-header="date">Data</th>
+              <th mat-sort-header="amount">Importo</th>
+              <th>Da</th>
+              <th>A</th>
               <th mat-sort-header="type">Tipo</th>
             </tr>
           </thead>
@@ -43,6 +48,7 @@
             <tr
               *ngFor="let transaction of transactionsDisplayed"
               (click)="onChangeTransaction(transaction)"
+              title="vedi tutte le transazioni"
             >
               <td>
                 <i>{{ transaction.date | date: "dd/MM/yyyy" }}</i>
