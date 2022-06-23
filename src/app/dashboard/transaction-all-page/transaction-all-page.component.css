@@ -8,8 +8,10 @@ table {
     rgba(var(--menu-font-hover-rgb), 0.5) 100%
   );
 }
-.center {
-  text-align: center;
+.right {
+  text-align: right;
+  width: 50%;
+
 }
 
 .filter {
