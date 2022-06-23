@@ -1,4 +1,3 @@
-
 import { Account } from './../shared/account.model';
 import { AuthService } from './../auth/auth.service';
 import { CardService } from '../services/card-manage.service';

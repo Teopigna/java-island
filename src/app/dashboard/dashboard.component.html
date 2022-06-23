@@ -15,26 +15,54 @@
         <span>
           La tua richiesta di registrazione è in attesa di approvazione. <br />
           <br />
-          <p>Cliccare il tasto refresh per aggiornare la pagina, o logout per
-            uscire.</p>
-          </span>
+          <p>
+            Cliccare il tasto refresh per aggiornare la pagina, o logout per
+            uscire.
+          </p>
+        </span>
         <div style="width: 100%; display: flex; justify-content: center">
           <div>
-          <button class="btn personalized-btn" mat-button (click)="onRefreshPage()">
-            Aggiorna <i class="fa-solid fa-arrow-rotate-right"></i>
-          </button>
-
-        </div>
-        <div>
-
-          <a routerLink="" (click)="onLogout()">
-            <button class="btn personalized-btn" mat-button>
-              Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <button
+              class="btn personalized-btn"
+              mat-button
+              (click)="onRefreshPage()"
+            >
+              Aggiorna <i class="fa-solid fa-arrow-rotate-right"></i>
             </button>
-          </a>
+          </div>
+          <div>
+            <a routerLink="" (click)="onLogout()">
+              <button class="btn personalized-btn" mat-button>
+                Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              </button>
+            </a>
+          </div>
         </div>
-        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div *ngIf="cardArray.length === 1 && cardArray[0]?.status === 5">
+  <div class="backdrop"></div>
+  <div class="container-center-row">
+    <div class="container-center-col">
+      <div class="panel reject">
+        <h3>Ci dispiace...</h3>
+        <span>
+          La tua richiesta di registrazione è stata rifiutata. <br />
+          <br />
+          <p>Cliccare il tasto Logout per uscire.</p>
+        </span>
+        <div style="width: 100%; display: flex; justify-content: center">
+          <div>
+            <a routerLink="" (click)="onLogout()">
+              <button class="btn personalized-btn" mat-button>
+                Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              </button>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -48,9 +76,12 @@
 <div class="dashboard-area">
   <div class="dashboard-panels">
     <app-account-card class="left"></app-account-card>
-    <app-graphic-area class="right" ></app-graphic-area>
-    <app-actions class="left" style="margin-bottom: 10%;"></app-actions>
-    <app-transactions class="right" style="margin-bottom: 10%;"></app-transactions>
+    <app-graphic-area class="right"></app-graphic-area>
+    <app-actions class="left" style="margin-bottom: 10%"></app-actions>
+    <app-transactions
+      class="right"
+      style="margin-bottom: 10%"
+    ></app-transactions>
   </div>
   <app-footer></app-footer>
 </div>
