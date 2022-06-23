@@ -234,3 +234,14 @@ h4.no-trans {
 
   align-self: center;
 }
+
+.reject {
+  position: fixed;
+
+  width: 340px;
+
+  background-color: #e2a6a9; /*rgb(255, 94, 94);*/
+  z-index: 7;
+
+  align-self: center;
+}
