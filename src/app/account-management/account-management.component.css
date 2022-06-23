@@ -10,6 +10,17 @@ table {
   );
 }
 
+.reject {
+  position: fixed;
+
+  width: 340px;
+
+  background-color: #e2a6a9; /*rgb(255, 94, 94);*/
+  z-index: 7;
+
+  align-self: center;
+}
+
 .personalized-btn {
   margin: 0 5px 0 5px;
   font-size: 16px;

@@ -1,3 +1,4 @@
+import { AuthService } from './../../../auth/auth.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { Location } from '@angular/common';
 import {
@@ -28,6 +29,8 @@ export class NoPopupActionsComponent implements OnInit {
 
   accountTransfer: Account[] = [];
 
+  cardArray: Account[] = [];
+
   cardIsActive: number = 1;
   // 0: conto attivo
   // 1: primo conto da attivare
@@ -44,7 +47,8 @@ export class NoPopupActionsComponent implements OnInit {
     private cardService: CardService,
     private traService: TransactionService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private authService: AuthService
   ) {
     this.onResize();
   }
@@ -52,6 +56,10 @@ export class NoPopupActionsComponent implements OnInit {
   ngOnInit(): void {
     this.accountTransfer = this.cardService.accountsList.filter((card) => {
       return card !== this.cardService.cardDisplayed && card.status === 0;
+    });
+
+    this.cardService.getAccounts().subscribe((accountList) => {
+      this.cardArray = [...accountList];
     });
 
     //raccogliere action dall'url
@@ -62,10 +70,13 @@ export class NoPopupActionsComponent implements OnInit {
       .join('');
 
     this.cardIsActive = this.cardService.cardDisplayed?.status;
-    
-    if(this.action === 'ricarica'){
+
+    if (this.action === 'ricarica') {
       this.form1 = new FormGroup({
-        to: new FormControl(null, [Validators.required, Validators.pattern("[0-9 ]{10}")]),
+        to: new FormControl(null, [
+          Validators.required,
+          Validators.pattern('[0-9 ]{10}'),
+        ]),
         amount: new FormControl(null, [
           Validators.required,
           Validators.min(0.1),
@@ -74,8 +85,7 @@ export class NoPopupActionsComponent implements OnInit {
         // la causale non è obbligatoria
         description: new FormControl(null, [Validators.maxLength(200)]),
       });
-    }
-    else {
+    } else {
       this.form1 = new FormGroup({
         to: new FormControl(null, [Validators.required]),
         amount: new FormControl(null, [
@@ -86,7 +96,7 @@ export class NoPopupActionsComponent implements OnInit {
         // la causale non è obbligatoria
         description: new FormControl(null, [Validators.maxLength(200)]),
       });
-    }  
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -149,5 +159,17 @@ export class NoPopupActionsComponent implements OnInit {
       queryParams: { card: (this.cardService.currentIndex + 1).toString() },
       fragment: 'activated',
     });
+  }
+
+  onRefreshPage() {
+    // farà la richiesta get per sapere se l'account è stato accettato
+
+    this.cardService.getAccounts().subscribe((accountList) => {
+      this.cardArray = [...accountList];
+    });
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }
