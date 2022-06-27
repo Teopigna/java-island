@@ -2,7 +2,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { Account } from './../shared/account.model';
 import { CardService } from './../services/card-manage.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-account-management',
@@ -22,12 +22,16 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
 
   accountListSub: Subscription = new Subscription();
 
+  phoneScreen: boolean = false;
+
   constructor(
     private cardService: CardService,
     private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.onResize();
+
     this.accountListSub = this.cardService.accountsListChanged.subscribe(() => {
       this.accounts = this.cardService.accountsList;
       this.closedAccounts = this.accounts.filter((p) => p.status === 4);
@@ -39,6 +43,19 @@ export class AccountManagementComponent implements OnInit, OnDestroy {
       this.closedAccounts = this.accounts.filter((p) => p.status === 4);
       this.accounts = this.accounts.filter((p) => p.status != 4);
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: any) {
+    if (window.innerWidth < 550) {
+      this.phoneScreen = true;
+    } else {
+      this.phoneScreen = false;
+    }
+  }
+
+  onVisualizza() {
+    this.phoneScreen = false;
   }
 
   openCloseRequest(ind: number) {

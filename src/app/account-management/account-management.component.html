@@ -1,211 +1,234 @@
 <app-menu></app-menu>
 
-<div class="ocean">
-  <div class="wave"></div>
-  <div class="wave"></div>
-  <div class="wave"></div>
-</div>
-
-<app-add-card-popup
-  *ngIf="showPopup"
-  (onClose)="onClosePopUp()"
-></app-add-card-popup>
-
-<app-warning-popup
-  *ngIf="showWarning"
-  (onClose)="onCloseWarning()"
-></app-warning-popup>
-
-<div *ngIf="accounts.length === 1 && accounts[0]?.status === 1">
-  <div class="backdrop"></div>
-  <div class="container-center-row">
-    <div class="container-center-col">
-      <div class="panel popup">
-        <h3>Attendere prego...</h3>
-        <span>
-          La tua richiesta di registrazione è in attesa di approvazione. <br />
-          <br />
-          <p>
-            Cliccare il tasto refresh per aggiornare la pagina, o logout per
-            uscire.
-          </p>
-        </span>
-        <div style="width: 100%; display: flex; justify-content: center">
-          <div>
-            <button
-              style="font-size: 16px; color: #000; font-weight: normal"
-              mat-button
-              (click)="onRefreshPage()"
-            >
-              Aggiorna <i class="fa-solid fa-arrow-rotate-right"></i>
-            </button>
-          </div>
-          <div>
-            <a routerLink="" (click)="onLogout()">
-              <button
-                style="font-size: 16px; color: #000; font-weight: normal"
-                mat-button
-              >
-                Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
-              </button>
-            </a>
-          </div>
-        </div>
+<div *ngIf="phoneScreen; else wideScreen" class="rotate-screen">
+  <div class="vertical-align">
+    <div class="orizontal-align">
+      <div>
+        <h2>Ruota lo schermo per un'esperienza migliore</h2>
       </div>
     </div>
   </div>
 </div>
 
-<div *ngIf="accounts.length === 1 && accounts[0]?.status === 5">
-  <div class="backdrop"></div>
-  <div class="container-center-row">
-    <div class="container-center-col">
-      <div class="panel reject">
-        <h3 style="width: 100%; text-align: center">Ci dispiace...</h3>
-        <span>
-          La tua richiesta di registrazione è stata rifiutata. <br />
-          <br />
-          <p>Cliccare il tasto Logout per uscire.</p>
-        </span>
-        <div style="width: 100%; display: flex; justify-content: center">
-          <div>
-            <a routerLink="" (click)="onLogout()">
-              <button
-                style="font-size: 16px; color: #000; font-weight: normal"
-                mat-button
-              >
-                Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
-              </button>
-            </a>
-          </div>
-        </div>
+<div *ngIf="phoneScreen" style="height: 100%">
+  <div class="vertical-align">
+    <div class="orizontal-align">
+      <div>
+        <button class="btn btn-primary center" (click)="onVisualizza()">
+          Visualizza comunque in verticale
+        </button>
       </div>
     </div>
   </div>
 </div>
 
-<div style="margin-top: 50px">
-  <div class="row d-flex text-center">
-    <h1>I tuoi conti</h1>
+<ng-template #wideScreen>
+  <div class="ocean">
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <div style="background-color: #fff; border-radius: 10px">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">IBAN</th>
-                <th scope="col">Saldo</th>
-                <th scope="col">Stato</th>
-                <th scope="col">Gestione</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let account of accounts; index as i">
-                <th scope="row">{{ i + 1 }}</th>
-                <td>
-                  {{ account.accountNumber }}
-                </td>
-                <td>
-                  <div class="right">
-                    €{{ account.balance | number: "1.2-2":"it" }}
-                  </div>
-                </td>
-                <td
-                  [ngStyle]="{
-                    color: account.status === 0 ? 'green' : 'red'
-                  }"
+  <app-add-card-popup
+    *ngIf="showPopup"
+    (onClose)="onClosePopUp()"
+  ></app-add-card-popup>
+
+  <app-warning-popup
+    *ngIf="showWarning"
+    (onClose)="onCloseWarning()"
+  ></app-warning-popup>
+
+  <div *ngIf="accounts.length === 1 && accounts[0]?.status === 1">
+    <div class="backdrop"></div>
+    <div class="container-center-row">
+      <div class="container-center-col">
+        <div class="panel popup">
+          <h3>Attendere prego...</h3>
+          <span>
+            La tua richiesta di registrazione è in attesa di approvazione.
+            <br />
+            <br />
+            <p>
+              Cliccare il tasto refresh per aggiornare la pagina, o logout per
+              uscire.
+            </p>
+          </span>
+          <div style="width: 100%; display: flex; justify-content: center">
+            <div>
+              <button
+                style="font-size: 16px; color: #000; font-weight: normal"
+                mat-button
+                (click)="onRefreshPage()"
+              >
+                Aggiorna <i class="fa-solid fa-arrow-rotate-right"></i>
+              </button>
+            </div>
+            <div>
+              <a routerLink="" (click)="onLogout()">
+                <button
+                  style="font-size: 16px; color: #000; font-weight: normal"
+                  mat-button
                 >
-                  {{
-                    account.status === 0
-                      ? "attivo"
-                      : checkActivity(account.status)
-                  }}
-                </td>
-                <td>
-                  <button
-                    *ngIf="account.status != 4"
-                    class="red-btn"
-                    mat-button
-                    [disabled]="!(account.status === 0)"
-                    style="margin-left: 10px"
-                    (click)="openCloseRequest(i)"
-                  >
-                    Invia richiesta chiusura
-                  </button>
-                  <br />
-                  <span
-                    class="span-error"
-                    *ngIf="closureError && i === errorIndex"
-                    >Il saldo deve essere pari a 0</span
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div class="btn-container">
-      <div class="text-center">
-        <button class="btn personalized-btn" (click)="onUpdate()">
-          Aggiorna
-        </button>
-      </div>
-      <div class="text-center">
-        <button class="btn personalized-btn" (click)="onAddCard()">
-          Crea nuovo conto
-        </button>
-      </div>
-      <div class="text-center">
-        <div ngbDropdown class="d-inline-block">
-          <button
-            type="button"
-            class="btn personalized-btn"
-            id="dropdownBasic1"
-            ngbDropdownToggle
-          >
-            Conti chiusi
-          </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <ul class="list-group">
-              <li class="list-group-item" *ngIf="closedAccounts.length === 0">
-                Nessun conto chiuso
-              </li>
-              <li
-                class="list-group-item"
-                *ngFor="let account of closedAccounts"
-              >
-                {{ account.accountNumber }}
-              </li>
-            </ul>
+                  Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <hr />
   </div>
 
-  <!-- PARTE CONTI CHIUSI -->
-  <div class="container" *ngIf="showClosed">
-    <div class="row d-flex text-center">
-      <h3 class="small-caps">Conti chiusi</h3>
-      <div class="col-5"></div>
-      <div class="col">
-        <ul class="list-group">
-          <li class="list-group-item" *ngIf="closedAccounts.length === 0">
-            Nessun conto chiuso
-          </li>
-          <li class="list-group-item" *ngFor="let account of closedAccounts">
-            {{ account.accountNumber }}
-          </li>
-        </ul>
+  <div *ngIf="accounts.length === 1 && accounts[0]?.status === 5">
+    <div class="backdrop"></div>
+    <div class="container-center-row">
+      <div class="container-center-col">
+        <div class="panel reject">
+          <h3 style="width: 100%; text-align: center">Ci dispiace...</h3>
+          <span>
+            La tua richiesta di registrazione è stata rifiutata. <br />
+            <br />
+            <p>Cliccare il tasto Logout per uscire.</p>
+          </span>
+          <div style="width: 100%; display: flex; justify-content: center">
+            <div>
+              <a routerLink="" (click)="onLogout()">
+                <button
+                  style="font-size: 16px; color: #000; font-weight: normal"
+                  mat-button
+                >
+                  Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-5"></div>
     </div>
   </div>
-</div>
+
+  <div style="margin-top: 50px">
+    <div class="row d-flex text-center">
+      <h1>I tuoi conti</h1>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div style="background-color: #fff; border-radius: 10px">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">IBAN</th>
+                  <th scope="col">Saldo</th>
+                  <th scope="col">Stato</th>
+                  <th scope="col">Gestione</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let account of accounts; index as i">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>
+                    {{ account.accountNumber }}
+                  </td>
+                  <td class="money">
+                    € {{ account.balance | number: "1.2-2":"it" }}
+                  </td>
+                  <td
+                    [ngStyle]="{
+                      color: account.status === 0 ? 'green' : 'red'
+                    }"
+                  >
+                    {{
+                      account.status === 0
+                        ? "attivo"
+                        : checkActivity(account.status)
+                    }}
+                  </td>
+                  <td>
+                    <button
+                      *ngIf="account.status != 4"
+                      class="red-btn"
+                      mat-button
+                      [disabled]="!(account.status === 0)"
+                      style="margin-left: 10px"
+                      (click)="openCloseRequest(i)"
+                    >
+                      Invia richiesta chiusura
+                    </button>
+                    <br />
+                    <span
+                      class="span-error"
+                      *ngIf="closureError && i === errorIndex"
+                      >Il saldo deve essere pari a 0</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-container">
+        <div class="text-center">
+          <button class="btn personalized-btn" (click)="onUpdate()">
+            Aggiorna
+          </button>
+        </div>
+        <div class="text-center">
+          <button class="btn personalized-btn" (click)="onAddCard()">
+            Crea nuovo conto
+          </button>
+        </div>
+        <div class="text-center">
+          <div ngbDropdown class="d-inline-block">
+            <button
+              type="button"
+              class="btn personalized-btn"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              Conti chiusi
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <ul class="list-group">
+                <li class="list-group-item" *ngIf="closedAccounts.length === 0">
+                  Nessun conto chiuso
+                </li>
+                <li
+                  class="list-group-item"
+                  *ngFor="let account of closedAccounts"
+                >
+                  {{ account.accountNumber }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </div>
+
+    <!-- PARTE CONTI CHIUSI -->
+    <div class="container" *ngIf="showClosed">
+      <div class="row d-flex text-center">
+        <h3 class="small-caps">Conti chiusi</h3>
+        <div class="col-5"></div>
+        <div class="col">
+          <ul class="list-group">
+            <li class="list-group-item" *ngIf="closedAccounts.length === 0">
+              Nessun conto chiuso
+            </li>
+            <li class="list-group-item" *ngFor="let account of closedAccounts">
+              {{ account.accountNumber }}
+            </li>
+          </ul>
+        </div>
+        <div class="col-5"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
