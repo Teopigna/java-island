@@ -4,7 +4,14 @@ import { CardService } from './../../services/card-manage.service';
 import { Transaction } from './../../shared/transaction.model';
 import { from, Subscription } from 'rxjs';
 import { TransactionService } from './../../services/transaction.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  OnChanges,
+  SimpleChanges,
+  HostListener,
+} from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +21,9 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './transaction-all-page.component.html',
   styleUrls: ['./transaction-all-page.component.css'],
 })
-export class TransactionAllPageComponent implements OnInit, OnDestroy {
+export class TransactionAllPageComponent
+  implements OnInit, OnDestroy, OnChanges
+{
   transactionChangeSub: Subscription = new Subscription();
   transactions: Transaction[] = [];
   transactionsDisplayed: Transaction[] = [];
@@ -35,14 +44,17 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
   causeValue: string = '';
   ibanValue: string = '';
 
+  phoneScreen: boolean = false;
+
   constructor(
     private transactionService: TransactionService,
     private cardService: CardService,
     private sanitizer: DomSanitizer,
     private authService: AuthService
   ) {}
-
+  ngOnChanges(changes: SimpleChanges): void {}
   ngOnInit(): void {
+    this.onResize();
     this.cardService.getAccounts().subscribe((cards) => {
       this.cardArray = [...cards];
       this.card = this.cardService.cardDisplayed;
@@ -54,6 +66,19 @@ export class TransactionAllPageComponent implements OnInit, OnDestroy {
         this.downloadList();
       });
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: any) {
+    if (window.innerWidth < 550) {
+      this.phoneScreen = true;
+    } else {
+      this.phoneScreen = false;
+    }
+  }
+
+  onVisualizza() {
+    this.phoneScreen = false;
   }
 
   onDateSelection(date: NgbDate) {
