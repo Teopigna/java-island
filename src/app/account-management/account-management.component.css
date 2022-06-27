@@ -19,6 +19,14 @@ table {
   left: 0;
   z-index: -1;
 }
+.reduce {
+  border-radius: 10px;
+  height: fit-content;
+  max-width: 100%;
+  margin: 0;
+  overflow: scroll;
+  background-color: transparent;
+}
 
 .vertical-align {
   height: 100%;

@@ -1,5 +1,7 @@
 table {
+  margin-top: 20px;
   border-radius: 10px;
+  width: 100%;
   background: rgba(var(--menu-bg-rgb), 0.5);
   background: linear-gradient(
     90deg,
@@ -7,6 +9,15 @@ table {
     rgba(var(--menu-font-hover-rgb), 0.5) 80%,
     rgba(var(--menu-font-hover-rgb), 0.5) 100%
   );
+}
+
+.reduce {
+  border-radius: 10px;
+  height: fit-content;
+  max-width: 100%;
+  margin: 0;
+  overflow: scroll;
+  background-color: transparent;
 }
 
 .rotate-screen {
@@ -90,8 +101,8 @@ h2 {
   background-color: white;
 
   position: absolute;
-  right: 40px;
-  top: -20px;
+  right: 3%;
+  top: 0%;
 
   z-index: 1;
 }
