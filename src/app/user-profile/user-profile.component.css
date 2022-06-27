@@ -37,10 +37,6 @@ h5 {
   font-variant: small-caps;
 }
 
-p {
-  text-transform: capitalize;
-}
-
 .title-div {
   display: flex;
   justify-content: space-between;

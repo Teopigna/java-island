@@ -1,4 +1,5 @@
 <app-menu></app-menu>
+
 <div *ngIf="phoneScreen; else wideScreen" class="rotate-screen">
   <div class="vertical-align">
     <div class="orizontal-align">
@@ -227,13 +228,12 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <div>
           <button mat-button class="blu-btn" (click)="showAll()">
-            Mostra tutte
+            Rimuovi filtri
           </button>
         </div>
+
+        <div></div>
       </div>
 
       <div class="container">
@@ -247,61 +247,58 @@
                 <i class="fa-solid fa-cloud-arrow-down"></i>
               </button>
             </a>
-            <div class="panel-container">
-              <table
-                matSort
-                (matSortChange)="sortData($event)"
-                matSortDisableClear
-                matSortActive="date"
-                class="table table-hover table-striped"
-                style="width: 100%"
-              >
-                <thead>
-                  <tr>
-                    <th mat-sort-header="date">Data</th>
-                    <th mat-sort-header="amount">Importo</th>
-                    <th>Da</th>
-                    <th>A</th>
-                    <th mat-sort-header="type">Tipo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- aggiungere una custom class al tooltip se rimane tempo  -->
-                  <tr
-                    *ngFor="let transaction of transactionsDisplayed"
-                    [routerLink]="['/transazioni', transaction.id]"
-                    (click)="onChangeTransaction(transaction)"
-                  >
-                    <td>
-                      <i>{{ transaction.date | date: "dd/MM/yyyy" }}</i>
-                    </td>
-                    <td>
-                      <div class="right">
-                        <b>€{{ transaction.amount | number: "1.2-2":"it" }}</b>
-                      </div>
-                    </td>
-                    <td>{{ transaction.accountNumberFrom }}</td>
-                    <td>{{ transaction.accountNumberTo }}</td>
-                    <td>
-                      {{
-                        transaction.type === 1
-                          ? "bonifico"
-                          : transaction.type === 2
-                          ? "versamento"
-                          : transaction.type === 3
-                          ? "prelievo"
-                          : transaction.type === 4
-                          ? "giroconto"
-                          : transaction.type === 5
-                          ? "ricarica"
-                          : ""
-                      }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
+            <table
+              matSort
+              (matSortChange)="sortData($event)"
+              matSortDisableClear
+              matSortActive="date"
+              class="table table-hover table-striped"
+              style="width: 100%"
+            >
+              <thead>
+                <tr>
+                  <th mat-sort-header="date">Data</th>
+                  <th mat-sort-header="amount">Importo</th>
+                  <th>Da</th>
+                  <th>A</th>
+                  <th mat-sort-header="type">Tipo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- aggiungere una custom class al tooltip se rimane tempo  -->
+                <tr
+                  *ngFor="let transaction of transactionsDisplayed"
+                  [routerLink]="['/transazioni', transaction.id]"
+                  (click)="onChangeTransaction(transaction)"
+                >
+                  <td>
+                    <i>{{ transaction.date | date: "dd/MM/yyyy" }}</i>
+                  </td>
+                  <td>
+                    <div class="right">
+                      <b>€{{ transaction.amount | number: "1.2-2":"it" }}</b>
+                    </div>
+                  </td>
+                  <td>{{ transaction.accountNumberFrom }}</td>
+                  <td>{{ transaction.accountNumberTo }}</td>
+                  <td>
+                    {{
+                      transaction.type === 1
+                        ? "bonifico"
+                        : transaction.type === 2
+                        ? "versamento"
+                        : transaction.type === 3
+                        ? "prelievo"
+                        : transaction.type === 4
+                        ? "giroconto"
+                        : transaction.type === 5
+                        ? "ricarica"
+                        : ""
+                    }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
             <h4 class="no-trans" *ngIf="transactionsDisplayed.length === 0">
               Nessuna transazione da visualizzare.
             </h4>
