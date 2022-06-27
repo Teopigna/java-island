@@ -89,8 +89,7 @@ export class NoPopupActionsComponent implements OnInit {
         to: new FormControl(null, [Validators.required]),
         amount: new FormControl(null, [
           Validators.required,
-          Validators.min(0.1),
-          Validators.max(100000),
+          Validators.min(0.1)
         ]),
         // la causale non è obbligatoria
         description: new FormControl(null, [Validators.maxLength(200)]),
