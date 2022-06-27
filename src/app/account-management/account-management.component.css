@@ -72,8 +72,9 @@ li {
   border-right: 3px dashed #333;
 }
 
-.money {
-  text-align: end;
+.right {
+  text-align: right;
+  width: 70%;
 }
 
 .red-btn {

@@ -40,10 +40,10 @@ td {
   cursor: pointer;
 }
 
-.right{
+.right {
   text-align: right;
+  width: 90%;
 }
-
 .round-btn:hover,
 .round-btn:active {
   background-color: var(--menu-font-color);
@@ -62,7 +62,6 @@ td {
 
 .panel-container {
   position: relative;
-
 }
 
 .panel-container p {

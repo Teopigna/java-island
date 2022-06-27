@@ -109,8 +109,10 @@
                 <td>
                   {{ account.accountNumber }}
                 </td>
-                <td class="money">
-                  € {{ account.balance | number: "1.2-2":"it" }}
+                <td>
+                  <div class="right">
+                    €{{ account.balance | number: "1.2-2":"it" }}
+                  </div>
                 </td>
                 <td
                   [ngStyle]="{
