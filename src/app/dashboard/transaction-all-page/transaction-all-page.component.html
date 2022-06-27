@@ -236,13 +236,14 @@
         <div></div>
       </div>
 
-      <div class="container">
+      <div class="container reduce">
         <div class="row">
           <div class="col">
             <a [href]="downloadFileUrl" download="Lista operazioni">
               <button
                 class="round-btn"
                 title="scarica le transazioni di tutte le tue carte"
+                style="overflow: visible"
               >
                 <i class="fa-solid fa-cloud-arrow-down"></i>
               </button>
@@ -253,7 +254,6 @@
               matSortDisableClear
               matSortActive="date"
               class="table table-hover table-striped"
-              style="width: 100%"
             >
               <thead>
                 <tr>
