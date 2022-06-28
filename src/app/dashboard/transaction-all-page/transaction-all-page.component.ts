@@ -54,7 +54,6 @@ export class TransactionAllPageComponent
   ) {}
   ngOnChanges(changes: SimpleChanges): void {}
   ngOnInit(): void {
-    this.onResize();
     this.cardService.getAccounts().subscribe((cards) => {
       this.cardArray = [...cards];
       this.card = this.cardService.cardDisplayed;
@@ -66,6 +65,7 @@ export class TransactionAllPageComponent
         this.downloadList();
       });
     });
+    this.onResize();
   }
 
   @HostListener('window:resize', ['$event'])
