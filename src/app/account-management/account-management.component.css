@@ -10,6 +10,11 @@ table {
   );
 }
 
+.money {
+  text-align: right;
+  width: 80%;
+}
+
 .rotate-screen {
   background-color: rgba(0, 0, 0, 0.815);
   width: 100vw;
@@ -24,8 +29,14 @@ table {
   height: fit-content;
   max-width: 100%;
   margin: 0;
-  overflow: visible;
+  overflow: scroll;
   background-color: transparent;
+}
+
+.reduce::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
 }
 
 .vertical-align {

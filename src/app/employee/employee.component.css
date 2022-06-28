@@ -9,28 +9,30 @@ table {
     rgba(var(--menu-font-hover-rgb), 0.5) 100%
   );
 }
+.money {
+  text-align: right;
+  width: 80%;
+}
 
-button{
-  margin:5px;
+button {
+  margin: 5px;
   border-radius: 5px;
 }
 
-
-h1{
+h1 {
   font-variant: small-caps;
   width: 100%;
   text-align: center;
 }
 
-.decline{
-
-background-color: transparent;
-color: #eb444c;
-border: 1px solid #eb444c;
+.decline {
+  background-color: transparent;
+  color: #eb444c;
+  border: 1px solid #eb444c;
 }
 
-.accept{
-color: rgb(72, 151, 72);
-background-color: transparent;
-border:solid 1px rgb(72, 151, 72);
+.accept {
+  color: rgb(72, 151, 72);
+  background-color: transparent;
+  border: solid 1px rgb(72, 151, 72);
 }
