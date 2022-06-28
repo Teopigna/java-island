@@ -113,60 +113,65 @@
       <h1>I tuoi conti</h1>
     </div>
 
-    <div class="container reduce">
+    <div class="container">
       <div class="row">
         <div class="col">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">IBAN</th>
-                <th scope="col">Saldo</th>
-                <th scope="col">Stato</th>
-                <th scope="col">Gestione</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let account of accounts; index as i">
-                <th scope="row">{{ i + 1 }}</th>
-                <td>
-                  {{ account.accountNumber }}
-                </td>
-                <td class="money">
-                  € {{ account.balance | number: "1.2-2":"it" }}
-                </td>
-                <td
-                  [ngStyle]="{
-                    color: account.status === 0 ? 'green' : 'red'
-                  }"
-                >
-                  {{
-                    account.status === 0
-                      ? "attivo"
-                      : checkActivity(account.status)
-                  }}
-                </td>
-                <td>
-                  <button
-                    *ngIf="account.status != 4"
-                    class="red-btn"
-                    mat-button
-                    [disabled]="!(account.status === 0)"
-                    style="margin-left: 10px"
-                    (click)="openCloseRequest(i)"
+          <div class="reduce">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">IBAN</th>
+                  <th scope="col">Saldo</th>
+                  <th scope="col">Stato</th>
+                  <th scope="col">Gestione</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let account of accounts; index as i">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>
+                    {{ account.accountNumber }}
+                  </td>
+
+                  <td>
+                    <div class="money">
+                      € {{ account.balance | number: "1.2-2":"it" }}
+                    </div>
+                  </td>
+                  <td
+                    [ngStyle]="{
+                      color: account.status === 0 ? 'green' : 'red'
+                    }"
                   >
-                    Invia richiesta chiusura
-                  </button>
-                  <br />
-                  <span
-                    class="span-error"
-                    *ngIf="closureError && i === errorIndex"
-                    >Il saldo deve essere pari a 0</span
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    {{
+                      account.status === 0
+                        ? "attivo"
+                        : checkActivity(account.status)
+                    }}
+                  </td>
+                  <td>
+                    <button
+                      *ngIf="account.status != 4"
+                      class="red-btn"
+                      mat-button
+                      [disabled]="!(account.status === 0)"
+                      style="margin-left: 10px"
+                      (click)="openCloseRequest(i)"
+                    >
+                      Invia richiesta chiusura
+                    </button>
+                    <br />
+                    <span
+                      class="span-error"
+                      *ngIf="closureError && i === errorIndex"
+                      >Il saldo deve essere pari a 0</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
