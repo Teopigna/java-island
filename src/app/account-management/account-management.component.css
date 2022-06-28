@@ -24,7 +24,7 @@ table {
   height: fit-content;
   max-width: 100%;
   margin: 0;
-  overflow: scroll;
+  overflow: visible;
   background-color: transparent;
 }
 
