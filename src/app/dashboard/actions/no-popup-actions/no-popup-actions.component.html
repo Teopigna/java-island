@@ -179,7 +179,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-              <mat-label>Ammontare (€)</mat-label>
+              <mat-label>Importo (€)</mat-label>
               <input
                 matInput
                 placeholder="ex. 100"
@@ -219,8 +219,8 @@
               <ul>
                 <li><b>Destinatario:</b> {{ form1.value.to }}</li>
                 <li>
-                  <b>Quantità da inviare:</b>
-                  € {{ form1.value.amount | number: "1.2-2":"it" }}
+                  <b>Importo della transazione:</b>
+                  €{{ form1.value.amount | number: "1.2-2":"it" }}
                 </li>
                 <li *ngIf="form1.value.description">
                   <b>Causale:</b> {{ form1.value.description }}
