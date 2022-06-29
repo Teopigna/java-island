@@ -228,7 +228,7 @@ export class TransactionAllPageComponent
         this.transactions[i].accountNumberFrom +
         ', destinatario:' +
         this.transactions[i].accountNumberTo +
-        ', ammontare:' +
+        ', importo:' +
         this.transactions[i].amount +
         ', causale:' +
         causale +
