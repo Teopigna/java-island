@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { Account } from './../../shared/account.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CardService } from '../../services/card-manage.service';
-
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
@@ -27,7 +27,8 @@ export class AccountCardComponent implements OnInit, OnDestroy {
     private cardService: CardService,
     private router: Router,
     private route: ActivatedRoute,
-    private transService: TransactionService
+    private transService: TransactionService,
+    private clipboard: Clipboard
   ) {}
 
   ngOnInit(): void {
@@ -92,6 +93,10 @@ export class AccountCardComponent implements OnInit, OnDestroy {
         queryParams: { card: (this.currentIndex + 1).toString() },
       });
     }
+  }
+
+  onCopy() {
+    this.clipboard.copy(this.cardDisplayed!.accountNumber);
   }
 
   // Toggle per mostrare o nascondere il saldo
@@ -213,11 +218,10 @@ export class AccountCardComponent implements OnInit, OnDestroy {
     this.accountsChangeSub.unsubscribe();
   }
 
-  checkCard(){
-    if(this.cardDisplayed?.accountNumber === ''){
+  checkCard() {
+    if (this.cardDisplayed?.accountNumber === '') {
       this.cardService.setAddCard(true);
-    }
-    else {
+    } else {
       this.cardService.setAddCard(false);
     }
   }

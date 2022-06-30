@@ -23,7 +23,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   transactionChangeSub: Subscription = new Subscription();
   addCardChangeSub: Subscription = new Subscription();
 
-  addCard : boolean = false;
+  addCard: boolean = false;
 
   constructor(
     private cardService: CardService,
@@ -42,13 +42,10 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         this.downloadList();
       });
     this.fileList = '';
-    
-    this.addCardChangeSub =
-      this.cardService.addCard.subscribe(
-        ((val) => {
-          this.addCard = val;
-        })
-      )
+
+    this.addCardChangeSub = this.cardService.addCard.subscribe((val) => {
+      this.addCard = val;
+    });
   }
 
   onChangeTransaction(transaction: Transaction) {
@@ -97,12 +94,14 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         this.transactionsDisplayed[i].accountNumberFrom +
         ', destinatario:' +
         this.transactionsDisplayed[i].accountNumberTo +
-        ', ammontare:' +
+        ', importo:' +
         this.transactionsDisplayed[i].amount +
         ', causale:' +
         causale +
         ', data:' +
         this.transactionsDisplayed[i].date +
+        ', tipo transasione:' +
+        this.transactionsDisplayed[i].type +
         '\n';
       this.fileList = this.fileList + line;
 

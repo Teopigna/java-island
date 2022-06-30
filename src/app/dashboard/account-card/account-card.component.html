@@ -73,8 +73,13 @@
                 </div>
               </h3>
             </div>
-            <div class="iban-area">
-              <p>{{ cardDisplayed?.accountNumber }}</p>
+            <div class="iban-area" *ngIf="cardDisplayed?.accountNumber !== ''">
+              <p>
+                {{ cardDisplayed?.accountNumber }}
+                <button (click)="onCopy()" title="copia iban">
+                  <i class="fa-solid fa-clipboard"></i>
+                </button>
+              </p>
             </div>
           </div>
         </div>
