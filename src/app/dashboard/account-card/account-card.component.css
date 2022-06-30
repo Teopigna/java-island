@@ -2,6 +2,10 @@
   --error-clr: rgb(231, 73, 73);
   --green-clr: rgb(85, 198, 113);
 }
+button {
+  background-color: transparent;
+  border: 0px;
+}
 
 .eye {
   font-size: 15px;
